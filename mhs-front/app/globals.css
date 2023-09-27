@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body,
+html {
+  @apply w-full h-full;
+}
+*::-webkit-scrollbar {
+  @apply bg-neutral-100 w-1 h-1;
+}
+*::-webkit-scrollbar-thumb {
+  @apply bg-amber-400 rounded-full;
+}

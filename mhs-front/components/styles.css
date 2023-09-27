@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.reservPage {
+  background: linear-gradient(
+    45deg,
+    #737373 -150%,
+    white 30% 70%,
+    #737373 200%
+  );
+}
+
+.formInp {
+  @apply bg-neutral-100
+  outline-none
+  h-10
+  pl-2
+  rounded
+  border-b-2
+  w-[260px]
+  border-neutral-500;
+}
+
+.calendarHeader {
+  @apply w-full
+  border-b-2
+  border-neutral-500
+  grid
+  place-items-center
+  uppercase
+  font-bold
+  h-[35px];
+}
+
+.InpTitleLabel {
+  @apply text-xl font-bold ml-2;
+}
+
+.formContainer {
+  @apply grid gap-4 place-content-center capitalize min-w-[100vw] h-full;
+}
+.kase {
+  @apply absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded-full transition;
+}
