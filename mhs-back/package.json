@@ -5,6 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "dev": "nodemon server.ts",
+    "vercel-build": "npx prisma db pull && npx prisma generate",
     "test": "vitest"
   },
   "keywords": [],
