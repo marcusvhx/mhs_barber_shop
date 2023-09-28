@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { ReservProps } from "../MakeReserv";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { reservFormProps } from "../MakeReserv";
 
 export default function FormNavBtns({
   userId,
   reservData,
 }: {
-  reservData: ReservProps;
+  reservData: reservFormProps;
   userId: string;
 }) {
   const router = useRouter();

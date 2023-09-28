@@ -33,4 +33,5 @@ model Reservs {
   status   String
 
   @@map("reservs")
+  @@index([userId])
 }

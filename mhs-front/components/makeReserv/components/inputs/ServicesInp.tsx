@@ -1,17 +1,17 @@
 import Image from "next/image";
 
-import { ReservProps } from "../MakeReserv";
 import { ChangeEvent } from "react";
 
 import hair from "@/public/imgs/cabelo.png";
 import beard from "@/public/imgs/barba.png";
 import both from "@/public/imgs/ambos.png";
+import { reservFormProps } from "../../MakeReserv";
 
 export default function ServicesInp({
   getReservData,
   reservData,
 }: {
-  reservData: ReservProps;
+  reservData: reservFormProps;
   getReservData: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   const servicesList = [

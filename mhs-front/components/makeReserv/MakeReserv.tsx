@@ -15,7 +15,6 @@ export interface reservFormProps {
   status: "pending" | "done" | "lost" | "late";
 }
 export type setReserv = Dispatch<SetStateAction<reservFormProps>>;
-
 function MakeReserv({ userId }: { userId: string }) {
   const [reservData, setReservData] = useState<reservFormProps>({
     dateTime: moment().hour(0).minute(0).format(),
@@ -33,7 +32,6 @@ function MakeReserv({ userId }: { userId: string }) {
   return (
     <div className="reservPage w-screen h-screen flex flex-col items-center justify-center gap-10">
       <div className="flex items-center gap-2 scroll-smooth overflow-hidden h-[380px] w-screen">
-        
         {/* =========== inputs do serviço =========== */}
         <ServicesInp getReservData={getReservData} reservData={reservData} />
 
