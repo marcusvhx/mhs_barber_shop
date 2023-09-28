@@ -8,13 +8,14 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Users {
   id          String    @unique @default(cuid())
   name        String    @db.VarChar(200)
   password    String
-  phoneNumber String    @db.VarChar(16) @unique
+  phoneNumber String    @db.VarChar(13) @unique
   Reservs     Reservs[]
 
   @@map("users")
