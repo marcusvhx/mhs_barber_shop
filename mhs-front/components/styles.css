@@ -43,3 +43,4 @@
 .kase {
   @apply absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded-full transition;
 }
+

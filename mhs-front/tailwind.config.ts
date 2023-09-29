@@ -14,6 +14,7 @@ const config: Config = {
 
       tablet: { min: "426px", max: "950px" },
       "tablet-sm": { min: "426px", max: "570px" },
+      "wrapper": { max: "661px" },
 
       moblet: { max: "950px" },
 

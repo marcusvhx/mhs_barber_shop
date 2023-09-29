@@ -5,6 +5,7 @@ import {
   InpEvent,
 } from "@/components/makeReserv/components/common/CommonComponents";
 import axios from "axios";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -43,13 +44,16 @@ export default function LoginForm({}: {}) {
 
   function login() {
     setErrorMsg("");
-
+    
     if (verifiesForm()) {
-      setErrorMsg(verifiesForm().msg);
+      setErrorMsg(() => verifiesForm().msg);
     } else {
       axios
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
-        .then((res) => router.push(`${res.data.userId}/reservar`))
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
+      .then((res) => {
+        router.push(`${res.data.jwt.userId}/reservar`);
+        setCookie("auth", res.data.jwt.token);
+        })
         .catch((err) => setErrorMsg(err?.response?.data));
     }
   }
@@ -62,18 +66,17 @@ export default function LoginForm({}: {}) {
         <CommonComponents.PhoneNUmberInp
           getData={getData}
           name="phoneNumber"
-          placeholder="Seu Numero"
+          placeholder="(81) 91234-5678"
           value={formData.phoneNumber}
         />
       </div>
 
-      {/* =========== input do telefone =========== */}
+      {/* =========== input da Senha=========== */}
       <div>
-        <p className="InpTitleLabel">telefone</p>
+        <p className="InpTitleLabel">Senha</p>
         <CommonComponents.PaswordInp
           getData={getData}
           name="password"
-          placeholder="(81) 91234-5678"
           value={formData.password}
         />
       </div>

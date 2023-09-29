@@ -28,7 +28,7 @@ router.post("/createuser", createStufs.user);
 router.post("/createreserv/:userId", createStufs.reserv);
 
 /* ================= delete ================= */
-router.delete("/deletereserv/:userId", deleteStufs.reserv);
+router.delete("/deletereserv/:userId/:id", deleteStufs.reserv);
 router.delete("/deleteallreservs", deleteStufs.allReserv);
 router.delete("/deleteallusers", deleteStufs.allUsers);
 

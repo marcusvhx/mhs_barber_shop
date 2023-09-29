@@ -1,6 +1,7 @@
 import { prismaClient } from "../db/prismaClient";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export class Create {
   //
@@ -39,11 +40,13 @@ export class Create {
       return res.status(409).send("numero de telefone já registrado");
 
     const cryptPass = await bcrypt.hash(password, 8);
-
     prismaClient.users
       .create({ data: { name, phoneNumber, password: cryptPass } })
       .then(async (resp) => {
-        res.send({ userId: resp.id });
+        const token = jwt.sign({ id: resp.id }, process.env.SECRET, {
+          expiresIn: "60d",
+        });
+        res.send({ userId: resp.id, token: token });
       })
       .catch((err) => console.log(err));
   }

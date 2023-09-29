@@ -32,9 +32,10 @@ export default function FormNavBtns({
           `${process.env.NEXT_PUBLIC_API_URL}/createreserv/${userId}`,
           reservData
         )
-        .then(() => router.push(`reservas`))
+        .then(() => router.push(`/${userId}/reservas`))
         .catch((err) => console.log(err));
     }
+    
   }
   return (
     <div className=" capitalize flex flex-wrap items-center gap-2 text-2xl text-white">

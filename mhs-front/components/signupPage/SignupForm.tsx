@@ -5,6 +5,7 @@ import {
   InpEvent,
 } from "@/components/makeReserv/components/common/CommonComponents";
 import axios from "axios";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -61,7 +62,10 @@ export default function SignupForm({}: {}) {
     } else {
       return axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, formData)
-        .then((res) => router.push(`${res.data.userId}/reservar`))
+        .then((res) => {
+          router.push(`${res.data.userId}/reservar`);
+          setCookie("auth", res.data.token);
+        })
         .catch((error) => {
           console.log(error);
 
@@ -103,7 +107,6 @@ export default function SignupForm({}: {}) {
           <CommonComponents.PaswordInp
             getData={getData}
             name="password"
-            placeholder="Senha"
             value={formData.password}
           />
         </div>
@@ -114,7 +117,6 @@ export default function SignupForm({}: {}) {
           <CommonComponents.PaswordInp
             getData={getData}
             name="passwordAgain"
-            placeholder="Confirmar Senha"
             value={formData.passwordAgain}
           />
         </div>

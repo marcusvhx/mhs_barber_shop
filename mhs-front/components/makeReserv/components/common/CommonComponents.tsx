@@ -55,12 +55,10 @@ function PaswordInp({
   name,
   value,
   getData,
-  placeholder,
 }: {
   name: string;
   value: string;
   getData: (e: InpEvent) => void;
-  placeholder: string;
 }) {
   const [showPassword, setshowPassword] = useState(false);
 
@@ -75,7 +73,7 @@ function PaswordInp({
         className={`bg-transparent outline-none h-10 pl-2 w-full col-span-6`}
         type={showPassword ? "text" : "password"}
         name={name}
-        placeholder={placeholder}
+        placeholder={showPassword ? "Senha" : "*****"}
       />
       <div className="relative grid place-items-center w-full h-full">
         <div className="kase cursor-pointer" onClick={handleVisibility}></div>

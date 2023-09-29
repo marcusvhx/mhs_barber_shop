@@ -123,12 +123,6 @@ export class Get {
           if (vacanciesNum === vacancies.length) {
             day.available = false;
           }
-          console.log(day.date);
-          console.log(vacanciesNum);
-          console.log(vacancies.length);
-          console.log("========================");
-
-          // console.log({ num: vacanciesNum, length: vacancies.length });
         }
       });
       return daysOfMonth;
