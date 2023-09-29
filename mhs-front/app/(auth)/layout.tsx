@@ -23,10 +23,9 @@ export default async function RootLayout({
 
   if (token) {
     const jwtVerify = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET);
-    console.log(jwtVerify);
 
     if (jwtVerify) {
-      redirect(`${jwtVerify.id}/reservar`);
+      redirect(`${jwtVerify?.id}/reservar`);
     }
   }
   return (
