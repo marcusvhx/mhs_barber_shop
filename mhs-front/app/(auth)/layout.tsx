@@ -17,7 +17,8 @@ function getId() {
 
   if (token) {
     const jwtVerify = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET);
-    return jwtVerify.id;
+    //@ts-ignore
+    return jwtVerify?.id;
   }
   return undefined;
 }
@@ -29,7 +30,6 @@ export default async function RootLayout({
   const id = getId();
 
   if (id) {
-    console.log(id);
     redirect(`/${id}/reservar`);
   }
 

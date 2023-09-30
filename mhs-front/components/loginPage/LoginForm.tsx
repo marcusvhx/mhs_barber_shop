@@ -51,8 +51,9 @@ export default function LoginForm({}: {}) {
       axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
       .then((res) => {
+        setCookie("auth", res.data.token);
         router.push(`${res.data.jwt.userId}/reservar`);
-        setCookie("auth", res.data.jwt.token);
+        
         })
         .catch((err) => setErrorMsg(err?.response?.data));
     }

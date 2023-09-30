@@ -25,6 +25,6 @@ export class Auth {
     const logData = user.id;
 
     // envia os dados de login
-    res.status(200).json({ jwt: { userId: logData, token: token } });
+    res.status(200).json({ userId: logData, token: token });
   }
 }
