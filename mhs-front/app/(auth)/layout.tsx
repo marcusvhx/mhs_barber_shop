@@ -1,15 +1,14 @@
 import "../globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import { cookies } from "next/headers";
 
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "MHS Barber Shop",
-  icons: "/icos/mhs_favicon.ico",
+  icons: "icos/mhs_favicon.ico",
 };
 
 function getId() {
@@ -18,7 +17,8 @@ function getId() {
   if (token) {
     const jwtVerify = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET);
     //@ts-ignore
-    return jwtVerify?.id;
+    //@ts-nocheck
+    return jwtVerify.id;
   }
   return undefined;
 }

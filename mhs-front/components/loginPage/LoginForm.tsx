@@ -52,7 +52,7 @@ export default function LoginForm({}: {}) {
       .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
       .then((res) => {
         setCookie("auth", res.data.token);
-        router.push(`${res.data.jwt.userId}/reservar`);
+        router.push(`${res.data.userId}/reservar`);
         
         })
         .catch((err) => setErrorMsg(err?.response?.data));
