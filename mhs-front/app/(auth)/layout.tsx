@@ -16,9 +16,7 @@ function getId() {
 
   if (token) {
     const jwtVerify = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET);
-    //@ts-ignore
-    //@ts-nocheck
-    return jwtVerify.id;
+    return jwtVerify;
   }
   return undefined;
 }
@@ -29,13 +27,14 @@ export default async function RootLayout({
 }) {
   const id = getId();
 
-  if (id) {
-    redirect(`/${id}/reservar`);
-  }
+  // if (id) {
+  //   redirect(`/${id}/reservar`);
+  // }
 
   return (
     <html lang="pt-br">
-      <body className={``}>{children}</body>
-    </html>
+        <p className="fixed top-0 left-0">{JSON.stringify(id)}</p>
+        <body className={``}>{children}</body>
+      </html>
   );
 }
