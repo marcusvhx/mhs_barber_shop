@@ -30,11 +30,13 @@ export default async function RootLayout({
   // if (id) {
   //   redirect(`/${id}/reservar`);
   // }
+  const token = cookies().get("auth")?.value;
 
   return (
     <html lang="pt-br">
-        <p className="fixed top-0 left-0">{JSON.stringify(id)}</p>
-        <body className={``}>{children}</body>
-      </html>
+      <p className="fixed top-0 left-0">{JSON.stringify(id)}</p>
+      <p className="fixed top-2 left-0">{token}</p>
+      <body className={``}>{children}</body>
+    </html>
   );
 }
