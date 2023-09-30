@@ -20,22 +20,22 @@ export default async function RootLayout({
     const token = cookies().get("auth")?.value;
     if (token) {
       const jwtVerify = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET);
-      if (jwtVerify) return jwtVerify;
+
+      //@ts-ignore
+      //@ts-nocheck
+      if (jwtVerify) return jwtVerify.id;
     }
     return undefined;
   }
 
   const id = getId();
 
-  // if (id) {
-  //   redirect(`/${id}/reservar`);
-  // }
-  const token = cookies().get("auth")?.value;
+  if (id) {
+    redirect(`/${id}/reservar`);
+  }
 
   return (
     <html lang="pt-br">
-      <p className="fixed top-0 left-0">{JSON.stringify(id) || "a"}</p>
-      <p className="fixed top-8 left-0">{token || "a"}</p>
       <body className={``}>{children}</body>
     </html>
   );
