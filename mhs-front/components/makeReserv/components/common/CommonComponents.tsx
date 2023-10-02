@@ -21,7 +21,7 @@ function Wrapper({
       }}
       className={`close
   ${toggle ? "grid" : "hidden"}
-  w-screen h-screen place-items-center fixed top-0 left-0 overflow-hidden transition-all bg-black bg-opacity-60`}
+  w-full h-full place-items-center fixed top-0 left-0 overflow-hidden transition-all bg-black bg-opacity-60`}
     >
       {children}
     </div>
@@ -111,12 +111,10 @@ function PhoneNUmberInp({
   name,
   value,
   getData,
-  placeholder,
 }: {
   name: string;
   value: string;
   getData: (e: InpEvent) => void;
-  placeholder: string;
 }) {
   return (
     <InputMask
@@ -127,16 +125,65 @@ function PhoneNUmberInp({
       type="text"
       inputMode="numeric"
       name={name}
-      placeholder={placeholder}
+      placeholder="81 91234-5678"
       maskChar={null}
     />
   );
 }
 
-export const CommonComponents = {
-  Wrapper,
+function MoreOptsBtn({
+  children,
+  standing,
+  className,
+  type,
+  func,
+}: {
+  children?: React.ReactNode;
+  standing?: boolean;
+  type: "lines" | "dots";
+  className?: string;
+  func: (e?) => void;
+}) {
+  // três pontinhos, é uma tag pai
+  return (
+    <div onClick={func} className={`${className || ""} relative`}>
+      <div
+        tabIndex={0}
+        className={`${standing ? "flex-col" : ""} ${
+          type === "dots"
+            ? "w-10 gap-1 "
+            : "w-10  p-1 flex-col gap-1"
+        } flex justify-center items-center cursor-pointer h-8`}
+      >
+        <div className="absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded transition"></div>
+        <div
+          className={`h-1 ${
+            type === "dots" ? "w-1" : "w-full"
+          } bg-black  rounded-full`}
+        ></div>
+        <div
+          className={`h-1 ${
+            type === "dots" ? "w-1" : "w-full"
+          } bg-black rounded-full`}
+        ></div>
+        <div
+          className={`h-1 ${
+            type === "dots" ? "w-1" : "w-full"
+          } bg-black rounded-full`}
+        ></div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export const InputComponents = {
   TextInp,
   NumberInp,
   PhoneNUmberInp,
   PaswordInp,
+};
+export const CommonComponents = {
+  Wrapper,
+  MoreOptsBtn,
 };

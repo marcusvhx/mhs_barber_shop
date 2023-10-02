@@ -1,8 +1,8 @@
 "use client";
 import "../styles.css";
 import {
-  CommonComponents,
   InpEvent,
+  InputComponents,
 } from "@/components/makeReserv/components/common/CommonComponents";
 import axios from "axios";
 import { setCookie } from "cookies-next";
@@ -16,6 +16,7 @@ export default function LoginForm({}: {}) {
   const [formData, setFormData] = useState({
     phoneNumber: "",
     password: "",
+    keepIn: true,
   });
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -27,7 +28,7 @@ export default function LoginForm({}: {}) {
   }
 
   function verifiesForm() {
-    const inputs = Object.keys(formData);
+    const inputs = Object.keys(formData).filter((i) => i !== "keepIn");
     const steps = [
       {
         condition: inputs.every((i) => formData[i].length > 0),
@@ -44,16 +45,15 @@ export default function LoginForm({}: {}) {
 
   function login() {
     setErrorMsg("");
-    
+
     if (verifiesForm()) {
       setErrorMsg(() => verifiesForm().msg);
     } else {
       axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
-      .then((res) => {
-        setCookie("auth", res.data.token);
-        router.push(`${res.data.userId}/reservar`);
-        
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
+        .then((res) => {
+          formData.keepIn && setCookie("auth", res.data.token);
+          router.push(`${res.data.userId}/reservar`);
         })
         .catch((err) => setErrorMsg(err?.response?.data));
     }
@@ -64,10 +64,9 @@ export default function LoginForm({}: {}) {
       {/* =========== input do nome =========== */}
       <div>
         <p className="InpTitleLabel">telefone</p>
-        <CommonComponents.PhoneNUmberInp
+        <InputComponents.PhoneNUmberInp
           getData={getData}
           name="phoneNumber"
-          placeholder="(81) 91234-5678"
           value={formData.phoneNumber}
         />
       </div>
@@ -75,7 +74,7 @@ export default function LoginForm({}: {}) {
       {/* =========== input da Senha=========== */}
       <div>
         <p className="InpTitleLabel">Senha</p>
-        <CommonComponents.PaswordInp
+        <InputComponents.PaswordInp
           getData={getData}
           name="password"
           value={formData.password}
@@ -88,6 +87,20 @@ export default function LoginForm({}: {}) {
       >
         entrar
       </button>
+      <div className="flex items-center gap-2">
+        <input
+          checked={formData.keepIn}
+          onChange={(e) =>
+            setFormData((old) => ({
+              ...old,
+              keepIn: e.target.checked,
+            }))
+          }
+          type="checkbox"
+          id="keep_in"
+        />
+        <label htmlFor="keep_in">lembre-se de mim</label>
+      </div>
       <Link
         href={"cadastrar"}
         className="hover:text-amber-500 transition w-fit"

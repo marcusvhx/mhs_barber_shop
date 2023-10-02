@@ -3,12 +3,15 @@ import { Get } from "../controllers/getControllers";
 import { Create } from "../controllers/createController";
 import { Delete } from "../controllers/deletController";
 import { Auth } from "../controllers/authController";
+import { Edit } from "../controllers/editControllers";
 
 const router = Router();
 
 const getStufs = new Get();
 const createStufs = new Create();
 const deleteStufs = new Delete();
+const editStufs = new Edit();
+
 const login = new Auth();
 
 /* ================= auth ================= */
@@ -16,6 +19,7 @@ router.post("/login", login.login);
 
 /* ================= get ================= */
 router.get("/getusers", getStufs.users);
+router.get("/getoneuser/:id", getStufs.oneUser);
 
 router.get("/getreservs/:userId", getStufs.reservs);
 router.get("/getallreservs", getStufs.allreservs);
@@ -29,7 +33,11 @@ router.post("/createreserv/:userId", createStufs.reserv);
 
 /* ================= delete ================= */
 router.delete("/deletereserv/:userId/:id", deleteStufs.reserv);
-router.delete("/deleteallreservs", deleteStufs.allReserv);
+    router.delete("/deleteallreservs", deleteStufs.allReserv);
 router.delete("/deleteallusers", deleteStufs.allUsers);
+
+/* ================= delete ================= */
+router.put("/editreserv/:id", editStufs.editReserv);
+
 
 export { router };

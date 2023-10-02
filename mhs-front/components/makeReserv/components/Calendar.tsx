@@ -1,7 +1,8 @@
 "use client";
+import "@/components/styles.css";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { setReserv } from "../MakeReserv";
+import { SetReserv } from "../MakeReserv";
 import axios from "axios";
 
 export interface CalendarDaysProps {
@@ -34,29 +35,27 @@ export default function Calendar({
   setReservData,
   calendarToggleHandler,
 }: {
-  setReservData: setReserv;
+  setReservData: SetReserv;
   calendarToggleHandler: () => void;
 }) {
   //
   const [nextMonth, setNextMonth] = useState(false);
-  const witchMonth = nextMonth ? "next" : "current"
+  const witchMonth = nextMonth ? "next" : "current";
   const [calendarDays, setCalendarDays] = useState<CalendarDataProps>({
     current: [],
     next: [],
   });
 
-  const monthsNamesIndex = moment(
-    calendarDays[witchMonth][10]?.date
-  ).month();
+  const monthsNamesIndex = moment(calendarDays[witchMonth][10]?.date).month();
 
-  const [bruh, setForceRender] = useState(false);
+  // const [bruh, setForceRender] = useState(false);
 
   /** calendarDays não atualiza automaticamente
    * quando seleciona da data essa função força uma atualização
    */
-  function forceReload() {
-    setForceRender((old) => !old);
-  }
+  // function forceReload() {
+  //   setForceRender((old) => !old);
+  // }
 
   function setReservDate(dateSelected: CalendarDaysProps) {
     if (dateSelected.available) {
@@ -75,22 +74,20 @@ export default function Calendar({
       calendarToggleHandler();
       // mostra que a data foi alterada
       setCalendarDays(() => calendarHolder);
-      forceReload();
+      // forceReload();
     }
   }
 
   function calendarHandler() {
     setNextMonth((old) => !old);
-
   }
 
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/getcalendardata`)
       .then((res) => {
-        setCalendarDays(res.data)
+        setCalendarDays(res.data);
       });
-
   }, []);
 
   return (

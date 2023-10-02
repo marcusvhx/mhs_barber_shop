@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "MHS Barber Shop",
   icons: "/icos/mhs_favIcon.ico",
+
 };
 
 export default function RootLayout({

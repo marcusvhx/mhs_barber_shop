@@ -1,13 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { reservFormProps } from "../MakeReserv";
+import { ReservFormProps } from "../MakeReserv";
 
 export default function FormNavBtns({
   userId,
   reservData,
 }: {
-  reservData: reservFormProps;
+  reservData: ReservFormProps;
   userId: string;
 }) {
   const router = useRouter();
@@ -59,7 +59,7 @@ export default function FormNavBtns({
       </a>
       <button
         className={`${
-          formSection === maxSection ? "grid" : "hidden"
+          formSection === maxSection ? "" : "hidden"
         } py-2 px-3 rounded bg-emerald-500`}
         onClick={makeReserv}
         // href={"/"}

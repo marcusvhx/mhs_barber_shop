@@ -165,22 +165,57 @@ export class Get {
   }
 
   /* ============================================================ */
+  /* ============================================================ */
 
   async reservs(req: Request, res: Response) {
     const { userId } = req.params;
-    prismaClient.reservs
-      .findMany({ where: { userId } })
-      .then((resp) => res.status(200).json(resp));
+
+    function setReservStatus(dateTime: Date) {
+      if (
+        moment(dateTime).set("minute", moment(dateTime).minute() + 3) < moment()
+      ) {
+        if (moment(dateTime) < moment().set("hour", moment().hour() - 2)) {
+          return "perdido";
+        }
+
+        return "atrasado";
+      }
+      return "pendente";
+    }
+
+    prismaClient.reservs.findMany({ where: { userId } }).then((resp) => {
+      const reservs = resp.map((i) => ({
+        ...i,
+        status: setReservStatus(i.dateTime),
+      }));
+      res.status(200).json(reservs);
+    });
   }
+  /**
+  marcado = 10 
+  agora = 11
+*/
 
   /* ============================================================ */
 
   async allreservs(req: Request, res: Response) {
     prismaClient.reservs.findMany().then((resp) => res.status(200).json(resp));
   }
+
   /* ============================================================ */
 
   async users(req: Request, res: Response) {
     prismaClient.users.findMany().then((resp) => res.status(200).json(resp));
+  }
+
+  /* ============================================================ */
+
+  async oneUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const user = await prismaClient.users.findFirst({ where: { id } });
+
+    const { password: _, ...logData } = user;
+
+    res.status(200).json({ ...logData });
   }
 }

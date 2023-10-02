@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { reservFormProps, setReserv } from "../../MakeReserv";
+import { ReservFormProps, SetReserv } from "../../MakeReserv";
 
 import axios from "axios";
 import moment from "moment";
@@ -23,8 +23,8 @@ export default function InpHours({
   reservData,
   setReservData,
 }: {
-  reservData: reservFormProps;
-  setReservData: setReserv;
+  reservData: ReservFormProps;
+  setReservData: SetReserv;
 }) {
   const [avaliableHours, setAvaliableHours] = useState<ReservTimeList>({
     mainList: [],

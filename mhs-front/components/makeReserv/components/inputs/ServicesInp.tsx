@@ -1,27 +1,35 @@
 import Image from "next/image";
 
-import { ChangeEvent } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import hair from "@/public/imgs/cabelo.png";
 import beard from "@/public/imgs/barba.png";
 import both from "@/public/imgs/ambos.png";
-import { reservFormProps } from "../../MakeReserv";
+import { ReservFormProps } from "../../MakeReserv";
 
 export default function ServicesInp({
-  getReservData,
   reservData,
+  setReservData,
+  edit,
 }: {
-  reservData: reservFormProps;
-  getReservData: (e: ChangeEvent<HTMLInputElement>) => void;
+  reservData: ReservFormProps;
+  setReservData: Dispatch<SetStateAction<ReservFormProps>>;
+  edit?: boolean;
 }) {
   const servicesList = [
     { name: "cabelo", img: hair, size: "" },
     { name: "barba", img: beard, size: "h-[80px] w-full self-end" },
     { name: "ambos", img: both, size: "h-[115px] w-[85px]" },
   ];
+  function getReservData(e: any) {
+    setReservData((old) => ({
+      ...old,
+      [e.target.name]: e.target.value,
+    }));
+  }
   return (
-    <div className="formContainer" id="service">
-    <h1 className="capitalize text-center font-bold text-2xl ">serviços</h1>
+    <div className={`${edit ? "" : "formContainer"}`} id="service">
+      <h1 className="capitalize text-center font-bold text-2xl ">serviços</h1>
       <div className="flex flex-wrap gap-2 px-2 justify-center">
         {servicesList.map((i) => (
           <div key={`service_${i.name}`} className="flex">

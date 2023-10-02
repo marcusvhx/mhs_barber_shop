@@ -1,8 +1,8 @@
 "use client";
 import "../styles.css";
 import {
-  CommonComponents,
   InpEvent,
+  InputComponents,
 } from "@/components/makeReserv/components/common/CommonComponents";
 import axios from "axios";
 import { setCookie } from "cookies-next";
@@ -81,7 +81,7 @@ export default function SignupForm({}: {}) {
       <div className="grid grid-cols-2 grid-rows-3 place-items-center gap-x-3 tablet-sm:flex tablet-sm:flex-col tablet-sm:items-center mobile:flex mobile:flex-col mobile:items-center">
         <div>
           <p className="InpTitleLabel">nome</p>
-          <CommonComponents.TextInp
+          <InputComponents.TextInp
             getData={getData}
             name="name"
             placeholder="Nome ou Apelido"
@@ -93,10 +93,9 @@ export default function SignupForm({}: {}) {
         <div>
           <p className="InpTitleLabel">telefone</p>
 
-          <CommonComponents.PhoneNUmberInp
+          <InputComponents.PhoneNUmberInp
             getData={getData}
             name="phoneNumber"
-            placeholder="81 91234-5678"
             value={formData.phoneNumber}
           />
         </div>
@@ -104,7 +103,7 @@ export default function SignupForm({}: {}) {
         {/* =========== input da senha =========== */}
         <div>
           <p className="InpTitleLabel">senha</p>
-          <CommonComponents.PaswordInp
+          <InputComponents.PaswordInp
             getData={getData}
             name="password"
             value={formData.password}
@@ -114,7 +113,7 @@ export default function SignupForm({}: {}) {
         {/* =========== input de confirmar senha =========== */}
         <div>
           <p className="InpTitleLabel">confirmar senha</p>
-          <CommonComponents.PaswordInp
+          <InputComponents.PaswordInp
             getData={getData}
             name="passwordAgain"
             value={formData.passwordAgain}

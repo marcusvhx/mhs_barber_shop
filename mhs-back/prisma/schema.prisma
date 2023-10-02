@@ -30,7 +30,7 @@ model Reservs {
 
   service  String
   dateTime DateTime @db.DateTime()
-  status   String
+  status   String 
 
   @@map("reservs")
   @@index([userId])

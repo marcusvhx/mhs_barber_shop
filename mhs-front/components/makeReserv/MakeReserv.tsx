@@ -9,31 +9,23 @@ import { InpEvent } from "./components/common/CommonComponents";
 import ServicesInp from "./components/inputs/ServicesInp";
 import ReservDateInp from "./components/inputs/ReservDateInp";
 
-export interface reservFormProps {
+export interface ReservFormProps {
   dateTime: string;
   service: "cabelo" | "barba" | "ambos";
-  status: "pending" | "done" | "lost" | "late";
+  status: "pendente" | "concluido" | "perdido" | "atrasado";
 }
-export type setReserv = Dispatch<SetStateAction<reservFormProps>>;
+export type SetReserv = Dispatch<SetStateAction<ReservFormProps>>;
 function MakeReserv({ userId }: { userId: string }) {
-  const [reservData, setReservData] = useState<reservFormProps>({
+  const [reservData, setReservData] = useState<ReservFormProps>({
     dateTime: moment().hour(0).minute(0).format(),
     service: "cabelo",
-    status: "pending",
+    status: "pendente",
   });
-
-  function getReservData(e: InpEvent) {
-    setReservData((old) => ({
-      ...old,
-      [e.target.name]: e.target.value,
-    }));
-  }
-
   return (
     <div className="reservPage w-screen h-screen flex flex-col items-center justify-center gap-10">
       <div className="flex items-center gap-2 scroll-smooth overflow-hidden h-[380px] w-screen">
         {/* =========== inputs do serviço =========== */}
-        <ServicesInp getReservData={getReservData} reservData={reservData} />
+        <ServicesInp setReservData={setReservData} reservData={reservData} />
 
         <ReservDateInp setReservData={setReservData} reservData={reservData} />
       </div>

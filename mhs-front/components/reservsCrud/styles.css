@@ -90,15 +90,16 @@
   }
 
   .wrapper {
-    @apply w-screen
-  h-screen
+    @apply w-full
+  h-full
   bg-black
   bg-opacity-40
   flex
   justify-end
   fixed
   top-0
-  left-0;
+  left-0
+  transition-all;
   }
 
   .sideBar{

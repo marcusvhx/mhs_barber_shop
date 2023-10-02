@@ -1,6 +1,21 @@
 import moment from "moment";
 import { ReservProps, SelectedReservProps } from "./ReservsCrud";
 import { Dispatch, SetStateAction } from "react";
+import ErrorIcon from "@mui/icons-material/Error";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { CheckCircle } from "@mui/icons-material";
+
+export function Stamp({ status }: { status: ReservProps["status"] }) {
+  return (
+    <div className="absolute bottom-0 right-0 ">
+      {status === "concluido" && <CheckCircle sx={{ color: "green" }} />}
+      {status === "perdido" && <CancelIcon sx={{ color: "red" }} />}
+      {status === "atrasado" && (
+        <ErrorIcon sx={{ color: "rgb(245, 158, 11)" }} />
+      )}
+    </div>
+  );
+}
 
 export default function ReservCard({
   reserv,
@@ -15,12 +30,16 @@ export default function ReservCard({
 }) {
   function setData() {
     setSelectedReserv(() => reserv);
-    setWrapperToggle((old) => !old)
+    setWrapperToggle((old) => !old);
   }
   return (
     <div
       onClick={setData}
-      className="reservCard min-w-[185px] w-fit h-fit rounded bg-gradient-to-tl from-neutral-300 from-5% via-neutral-100 to-neutral-200 to-95% p-2 hover:bg-black hover:bg-opacity-20 cursor-pointer hover:bg-none transition-all relative border-2 border-gray-500"
+      className={`
+      ${reserv.status === "perdido" ? " opacity-40" : ""}
+      ${reserv.status === "concluido" ? "opacity-40" : ""}
+
+      border-2 border-gray-500 hover:bg-black hover:bg-opacity-20 hover:bg-none reservCard min-w-[185px] w-fit h-fit rounded bg-gradient-to-tl from-neutral-300 from-5% via-neutral-100 to-neutral-200 to-95% p-2 cursor-pointer transition-all relative`}
     >
       <p className="font-bold uppercase absolute top-1 right-1">
         id: {reserv.id}
@@ -34,6 +53,7 @@ export default function ReservCard({
           {moment(reserv.dateTime).format("HH:mm")}
         </p>
       )}
+      <Stamp status={reserv.status} />
     </div>
   );
 }
