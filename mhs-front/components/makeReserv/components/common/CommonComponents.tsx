@@ -1,9 +1,24 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { Close } from "@mui/icons-material";
 import InputMask from "react-input-mask";
+import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
 export type SetBool = Dispatch<SetStateAction<boolean>>;
 export type InpEvent = ChangeEvent<HTMLInputElement>;
+
+function X({ func, className }: { func?: () => void; className?: string }) {
+  return (
+    <div className="relative w-full h-full">
+      <div
+        onClick={func && func}
+        className={`${
+          className && className
+        } absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded-full transition cursor-pointer`}
+      ></div>
+      <Close sx={{ fontSize: "35px" }} />
+    </div>
+  );
+}
 
 function Wrapper({
   toggle,
@@ -150,9 +165,7 @@ function MoreOptsBtn({
       <div
         tabIndex={0}
         className={`${standing ? "flex-col" : ""} ${
-          type === "dots"
-            ? "w-10 gap-1 "
-            : "w-10  p-1 flex-col gap-1"
+          type === "dots" ? "w-10 gap-1 " : "w-10  p-1 flex-col gap-1"
         } flex justify-center items-center cursor-pointer h-8`}
       >
         <div className="absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded transition"></div>
@@ -186,4 +199,5 @@ export const InputComponents = {
 export const CommonComponents = {
   Wrapper,
   MoreOptsBtn,
+  X,
 };

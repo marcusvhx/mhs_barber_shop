@@ -1,11 +1,11 @@
 import "./styles.css";
-import moment from "moment";
 import { ReservProps, SelectedReservProps } from "./ReservsCrud";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Close } from "@mui/icons-material";
 import axios from "axios";
 import Link from "next/link";
 import EditPopUp from "./EditPopUp";
+import { CommonComponents } from "../makeReserv/components/common/CommonComponents";
+import moment from "moment";
 
 export interface UserData {
   id: string;
@@ -65,6 +65,7 @@ export default function SideBar({
       .then((res) => {
         setUserName(res.data.name);
       });
+      
   }, []);
 
   return (
@@ -75,11 +76,8 @@ export default function SideBar({
       onClick={handlerWrapper}
     >
       <div className="relative h-full ">
-        <div className="absolute z-10 top-2 right-2 hidden wrapper:block">
-          <div className="relative w-full h-full">
-            <div className="close_aside absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded-full transition cursor-pointer"></div>
-            <Close sx={{ fontSize: "35px" }} />
-          </div>
+        <div className=" absolute z-10 top-2 right-2 hidden wrapper:block">
+         <CommonComponents.X className="close_aside" />
         </div>
 
         <div
