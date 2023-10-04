@@ -40,6 +40,7 @@ export default function InpHours({
     setHours().then(() => {
       e.target.className.includes("open_list") &&
         setHourListToggle((old) => !old);
+      console.log(avaliableHours.mainList);
     });
   }
 
@@ -108,7 +109,7 @@ export default function InpHours({
           } w-full max-h-[300px] absolute top-full  overflow-y-auto rounded `}
         >
           <HoursList
-          setFilterToggle={setFilterToggle}
+            setFilterToggle={setFilterToggle}
             availableHours={avaliableHours.mainList}
             setReservData={setReservData}
           />
