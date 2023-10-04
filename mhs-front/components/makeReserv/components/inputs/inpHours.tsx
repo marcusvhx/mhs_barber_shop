@@ -68,6 +68,7 @@ export default function InpHours({
           mainList: hoursList,
           backUpList: hoursList,
         }));
+        console.log(res.data);
       });
   }
 

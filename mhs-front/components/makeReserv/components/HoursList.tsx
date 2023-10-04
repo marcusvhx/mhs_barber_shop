@@ -30,7 +30,7 @@ export default function HoursList({
               i.available ? "cursor-pointer open_list" : "opacity-50"
             } hover:bg-neutral-200`}
           >
-            {moment(i.number).utcOffset('').format("HH : mm")}
+            {moment(i.number).utcOffset('+0000').format("HH : mm")}
           </div>
         ))
       ) : (
