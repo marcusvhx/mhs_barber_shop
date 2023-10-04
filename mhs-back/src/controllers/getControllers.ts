@@ -155,7 +155,7 @@ export class Get {
         );
         if (i > moment()) {
           reservHours.push({
-            number: i.toISOString(),
+            number: i.format(),
             available: isAvailable,
           });
         }
