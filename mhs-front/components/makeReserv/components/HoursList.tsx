@@ -2,6 +2,7 @@ import moment from "moment";
 import { SetReserv } from "../MakeReserv";
 import { ReservTime } from "./inputs/inpHours";
 import { SetBool } from "./common/CommonComponents";
+import { useEffect } from "react";
 
 export default function HoursList({
   availableHours,
@@ -18,6 +19,10 @@ export default function HoursList({
       setFilterToggle(() => false);
     }
   }
+  useEffect(() => {
+    console.log(availableHours);
+  }, []);
+
   return (
     <div className="w-full grid text-center p-1 bg-neutral-100">
       {availableHours.length > 0 ? (
