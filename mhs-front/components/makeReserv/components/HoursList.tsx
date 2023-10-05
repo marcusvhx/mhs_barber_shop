@@ -13,9 +13,9 @@ export default function HoursList({
   setReservData: SetReserv;
 }) {
   function setTimeOfReserv(reservTime: ReservTime) {
-    console.log(reservTime.number);
-    console.log(moment(reservTime.number).format());
-    console.log(moment(reservTime.number).toISOString());
+    console.log('vanilla: ',reservTime.number);
+    console.log('format: ',moment(reservTime.number).format());
+    console.log('ISO: ',moment(reservTime.number).toISOString());
     
     if (reservTime.available) {
       setReservData((old) => ({ ...old, dateTime: reservTime.number }));
