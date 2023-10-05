@@ -37,7 +37,7 @@ export class Get {
         if (dayOfWeek !== 0) {
           days.push({
             date: date.format(),
-            available: isAvailable,
+            available: true,
             selected: moment(date).format("DD MM") === moment().format("DD MM"),
           });
         }
@@ -156,7 +156,7 @@ export class Get {
         if (i > moment()) {
           reservHours.push({
             number: i.toISOString(),
-            available: true,
+            available: isAvailable,
           });
         }
       }
