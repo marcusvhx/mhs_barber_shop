@@ -101,7 +101,7 @@ export class Get {
 
           for (
             let i = initialHours;
-            i < moment().utcOffset("+0300").hour(20).minute(0);
+            i < moment().utcOffset("-0300").hour(20).minute(0);
             i.set("minute", i.minute() + 20)
           ) {
             if (i.hour() < 20) vacancies.push(moment(i).format("HH mm"));
