@@ -37,10 +37,9 @@ export default function InpHours({
   const [hourListToggle, setHourListToggle] = useState(false);
 
   function openList(e: any) {
-    setHours().then(() => {
-      e.target.className.includes("open_list") &&
-        setHourListToggle((old) => !old);
-    });
+    setHours();
+    e.target.className.includes("open_list") &&
+      setHourListToggle((old) => !old);
   }
 
   function openFilter(e: any) {
@@ -56,7 +55,7 @@ export default function InpHours({
     }
   }
 
-  async function setHours() {
+  function setHours() {
     axios
       .get(
         `${process.env.NEXT_PUBLIC_API_URL}/gethourslist/${reservData.dateTime}`

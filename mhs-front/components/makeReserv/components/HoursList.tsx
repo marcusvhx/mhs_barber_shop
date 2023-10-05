@@ -14,7 +14,7 @@ export default function HoursList({
 }) {
   function setTimeOfReserv(reservTime: ReservTime) {
     console.log('vanilla: ',reservTime.number);
-    console.log('format: ',moment(reservTime.number).format());
+    console.log('format: ',moment(reservTime.number).utcOffset('+0000').format());
     console.log('ISO: ',moment(reservTime.number).toISOString());
     
     if (reservTime.available) {
