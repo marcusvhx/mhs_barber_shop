@@ -37,7 +37,7 @@ export class Get {
         if (dayOfWeek !== 0) {
           days.push({
             date: date.format(),
-            available: true,
+            available: isAvailable,
             selected: moment(date).format("DD MM") === moment().format("DD MM"),
           });
         }
@@ -101,7 +101,7 @@ export class Get {
 
           for (
             let i = initialHours;
-            i < moment().hour(20).minute(0).utcOffset('-0300');
+            i < moment().hour(20).minute(0).utcOffset("+0300");
             i.set("minute", i.minute() + 20)
           ) {
             if (i.hour() < 20) vacancies.push(moment(i).format("HH mm"));
@@ -145,8 +145,8 @@ export class Get {
 
     prismaClient.reservs.findMany().then((resp) => {
       for (
-        let i = moment(dateOfReserv).utcOffset('-0300').hour(10).minute(0);
-        i <= moment(dateOfReserv).utcOffset('-0300').hour(20).minute(0);
+        let i = moment(dateOfReserv).utcOffset("-0300").hour(10).minute(0);
+        i <= moment(dateOfReserv).utcOffset("-0300").hour(20).minute(0);
         i.set("minute", i.minute() + 20)
       ) {
         const isAvailable = resp.every(
