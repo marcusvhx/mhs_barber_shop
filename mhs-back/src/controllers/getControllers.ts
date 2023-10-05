@@ -153,10 +153,10 @@ export class Get {
           (t) =>
             moment(t.dateTime).format("DD MM HH mm") !== i.format("DD MM HH mm")
         );
-        if (i > moment()) {
+        if (i > moment().utcOffset('+0000')) {
           reservHours.push({
             number: i.toISOString(),
-            available: isAvailable,
+            available: true,
           });
         }
       }
