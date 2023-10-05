@@ -145,15 +145,15 @@ export class Get {
 
     prismaClient.reservs.findMany().then((resp) => {
       for (
-        let i = moment(dateOfReserv).hour(10).minute(0);
-        i <= moment(dateOfReserv).hour(20).minute(0);
+        let i = moment(dateOfReserv).utcOffset('+0000').hour(10).minute(0);
+        i <= moment(dateOfReserv).utcOffset('+0000').hour(20).minute(0);
         i.set("minute", i.minute() + 20)
       ) {
         const isAvailable = resp.every(
           (t) =>
             moment(t.dateTime).format("DD MM HH mm") !== i.format("DD MM HH mm")
         );
-        if (i > moment().utcOffset('+0000')) {
+        if (i > moment()) {
           reservHours.push({
             number: i.toISOString(),
             available: true,
