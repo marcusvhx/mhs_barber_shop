@@ -40,7 +40,6 @@ export default function InpHours({
     setHours().then(() => {
       e.target.className.includes("open_list") &&
         setHourListToggle((old) => !old);
-      console.log("z: ", avaliableHours.mainList);
     });
   }
 

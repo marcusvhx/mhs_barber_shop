@@ -13,6 +13,10 @@ export default function HoursList({
   setReservData: SetReserv;
 }) {
   function setTimeOfReserv(reservTime: ReservTime) {
+    console.log(reservTime.number);
+    console.log(moment(reservTime.number).format());
+    console.log(moment(reservTime.number).toISOString());
+    
     if (reservTime.available) {
       setReservData((old) => ({ ...old, dateTime: reservTime.number }));
       setFilterToggle(() => false);
@@ -27,7 +31,7 @@ export default function HoursList({
             onClick={() => setTimeOfReserv(i)}
             key={i.number}
             className={`${
-              i.available ? "cursor-pointer open_list" : "opacity-50"
+              i.available ? "cursor-pointer open_list" : ""
             } hover:bg-neutral-200`}
           >
             {moment(i.number).format("HH : mm")}
