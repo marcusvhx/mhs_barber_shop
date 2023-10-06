@@ -18,11 +18,11 @@ const login = new Auth();
 router.post("/login", login.login);
 
 /* ================= get ================= */
-router.get("/getusers", getStufs.users);
-router.get("/getoneuser/:id", getStufs.oneUser);
+router.get("/getallusers", getStufs.users);
+router.get("/getuser/:id", getStufs.oneUser);
 
 router.get("/getreservs/:userId", getStufs.reservs);
-router.get("/getallreservs", getStufs.allreservs);
+router.get("/getallreservs/:id", getStufs.allreservs);
 
 router.get("/getcalendardata", getStufs.availableDays);
 router.get("/gethourslist/:date", getStufs.dateTimeList);

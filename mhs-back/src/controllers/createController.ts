@@ -41,7 +41,9 @@ export class Create {
 
     const cryptPass = await bcrypt.hash(password, 8);
     prismaClient.users
-      .create({ data: { name, phoneNumber, password: cryptPass } })
+      .create({
+        data: { name, phoneNumber, password: cryptPass, role: "user" },
+      })
       .then(async (resp) => {
         const token = jwt.sign({ id: resp.id }, process.env.SECRET, {
           expiresIn: "60d",

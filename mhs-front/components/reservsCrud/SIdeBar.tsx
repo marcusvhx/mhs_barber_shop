@@ -61,7 +61,7 @@ export default function SideBar({
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/getoneuser/${userId}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/getuser/${userId}`)
       .then((res) => {
         setUserName(res.data.name);
       });

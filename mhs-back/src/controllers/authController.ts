@@ -17,14 +17,14 @@ export class Auth {
 
     if (!verifyPassword) return res.status(409).send("senha negada");
 
+    const logData = { userId: user.id, role: user.role };
+
     // faz o token
-    const token = jwt.sign({ id: user.id }, process.env.SECRET, {
+    const token = jwt.sign(logData, process.env.SECRET, {
       expiresIn: "60d",
     });
 
-    const logData = user.id;
-
     // envia os dados de login
-    res.status(200).json({ userId: logData, token: token });
+    res.status(200).json({ ...logData, token: token });
   }
 }

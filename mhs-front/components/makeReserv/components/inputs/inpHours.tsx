@@ -87,7 +87,7 @@ export default function InpHours({
   return (
     <div
       className={`${
-        hourListToggle ? "bg-white -translate-y-[30vh]" : ""
+        hourListToggle ? "bg-white -translate-y-[40vh]" : ""
       } transition-all cursor-pointer`}
     >
       <h1 className="InpTitleLabel">

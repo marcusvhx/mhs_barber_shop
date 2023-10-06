@@ -199,7 +199,29 @@ export class Get {
   /* ============================================================ */
 
   async allreservs(req: Request, res: Response) {
-    prismaClient.reservs.findMany().then((resp) => res.status(200).json(resp));
+    const { id } = req.params;
+    const user = await prismaClient.users.findFirst({
+      where: { id },
+    });
+
+    const isAdmin = user.role === "admin";
+
+    if (isAdmin) {
+      const reservsWithCostumer = [];
+
+      const onlyUsers = await prismaClient.users.findMany();
+      const onlyReservs = await prismaClient.reservs.findMany();
+
+      onlyReservs.forEach((i) => {
+        const reservOwner = onlyUsers.find((j) => j.id === i.userId);
+        reservsWithCostumer.push({
+          ...i,
+          ownerName: reservOwner.name,
+          ownerPhone: reservOwner.phoneNumber,
+        });
+      });
+      res.status(200).json(reservsWithCostumer);
+    } else res.status(401).send("não autorizado");
   }
 
   /* ============================================================ */

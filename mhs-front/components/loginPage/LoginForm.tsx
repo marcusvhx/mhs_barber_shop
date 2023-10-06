@@ -16,7 +16,6 @@ export default function LoginForm({}: {}) {
   const [formData, setFormData] = useState({
     phoneNumber: "",
     password: "",
-    keepIn: true,
   });
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -52,8 +51,13 @@ export default function LoginForm({}: {}) {
       axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
         .then((res) => {
-          formData.keepIn && setCookie("auth", res.data.token);
-          router.push(`${res.data.userId}/reservar`);
+           setCookie("auth", res.data.token);
+          
+          if (res.data.role === "admin") {
+            router.push(`${res.data.userId}/admin`);
+          } else {
+            router.push(`${res.data.userId}/reservar`);
+          }
         })
         .catch((err) => setErrorMsg(err?.response?.data));
     }
@@ -87,20 +91,7 @@ export default function LoginForm({}: {}) {
       >
         entrar
       </button>
-      <div className="flex items-center gap-2">
-        <input
-          checked={formData.keepIn}
-          onChange={(e) =>
-            setFormData((old) => ({
-              ...old,
-              keepIn: e.target.checked,
-            }))
-          }
-          type="checkbox"
-          id="keep_in"
-        />
-        <label htmlFor="keep_in">lembre-se de mim</label>
-      </div>
+    
       <Link
         href={"cadastrar"}
         className="hover:text-amber-500 transition w-fit"

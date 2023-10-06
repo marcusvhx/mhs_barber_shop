@@ -16,7 +16,8 @@ model Users {
   id          String    @unique @default(cuid())
   name        String    @db.VarChar(200)
   password    String
-  phoneNumber String    @db.VarChar(13) @unique
+  phoneNumber String    @unique @db.VarChar(13)
+  role        String    
   Reservs     Reservs[]
 
   @@map("users")
@@ -30,8 +31,8 @@ model Reservs {
 
   service  String
   dateTime DateTime @db.DateTime()
-  status   String 
+  status   String
 
-  @@map("reservs")
   @@index([userId])
+  @@map("reservs")
 }

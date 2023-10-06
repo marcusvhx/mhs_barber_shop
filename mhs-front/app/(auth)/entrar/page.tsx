@@ -10,9 +10,16 @@ export default async function LoginPage() {
   if (token) {
     const jwtVerify = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET);
 
-    if (jwtVerify)
+    if (jwtVerify) {
       //@ts-ignore
-      redirect(`/${jwtVerify.id}/reservar`);
+      if (jwtVerify.role === "admin") {
+        //@ts-ignore
+        redirect(`/${jwtVerify.userId}/admin`);
+      } else {
+        //@ts-ignore
+        redirect(`/${jwtVerify.userId}/reservar`);
+      }
+    }
   }
 
   return <LoginForm />;

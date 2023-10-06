@@ -60,11 +60,13 @@ export default function SignupForm({}: {}) {
     if (invalidInp) {
       setErrorMessage(invalidInp.msg);
     } else {
-      return axios
+      axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, formData)
         .then((res) => {
-          router.push(`${res.data.userId}/reservar`);
-          setCookie("auth", res.data.token);
+          console.log(res.data);
+          
+          // setCookie("auth", res.data.token);
+          // router.push(`${res.data.id}/reservar`);
         })
         .catch((error) => {
           console.log(error);

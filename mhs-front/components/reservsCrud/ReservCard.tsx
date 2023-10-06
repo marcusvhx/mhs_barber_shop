@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction } from "react";
 import ErrorIcon from "@mui/icons-material/Error";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { CheckCircle } from "@mui/icons-material";
+import { SetBool } from "../makeReserv/components/common/CommonComponents";
 
 export function Stamp({ status }: { status: ReservProps["status"] }) {
   return (
@@ -26,7 +27,7 @@ export default function ReservCard({
   reserv: ReservProps;
   setSelectedReserv: Dispatch<SetStateAction<SelectedReservProps>>;
 
-  setWrapperToggle: Dispatch<SetStateAction<boolean>>;
+  setWrapperToggle: SetBool;
 }) {
   function setData() {
     setSelectedReserv(() => reserv);
