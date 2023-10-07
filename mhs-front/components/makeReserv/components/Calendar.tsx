@@ -48,14 +48,7 @@ export default function Calendar({
 
   const monthsNamesIndex = moment(calendarDays[witchMonth][10]?.date).month();
 
-  // const [bruh, setForceRender] = useState(false);
-
-  /** calendarDays não atualiza automaticamente
-   * quando seleciona da data essa função força uma atualização
-   */
-  // function forceReload() {
-  //   setForceRender((old) => !old);
-  // }
+ 
 
   function setReservDate(dateSelected: CalendarDaysProps) {
     if (dateSelected.available) {

@@ -3,7 +3,7 @@ import "../styles.css";
 import {
   InpEvent,
   InputComponents,
-} from "@/components/makeReserv/components/common/CommonComponents";
+} from "@/components/common/CommonComponents";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import Link from "next/link";

@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 import hair from "@/public/imgs/cabelo.png";
 import beard from "@/public/imgs/barba.png";
 import both from "@/public/imgs/ambos.png";
-import { ReservFormProps } from "../../MakeReserv";
+import { ReservFormProps } from "../makeReserv/MakeReserv";
 
 export default function ServicesInp({
   reservData,

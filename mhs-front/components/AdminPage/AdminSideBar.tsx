@@ -1,10 +1,10 @@
-import { ReservProps, SelectedReservProps } from "./ReservsCrud";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import EditPopUp from "./EditPopUp";
 import { CommonComponents, SetBool } from "../common/CommonComponents";
 import moment from "moment";
+import { ReservProps, SelectedReservProps } from "../reservsCrud/ReservsCrud";
+import { ReservPropsWithCostumer } from "./AdminPageComp";
 
 export interface UserData {
   id: string;
@@ -12,7 +12,7 @@ export interface UserData {
   phoneNumber: string;
 }
 
-export default function SideBar({
+export default function AdmSideBar({
   userId,
   selectedReserv,
   setSelectedReserv,
@@ -27,13 +27,12 @@ export default function SideBar({
   wrapperToggle: boolean;
   setWrapperToggle: SetBool;
 
-  selectedReserv: SelectedReservProps;
+  selectedReserv: ReservPropsWithCostumer;
   setSelectedReserv: Dispatch<SetStateAction<SelectedReservProps>>;
 
-  setReservs: Dispatch<SetStateAction<ReservProps[]>>;
+  setReservs: Dispatch<SetStateAction<ReservPropsWithCostumer[]>>;
 }) {
   const [userName, setUserName] = useState("");
-  const [editToggle, setEditToggle] = useState(false);
 
   function handlerWrapper(e: any) {
     e.target.className.includes("close_aside") &&
@@ -64,7 +63,6 @@ export default function SideBar({
       .then((res) => {
         setUserName(res.data.name);
       });
-      
   }, []);
 
   return (
@@ -76,13 +74,13 @@ export default function SideBar({
     >
       <div className="relative h-full ">
         <div className=" absolute z-10 top-2 right-2 hidden wrapper:block">
-         <CommonComponents.X className="close_aside" />
+          <CommonComponents.X className="close_aside" />
         </div>
 
         <div
-          className={`
-      ${wrapperToggle ? "wrapper:right-0" : "wrapper:-right-40"}
-      sideBar transition-all wrapper:absolute`}
+          className={`${
+            wrapperToggle ? "wrapper:right-0" : "wrapper:-right-40"
+          } sideBar transition-all wrapper:absolute`}
         >
           <h1 className="text-2xl font-bold capitalize place-self-center">
             ola, {userName}
@@ -93,6 +91,26 @@ export default function SideBar({
                 <p className="sub">id da reserva:</p>
                 {selectedReserv.id}
               </div>
+              {/* =================== */}
+              <h1 className="text-2xl font-bold capitalize place-self-center">
+                dados do cliente
+              </h1>
+
+              <div className="subContainer">
+                <p className="sub">nome:</p>
+                {selectedReserv.ownerName}
+              </div>
+
+              <div className="subContainer">
+                <p className="sub">telefone:</p>
+                {selectedReserv.ownerPhone}
+              </div>
+
+              <hr />
+              <h1 className="text-2xl font-bold capitalize place-self-center">
+                dados da reserva
+              </h1>
+              {/* =================== */}
 
               <div className="subContainer">
                 <p className="sub">serviço:</p>
@@ -122,18 +140,6 @@ export default function SideBar({
           )}
 
           <div className="grid w-full h-fit place-itemc-center gap-2">
-            <Link
-              href={`/${userId}/reservar`}
-              className="close_aside sidebarBtn bg-emerald-500 hover:bg-emerald-600 text-center"
-            >
-              fazer nova reserva
-            </Link>
-            <button
-              onClick={() => setEditToggle((old) => !old)}
-              className=" sidebarBtn bg-sky-500 hover:bg-sky-600"
-            >
-              editar reserva
-            </button>
             <button
               onClick={cancelReserv}
               className="close_aside sidebarBtn bg-red-500 hover:bg-red-600"
@@ -142,13 +148,6 @@ export default function SideBar({
             </button>
           </div>
         </div>
-
-        <EditPopUp
-          toggle={editToggle}
-          setToggle={setEditToggle}
-          selectedReserv={selectedReserv}
-          setReservs={setReservs}
-        />
       </div>
     </div>
   );

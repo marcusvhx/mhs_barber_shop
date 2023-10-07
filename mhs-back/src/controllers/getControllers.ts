@@ -101,10 +101,10 @@ export class Get {
 
           for (
             let i = initialHours;
-            i < moment().utcOffset("-0300").hour(20).minute(0);
+            i < moment().hour(20).minute(0);
             i.set("minute", i.minute() + 20)
           ) {
-            if (i.hour() < 20) vacancies.push(moment(i).format("HH mm"));
+            if (i.hour() <= 20) vacancies.push(moment(i).format("HH mm"));
           }
 
           vacancies.forEach((vac) => {
@@ -143,25 +143,26 @@ export class Get {
 
     const reservHours: HoursListProps[] = [];
 
-    prismaClient.reservs.findMany().then((resp) => {
-      for (
-        let i = moment(dateOfReserv).utcOffset("-0300").hour(10).minute(0);
-        i <= moment(dateOfReserv).utcOffset("-0300").hour(20).minute(0);
-        i.set("minute", i.minute() + 20)
-      ) {
-        const isAvailable = resp.every(
-          (t) =>
-            moment(t.dateTime).format("DD MM HH mm") !== i.format("DD MM HH mm")
-        );
-        if (i > moment()) {
-          reservHours.push({
-            number: i.toISOString(),
-            available: isAvailable,
-          });
-        }
+    const allReservs = await prismaClient.reservs.findMany();
+
+    for (
+      let i = moment(dateOfReserv).hour(10).minute(0);
+      i <= moment(dateOfReserv).hour(20).minute(0);
+      i.set("minute", i.minute() + 20)
+    ) {
+      const isAvailable = allReservs.every(
+        (t) =>
+          moment(t.dateTime).format("DD MM HH mm") !== i.format("DD MM HH mm")
+      );
+
+      if (i > moment()) {
+        reservHours.push({
+          number: i.toISOString(),
+          available: isAvailable,
+        });
       }
-      res.status(200).json(reservHours);
-    });
+    }
+    res.status(200).json(reservHours);
   }
 
   /* ============================================================ */
@@ -170,31 +171,14 @@ export class Get {
   async reservs(req: Request, res: Response) {
     const { userId } = req.params;
 
-    function setReservStatus(dateTime: Date) {
-      if (
-        moment(dateTime).set("minute", moment(dateTime).minute() + 3) < moment()
-      ) {
-        if (moment(dateTime) < moment().set("hour", moment().hour() - 2)) {
-          return "perdido";
-        }
+    const reservs = await prismaClient.reservs.findMany({ where: { userId } });
+    reservs.map((i) => (i.status = setReservStatus(i.dateTime)));
 
-        return "atrasado";
-      }
-      return "pendente";
-    }
-
-    prismaClient.reservs.findMany({ where: { userId } }).then((resp) => {
-      const reservs = resp.map((i) => ({
-        ...i,
-        status: setReservStatus(i.dateTime),
-      }));
-      res.status(200).json(reservs);
-    });
+    reservs.sort(
+      (a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
+    );
+    res.status(200).json(reservs);
   }
-  /**
-  marcado = 10 
-  agora = 11
-*/
 
   /* ============================================================ */
 
@@ -220,6 +204,12 @@ export class Get {
           ownerPhone: reservOwner.phoneNumber,
         });
       });
+
+      reservsWithCostumer.sort(
+        (a, b) =>
+          new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
+      );
+
       res.status(200).json(reservsWithCostumer);
     } else res.status(401).send("não autorizado");
   }
@@ -240,4 +230,17 @@ export class Get {
 
     res.status(200).json({ ...logData });
   }
+}
+
+export function setReservStatus(dateTime: Date) {
+  if (
+    moment(dateTime).set("minute", moment(dateTime).minute() + 3) < moment()
+  ) {
+    if (moment(dateTime) < moment().set("hour", moment().hour() - 2)) {
+      return "perdido";
+    }
+
+    return "atrasado";
+  }
+  return "pendente";
 }

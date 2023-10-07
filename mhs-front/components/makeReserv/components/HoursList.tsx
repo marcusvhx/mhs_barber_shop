@@ -1,6 +1,6 @@
 import moment from "moment";
 import { SetReserv } from "../MakeReserv";
-import { ReservTime } from "./inputs/inpHours";
+import { ReservTime } from "../../inputs/inpHours";
 import { SetBool } from "./common/CommonComponents";
 
 export default function HoursList({
@@ -12,11 +12,7 @@ export default function HoursList({
   availableHours: ReservTime[];
   setReservData: SetReserv;
 }) {
-  function setTimeOfReserv(reservTime: ReservTime) {
-    console.log('vanilla: ',reservTime.number);
-    console.log('format: ',moment(reservTime.number).utcOffset('+0000').format());
-    console.log('ISO: ',moment(reservTime.number).toISOString());
-    
+  function setTimeOfReserv(reservTime: ReservTime) {    
     if (reservTime.available) {
       setReservData((old) => ({ ...old, dateTime: reservTime.number }));
       setFilterToggle(() => false);
@@ -31,7 +27,7 @@ export default function HoursList({
             onClick={() => setTimeOfReserv(i)}
             key={i.number}
             className={`${
-              i.available ? "cursor-pointer open_list" : ""
+              i.available ? "cursor-pointer open_list" : "hidden"
             } hover:bg-neutral-200`}
           >
             {moment(i.number).format("HH : mm")}

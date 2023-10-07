@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ReservFormProps, SetReserv } from "../../MakeReserv";
+import { ReservFormProps, SetReserv } from "../makeReserv/MakeReserv";
 
 import axios from "axios";
 import moment from "moment";
 
 import InpPopover from "./InpPopOver";
-import HoursList from "../HoursList";
+import HoursList from "../makeReserv/components/HoursList";
 
 import { Search } from "@mui/icons-material";
 
@@ -87,7 +87,7 @@ export default function InpHours({
   return (
     <div
       className={`${
-        hourListToggle ? "bg-white -translate-y-[40vh]" : ""
+        hourListToggle ? "bg-white -translate-y-[33vh]" : ""
       } transition-all cursor-pointer`}
     >
       <h1 className="InpTitleLabel">
@@ -104,7 +104,7 @@ export default function InpHours({
         <div
           className={`${
             hourListToggle ? "p-1" : "h-0"
-          } w-full max-h-[300px] absolute top-full  overflow-y-auto rounded `}
+          } w-full max-h-[200px] absolute top-full  overflow-y-auto rounded `}
         >
           <HoursList
             setFilterToggle={setFilterToggle}

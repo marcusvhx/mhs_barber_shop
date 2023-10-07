@@ -1,5 +1,6 @@
 import { prismaClient } from "../db/prismaClient";
 import { Request, Response } from "express";
+import { setReservStatus } from "./getControllers";
 export class Edit {
   async editReserv(req: Request, res: Response) {
     const { id } = await req.params;
@@ -12,7 +13,11 @@ export class Edit {
         data: { dateTime, service },
       })
       .then((resp) => {
-        res.status(200).json(resp);
+        const editedReserv = {
+          ...resp,
+          status: setReservStatus(resp.dateTime),
+        };
+        res.status(200).json(editedReserv);
       })
       .catch((err) => console.log(err));
   }

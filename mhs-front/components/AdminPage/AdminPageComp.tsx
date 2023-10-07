@@ -1,33 +1,62 @@
 "use client";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { ReservProps } from "../reservsCrud/ReservsCrud";
+import { useState } from "react";
+import { SelectedReservProps } from "../reservsCrud/ReservsCrud";
+import AdmSideBar from "./AdminSideBar";
+import { CommonComponents } from "../common/CommonComponents";
+import ReservCard from "../reservsCrud/ReservCard";
 
-export interface ReservPropsWithCostumer extends ReservProps {
+export interface ReservPropsWithCostumer extends SelectedReservProps {
   ownerName: string;
   ownerPhone: string;
 }
 export default function AdminPageComp({ userId }: { userId: string }) {
   const [reservs, setReservs] = useState<ReservPropsWithCostumer[]>([]);
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/getallreservs/${userId}`)
-      .then((res) => setReservs(res.data));
-  }, []);
+  const [sideBarWrapperToggle, setSideBarWrapperToggle] = useState(false);
+  const [selectedReserv, setSelectedReserv] = useState<ReservPropsWithCostumer>(
+    {
+      id: "",
+      dateTime: "",
+      service: "cabelo",
+      status: "pendente",
+      ownerName: "",
+      ownerPhone: "",
+    }
+  );
 
   return (
-    <div>
-      {reservs.map((i) => (
-        <div
-        key={`card${i.id}`}
-        className=" w-56 h-fit p-2 rounded bg-indigo-400 ">
-          <p>{i.ownerName}</p>
-          <p>{i.ownerPhone}</p>
-          <p>{i.service}</p>
-          <p>{i.dateTime}</p>
+    <div className="crudBody">
+      <div className="fixed top-1 right-1 bg-zinc-200 z-[2] hidden wrapper:block rounded">
+        <CommonComponents.MoreOptsBtn
+          func={() => setSideBarWrapperToggle((old) => !old)}
+          type="lines"
+        />
+      </div>
+      <CommonComponents.LoadPage
+        apiUrl={`getallreservs/${userId}`}
+        loadMsg="buscando reservas..."
+        setSomething={setReservs}
+      >
+        <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-2 overflow-y-auto">
+          {reservs.map((i) => (
+            <ReservCard
+              key={"reservCard" + i.id}
+              reserv={i}
+              setSelectedReserv={setSelectedReserv}
+              setWrapperToggle={setSideBarWrapperToggle}
+            />
+          ))}
         </div>
-      ))}
+      </CommonComponents.LoadPage>
+      <AdmSideBar
+        selectedReserv={selectedReserv}
+        setReservs={setReservs}
+        setSelectedReserv={setSelectedReserv}
+        setWrapperToggle={setSideBarWrapperToggle}
+        userId={userId}
+        wrapperToggle={sideBarWrapperToggle}
+      />
+
+      {/* ========================== */}
     </div>
   );
 }

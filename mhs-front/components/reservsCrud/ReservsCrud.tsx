@@ -1,27 +1,19 @@
 "use client";
-import "./styles.css";
 import axios from "axios";
 import ReservCard from "./ReservCard";
 import SIdeBar from "./SIdeBar";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import {
-  CommonComponents,
-  SetBool,
-} from "../makeReserv/components/common/CommonComponents";
+import { CommonComponents, SetBool } from "../common/CommonComponents";
 import moment from "moment";
 
-export interface ReservProps {
+export interface SelectedReservProps {
   id: string;
-  userId: string;
   service: "cabelo" | "barba" | "ambos";
   dateTime: string;
   status: "pendente" | "concluido" | "perdido" | "atrasado";
 }
-export interface SelectedReservProps {
-  id: string;
-  service: ReservProps["service"];
-  dateTime: string;
-  status: ReservProps["status"];
+export interface ReservProps extends SelectedReservProps {
+  userId: string;
 }
 
 export default function ReservsCrud({ userId }: { userId: string }) {
@@ -35,17 +27,6 @@ export default function ReservsCrud({ userId }: { userId: string }) {
     status: "pendente",
   });
 
-  const [spinToggle, setSpinToggle] = useState(true);
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/getreservs/${userId}`)
-      .then((res) => {
-        setReservs(() => res.data);
-        setSpinToggle(() => false);
-      })
-      .catch(() => alert("ocorreu um erro interno,tente novamente mais tarde"));
-  }, []);
-
   return (
     <div className="crudBody">
       <div className="fixed top-1 right-1 bg-zinc-200 z-[2] hidden wrapper:block rounded">
@@ -54,20 +35,18 @@ export default function ReservsCrud({ userId }: { userId: string }) {
           type="lines"
         />
       </div>
-      {spinToggle ? (
-        <div className="h-full w-full grid place-items-center place-content-center gap-3">
-          <svg className="animate-spin h-16 w-16 border-r-black border-slate-200 border-8 rounded-full" />
-          <p className="text-xl text-neutral-500 capitalize">
-            buscando suas reservas...
-          </p>
-        </div>
-      ) : (
+      <CommonComponents.LoadPage
+        apiUrl={`getreservs/${userId}`}
+        loadMsg="buscando reservas..."
+        setSomething={setReservs}
+      >
         <CrudContent
           reservs={reservs}
           setSelectedReserv={setSelectedReserv}
           setWrapperToggle={setWrapperToggle}
         />
-      )}
+      </CommonComponents.LoadPage>
+
       <SIdeBar
         userId={userId}
         setReservs={setReservs}
@@ -93,7 +72,7 @@ function CrudContent({
 }) {
   if (reservs.length > 0) {
     return (
-      <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-2">
+      <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-2 overflow-y-auto">
         {reservs.map((i) => (
           <ReservCard
             key={`reservCard_${i.id}`}

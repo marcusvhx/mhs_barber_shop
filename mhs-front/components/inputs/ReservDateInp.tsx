@@ -1,9 +1,9 @@
 import moment from "moment";
 import { useState } from "react";
 import InpHours from "./inpHours";
-import { ReservFormProps, SetReserv } from "../../MakeReserv";
+import { ReservFormProps, SetReserv } from "../makeReserv/MakeReserv";
 import { CommonComponents } from "../common/CommonComponents";
-import Calendar from "../Calendar";
+import Calendar from "../makeReserv/components/Calendar";
 
 
 export default function ReservDateInp({

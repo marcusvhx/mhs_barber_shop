@@ -1,7 +1,15 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Close } from "@mui/icons-material";
 import InputMask from "react-input-mask";
-import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import axios from "axios";
+import { ReservPropsWithCostumer } from "../AdminPage/AdminPageComp";
 
 export type SetBool = Dispatch<SetStateAction<boolean>>;
 export type InpEvent = ChangeEvent<HTMLInputElement>;
@@ -40,6 +48,42 @@ function Wrapper({
     >
       {children}
     </div>
+  );
+}
+/**
+ ** loadMsg = mensagem que aparece na tela de carregamento
+ ** apiUrl = ramo da api com os dados desejados
+ ** setSomething = variavel que vai receber os dados da api
+ */
+function LoadPage({
+  children,
+  setSomething,
+  loadMsg,
+  apiUrl,
+}: {
+  children: React.ReactNode;
+  setSomething: Dispatch<SetStateAction<any>>;
+  loadMsg: string;
+  apiUrl: string;
+}) {
+  const [spinToggle, setSpinToggle] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/${apiUrl}`)
+      .then((res) => {
+        setSomething(() => res.data);
+        setSpinToggle(() => false);
+      })
+      .catch(() => alert("ocorreu um erro interno,tente novamente mais tarde"));
+  }, []);
+
+  return spinToggle ? (
+    <div className="h-full w-full grid place-items-center place-content-center gap-3">
+      <svg className="animate-spin h-16 w-16 border-r-black border-slate-200 border-8 rounded-full" />
+      <p className="text-xl text-neutral-500 capitalize">{loadMsg}</p>
+    </div>
+  ) : (
+    children
   );
 }
 
@@ -200,4 +244,5 @@ export const CommonComponents = {
   Wrapper,
   MoreOptsBtn,
   X,
+  LoadPage,
 };

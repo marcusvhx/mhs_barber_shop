@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export class Create {
   //
   async reserv(req: Request, res: Response) {
-    const { service, dateTime, status } = await req.body;
+    const { service, dateTime } = await req.body;
     const { userId } = await req.params;
 
     const timeVerifier = await prismaClient.reservs.findMany({
@@ -15,7 +15,7 @@ export class Create {
     if (timeVerifier.length === 0) {
       prismaClient.reservs
         .create({
-          data: { dateTime, service, userId, status },
+          data: { dateTime, service, userId, status:"pendente" },
         })
         .then(async (resp) => {
           res.send(resp);

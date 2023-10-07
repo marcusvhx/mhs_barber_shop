@@ -1,9 +1,3 @@
-export interface ReservProps {
-  name: string;
-  phoneNumber: string;
-  dateTime: string;
-  service: "cabelo" | "barba" | "ambos";
-}
 export interface HoursListProps {
   number: string;
   available: boolean;

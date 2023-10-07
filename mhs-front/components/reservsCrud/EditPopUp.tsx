@@ -5,13 +5,13 @@ import axios from "axios";
 import {
   CommonComponents,
   SetBool,
-} from "../makeReserv/components/common/CommonComponents";
+} from "../common/CommonComponents";
 import { ReservProps, SelectedReservProps } from "./ReservsCrud";
 import { ReservFormProps } from "../makeReserv/MakeReserv";
 
 import Calendar from "../makeReserv/components/Calendar";
-import InpHours from "../makeReserv/components/inputs/inpHours";
-import ServicesInp from "../makeReserv/components/inputs/ServicesInp";
+import InpHours from "../inputs/inpHours";
+import ServicesInp from "../inputs/ServicesInp";
 
 export default function EditPopUp({
   toggle,
@@ -27,7 +27,6 @@ export default function EditPopUp({
   const [reservData, setReservData] = useState<ReservFormProps>({
     dateTime: selectedReserv.dateTime,
     service: selectedReserv.service,
-    status: selectedReserv.status,
   });
 
   const [formSection, setFormSection] = useState(0);
