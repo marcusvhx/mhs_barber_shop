@@ -1,7 +1,7 @@
 import moment from "moment";
 import { SetReserv } from "../MakeReserv";
 import { ReservTime } from "../../inputs/inpHours";
-import { SetBool } from "./common/CommonComponents";
+import { SetBool } from "../../common/CommonComponents";
 
 export default function HoursList({
   availableHours,

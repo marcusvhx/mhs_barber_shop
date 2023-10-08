@@ -9,7 +9,6 @@ import React, {
   useState,
 } from "react";
 import axios from "axios";
-import { ReservPropsWithCostumer } from "../AdminPage/AdminPageComp";
 
 export type SetBool = Dispatch<SetStateAction<boolean>>;
 export type InpEvent = ChangeEvent<HTMLInputElement>;

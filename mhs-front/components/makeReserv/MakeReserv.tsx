@@ -5,7 +5,6 @@ import moment from "moment";
 import FormNavBtns from "./components/FormNavBtns";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { InpEvent } from "./components/common/CommonComponents";
 import ServicesInp from "../inputs/ServicesInp";
 import ReservDateInp from "../inputs/ReservDateInp";
 import { Home } from "@mui/icons-material";
