@@ -157,7 +157,7 @@ export class Get {
 
       if (i > moment()) {
         reservHours.push({
-          number: i.utcOffset("+0300").toISOString(),
+          number: i.utcOffset("+0300").format(),
           available: isAvailable,
         });
       }
