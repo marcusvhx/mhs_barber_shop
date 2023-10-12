@@ -96,7 +96,7 @@ export class Get {
             moment(day.date).format("DD MM") === moment().format("DD MM")
               ? moment()
                   .hour(moment().hour() + 1)
-                  .minute(0)
+                  .minute(0).utcOffset("+0000")
               : moment().hour(10).minute(0);
 
           for (
@@ -107,7 +107,7 @@ export class Get {
             if (i.hour() <= 20) vacancies.push(moment(i).format("HH mm"));
           }
 
-          let trava = false;
+        
 
           vacancies.forEach((vac) => {
             reservs.map((reserv) => {
@@ -116,14 +116,12 @@ export class Get {
                 moment(day.date).format("DD MM")
               ) {
                 if (
-                  moment(reserv.dateTime).format("HH mm") === vac &&
-                  trava === false
-                ) {
+                  moment(reserv.dateTime).format("HH mm") === vac) {
                   vacanciesNum++;
                 }
               }
             });
-            trava = true;
+          
           });
 
           if (vacanciesNum === vacancies.length) {
