@@ -107,17 +107,23 @@ export class Get {
             if (i.hour() <= 20) vacancies.push(moment(i).format("HH mm"));
           }
 
+          let trava = false;
+
           vacancies.forEach((vac) => {
             reservs.map((reserv) => {
               if (
                 moment(reserv.dateTime).format("DD MM") ===
                 moment(day.date).format("DD MM")
               ) {
-                if (moment(reserv.dateTime).format("HH mm") === vac) {
+                if (
+                  moment(reserv.dateTime).format("HH mm") === vac &&
+                  trava === false
+                ) {
                   vacanciesNum++;
                 }
               }
             });
+            trava = true;
           });
 
           if (vacanciesNum === vacancies.length) {
@@ -147,8 +153,8 @@ export class Get {
 
     for (
       let i = moment(dateOfReserv).utcOffset("-0300").hour(10).minute(0);
-        i <= moment(dateOfReserv).utcOffset("-0300").hour(20).minute(0);
-        i.set("minute", i.minute() + 20)
+      i <= moment(dateOfReserv).utcOffset("-0300").hour(20).minute(0);
+      i.set("minute", i.minute() + 20)
     ) {
       const isAvailable = allReservs.every(
         (t) =>
