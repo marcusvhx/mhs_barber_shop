@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { ReservFormProps } from "../MakeReserv";
+import { ReservFormProps } from "@/interfaces";
 
 export default function FormNavBtns({
   userId,

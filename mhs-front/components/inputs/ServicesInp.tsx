@@ -1,11 +1,9 @@
 import Image from "next/image";
 
-import { Dispatch, SetStateAction } from "react";
-
 import hair from "@/public/imgs/cabelo.png";
 import beard from "@/public/imgs/barba.png";
 import both from "@/public/imgs/ambos.png";
-import { ReservFormProps } from "../makeReserv/MakeReserv";
+import { ReservFormProps, SetReservFormProps } from "@/interfaces";
 
 export default function ServicesInp({
   reservData,
@@ -13,7 +11,7 @@ export default function ServicesInp({
   edit,
 }: {
   reservData: ReservFormProps;
-  setReservData: Dispatch<SetStateAction<ReservFormProps>>;
+  setReservData: SetReservFormProps;
   edit?: boolean;
 }) {
   const servicesList = [

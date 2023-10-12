@@ -1,9 +1,9 @@
 import moment from "moment";
 import { useState } from "react";
 import InpHours from "./inpHours";
-import { ReservFormProps, SetReserv } from "../makeReserv/MakeReserv";
 import { CommonComponents } from "../common/CommonComponents";
 import Calendar from "../makeReserv/components/Calendar";
+import { ReservFormProps, SetReservFormProps } from "@/interfaces";
 
 
 export default function ReservDateInp({
@@ -11,7 +11,7 @@ export default function ReservDateInp({
   setReservData,
 }: {
   reservData: ReservFormProps;
-  setReservData: SetReserv;
+  setReservData: SetReservFormProps;
 }) {
   const [calendarToggle, setCalendarToggle] = useState(false);
 

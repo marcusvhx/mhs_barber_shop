@@ -1,14 +1,12 @@
 "use client";
 import "../styles.css";
-import {
-  InpEvent,
-  InputComponents,
-} from "@/components/common/CommonComponents";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { InputComponents } from "../common/InputComponents";
+import { InpEvent } from "@/interfaces";
 
 export default function LoginForm({}: {}) {
   const router = useRouter();
@@ -51,8 +49,8 @@ export default function LoginForm({}: {}) {
       axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/login`, formData)
         .then((res) => {
-           setCookie("auth", res.data.token);
-          
+          setCookie("auth", res.data.token);
+
           if (res.data.role === "admin") {
             router.push(`${res.data.userId}/admin`);
           } else {
@@ -91,7 +89,7 @@ export default function LoginForm({}: {}) {
       >
         entrar
       </button>
-    
+
       <Link
         href={"cadastrar"}
         className="hover:text-amber-500 transition w-fit"

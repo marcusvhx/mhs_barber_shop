@@ -4,17 +4,14 @@ import "../styles.css";
 import moment from "moment";
 import FormNavBtns from "./components/FormNavBtns";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import ServicesInp from "../inputs/ServicesInp";
 import ReservDateInp from "../inputs/ReservDateInp";
 import { Home } from "@mui/icons-material";
 import Link from "next/link";
+import { ReservFormProps } from "@/interfaces";
 
-export interface ReservFormProps {
-  dateTime: string;
-  service: "cabelo" | "barba" | "ambos";
-}
-export type SetReserv = Dispatch<SetStateAction<ReservFormProps>>;
+
 function MakeReserv({ userId }: { userId: string }) {
   const [reservData, setReservData] = useState<ReservFormProps>({
     dateTime: moment().hour(0).minute(0).format(),

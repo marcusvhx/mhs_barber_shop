@@ -157,7 +157,7 @@ export class Get {
 
       if (i > moment()) {
         reservHours.push({
-          number: i.toISOString(),
+          number: i.utcOffset("-0300").toISOString(),
           available: isAvailable,
         });
       }
@@ -195,6 +195,8 @@ export class Get {
 
       const onlyUsers = await prismaClient.users.findMany();
       const onlyReservs = await prismaClient.reservs.findMany();
+
+      onlyReservs.map((i) => (i.status = setReservStatus(i.dateTime)));
 
       onlyReservs.forEach((i) => {
         const reservOwner = onlyUsers.find((j) => j.id === i.userId);

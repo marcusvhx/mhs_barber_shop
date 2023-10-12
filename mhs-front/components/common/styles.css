@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+.side_card_section {
+  display: grid;
+  grid-column: minmax(80px, 90px) auto;
+  grid-row: 3;
+  column-gap: 5px;
+}
+.side_card_section_title {
+  @apply text-xl capitalize place-self-center col-span-2;
+}

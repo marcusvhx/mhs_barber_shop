@@ -1,7 +1,5 @@
+import { ReservTime, SetBool, SetReservFormProps } from "@/interfaces";
 import moment from "moment";
-import { SetReserv } from "../MakeReserv";
-import { ReservTime } from "../../inputs/inpHours";
-import { SetBool } from "../../common/CommonComponents";
 
 export default function HoursList({
   availableHours,
@@ -10,7 +8,7 @@ export default function HoursList({
 }: {
   setFilterToggle: SetBool;
   availableHours: ReservTime[];
-  setReservData: SetReserv;
+  setReservData: SetReservFormProps;
 }) {
   function setTimeOfReserv(reservTime: ReservTime) {    
     if (reservTime.available) {

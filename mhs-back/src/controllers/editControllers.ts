@@ -4,13 +4,14 @@ import { setReservStatus } from "./getControllers";
 export class Edit {
   async editReserv(req: Request, res: Response) {
     const { id } = await req.params;
-    const { dateTime, service } = await req.body;
+    const { reservData } = await req.body;
     const NumberId = Number(id);
 
+    const { id: _, newreserv } = reservData;
     prismaClient.reservs
       .update({
         where: { id: NumberId },
-        data: { dateTime, service },
+        data: newreserv,
       })
       .then((resp) => {
         const editedReserv = {

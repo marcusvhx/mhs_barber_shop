@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ReservFormProps, SetReserv } from "../makeReserv/MakeReserv";
 
 import axios from "axios";
 import moment from "moment";
@@ -9,22 +8,14 @@ import InpPopover from "./InpPopOver";
 import HoursList from "../makeReserv/components/HoursList";
 
 import { Search } from "@mui/icons-material";
-
-export interface ReservTime {
-  number: string;
-  available: boolean;
-}
-export interface ReservTimeList {
-  mainList: ReservTime[];
-  backUpList: ReservTime[];
-}
+import { ReservFormProps, ReservTime, ReservTimeList, SetReservFormProps } from "@/interfaces";
 
 export default function InpHours({
   reservData,
   setReservData,
 }: {
   reservData: ReservFormProps;
-  setReservData: SetReserv;
+  setReservData: SetReservFormProps;
 }) {
   const [avaliableHours, setAvaliableHours] = useState<ReservTimeList>({
     mainList: [],

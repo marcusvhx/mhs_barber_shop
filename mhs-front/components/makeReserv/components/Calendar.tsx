@@ -2,8 +2,8 @@
 import "@/components/styles.css";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { SetReserv } from "../MakeReserv";
 import axios from "axios";
+import { SetReservFormProps } from "@/interfaces";
 
 export interface CalendarDaysProps {
   date: string;
@@ -35,7 +35,7 @@ export default function Calendar({
   setReservData,
   calendarToggleHandler,
 }: {
-  setReservData: SetReserv;
+  setReservData: SetReservFormProps;
   calendarToggleHandler: () => void;
 }) {
   //

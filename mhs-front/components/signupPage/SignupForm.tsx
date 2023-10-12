@@ -1,19 +1,12 @@
 "use client";
 import "../styles.css";
-import {
-  InpEvent,
-  InputComponents,
-} from "@/components/common/CommonComponents";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-interface VerifiesFormProps {
-  condition: boolean;
-  msg: string;
-}
+import { InputComponents } from "../common/InputComponents";
+import { VerifiesFormProps, InpEvent } from "@/interfaces";
 
 export default function SignupForm({}: {}) {
   const router = useRouter();
@@ -63,10 +56,8 @@ export default function SignupForm({}: {}) {
       axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, formData)
         .then((res) => {
-          console.log(res.data);
-          
-          // setCookie("auth", res.data.token);
-          // router.push(`${res.data.id}/reservar`);
+          setCookie("auth", res.data.token);
+          router.push(`${res.data.id}/reservar`);
         })
         .catch((error) => {
           console.log(error);

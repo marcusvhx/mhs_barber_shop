@@ -87,7 +87,7 @@ html {
 }
 
 .sub {
-  @apply font-bold text-xl capitalize;
+  @apply font-bold text-lg capitalize;
 }
 .subContainer {
   @apply flex items-center gap-2;

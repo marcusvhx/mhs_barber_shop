@@ -1,13 +1,14 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
 import axios from "axios";
 
+import { CommonComponents } from "../common/CommonComponents";
 import {
-  CommonComponents,
+  SelectedReservProps,
+  ReservFormProps,
   SetBool,
-} from "../common/CommonComponents";
-import { ReservProps, SelectedReservProps } from "./ReservsCrud";
-import { ReservFormProps } from "../makeReserv/MakeReserv";
+  SetReservsList,
+} from "@/interfaces";
 
 import Calendar from "../makeReserv/components/Calendar";
 import InpHours from "../inputs/inpHours";
@@ -22,7 +23,7 @@ export default function EditPopUp({
   toggle: boolean;
   setToggle: SetBool;
   selectedReserv: SelectedReservProps;
-  setReservs: Dispatch<SetStateAction<ReservProps[]>>;
+  setReservs: SetReservsList;
 }) {
   const [reservData, setReservData] = useState<ReservFormProps>({
     dateTime: selectedReserv.dateTime,
@@ -56,7 +57,7 @@ export default function EditPopUp({
           return oldList;
         });
       })
-      .catch((err) =>
+      .catch(() =>
         alert("ocorreu um erro interno, tente novamente mais tarde")
       );
   }

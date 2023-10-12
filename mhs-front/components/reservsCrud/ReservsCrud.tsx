@@ -1,24 +1,14 @@
 "use client";
-import axios from "axios";
-import ReservCard from "./ReservCard";
-import SIdeBar from "./SIdeBar";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { CommonComponents, SetBool } from "../common/CommonComponents";
+import UserSideBar from "./UserSideBar";
+import { Dispatch, SetStateAction, useState } from "react";
+import { CommonComponents } from "../common/CommonComponents";
 import moment from "moment";
-
-export interface SelectedReservProps {
-  id: string;
-  service: "cabelo" | "barba" | "ambos";
-  dateTime: string;
-  status: "pendente" | "concluido" | "perdido" | "atrasado";
-}
-export interface ReservProps extends SelectedReservProps {
-  userId: string;
-}
+import { PageComponents } from "../common/PageComponents";
+import { ReservProps, SelectedReservProps, SetBool } from "@/interfaces";
 
 export default function ReservsCrud({ userId }: { userId: string }) {
   const [reservs, setReservs] = useState<ReservProps[]>([]);
-  const [wrapperToggle, setWrapperToggle] = useState(false);
+  const [sidebarWrapperToggle, setSidebarWrapperToggle] = useState(false);
 
   const [selectedReserv, setSelectedReserv] = useState<SelectedReservProps>({
     id: "",
@@ -31,7 +21,7 @@ export default function ReservsCrud({ userId }: { userId: string }) {
     <div className="crudBody">
       <div className="fixed top-1 right-1 bg-zinc-200 z-[2] hidden wrapper:block rounded">
         <CommonComponents.MoreOptsBtn
-          func={() => setWrapperToggle((old) => !old)}
+          func={() => setSidebarWrapperToggle((old) => !old)}
           type="lines"
         />
       </div>
@@ -43,15 +33,15 @@ export default function ReservsCrud({ userId }: { userId: string }) {
         <CrudContent
           reservs={reservs}
           setSelectedReserv={setSelectedReserv}
-          setWrapperToggle={setWrapperToggle}
+          setWrapperToggle={setSidebarWrapperToggle}
         />
       </CommonComponents.LoadPage>
 
-      <SIdeBar
+      <UserSideBar
         userId={userId}
         setReservs={setReservs}
-        wrapperToggle={wrapperToggle}
-        setWrapperToggle={setWrapperToggle}
+        sidebarWrapperToggle={sidebarWrapperToggle}
+        setSidebarWrapperToggle={setSidebarWrapperToggle}
         setSelectedReserv={setSelectedReserv}
         selectedReserv={selectedReserv}
       />
@@ -74,7 +64,7 @@ function CrudContent({
     return (
       <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-2 overflow-y-auto">
         {reservs.map((i) => (
-          <ReservCard
+          <PageComponents.ReservCard
             key={`reservCard_${i.id}`}
             reserv={i}
             setWrapperToggle={setWrapperToggle}
