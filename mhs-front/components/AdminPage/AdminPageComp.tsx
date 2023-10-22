@@ -1,13 +1,20 @@
 "use client";
 import { useState } from "react";
+import axios from "axios";
+
 import AdmSideBar from "./AdminSideBar";
-import { CommonComponents } from "../common/CommonComponents";
-import { ReservPropsWithCostumer } from "@/interfaces";
 import AdmCrudContent from "./AdminReservsCrud";
+
+import { ReservPropsWithCostumer } from "@/interfaces";
+
+import { CommonComponents } from "../common/CommonComponents";
+import { CommonBtnIcons } from "../common/CommonButons";
 
 export default function AdminPageComp({ userId }: { userId: string }) {
   const [reservs, setReservs] = useState<ReservPropsWithCostumer[]>([]);
   const [sideBarWrapperToggle, setSideBarWrapperToggle] = useState(false);
+  const [reloadReservsListToggle, setReloadReservsListToggle] = useState(false);
+  
   const [selectedReserv, setSelectedReserv] = useState<ReservPropsWithCostumer>(
     {
       id: "",
@@ -19,10 +26,14 @@ export default function AdminPageComp({ userId }: { userId: string }) {
     }
   );
 
+  function reloadReservsList() {
+    setReloadReservsListToggle((old) => !old);
+  }
+
   return (
     <div className="crudBody">
       <div className="fixed top-1 right-1 bg-zinc-200 z-[2] hidden wrapper:block rounded">
-        <CommonComponents.MoreOptsBtn
+        <CommonBtnIcons.MoreOptsBtn
           func={() => setSideBarWrapperToggle((old) => !old)}
           type="lines"
         />
@@ -32,11 +43,13 @@ export default function AdminPageComp({ userId }: { userId: string }) {
         apiUrl={`getallreservs/${userId}`}
         loadMsg="buscando reservas..."
         setSomething={setReservs}
+        reload={reloadReservsListToggle}
       >
         <AdmCrudContent
           reservs={reservs}
           setSelectedReserv={setSelectedReserv}
           setWrapperToggle={setSideBarWrapperToggle}
+          reloadCards={reloadReservsList}
         />
       </CommonComponents.LoadPage>
 

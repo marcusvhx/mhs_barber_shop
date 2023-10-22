@@ -33,11 +33,12 @@ router.post("/createreserv/:userId", createStufs.reserv);
 
 /* ================= delete ================= */
 router.delete("/deletereserv/:userId/:id", deleteStufs.reserv);
-    router.delete("/deleteallreservs", deleteStufs.allReserv);
+router.delete("/deleteallreservs", deleteStufs.allReserv);
 router.delete("/deleteallusers", deleteStufs.allUsers);
 
 /* ================= delete ================= */
+router.put("/trundone/:id", editStufs.turnDone);
 router.put("/editreserv/:id", editStufs.editReserv);
-
+router.put("/edituser/:id", editStufs.editUser);
 
 export { router };

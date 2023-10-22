@@ -19,11 +19,13 @@ export default function EditPopUp({
   setToggle,
   selectedReserv,
   setReservs,
+  reloadReservsList,
 }: {
   toggle: boolean;
   setToggle: SetBool;
   selectedReserv: SelectedReservProps;
   setReservs: SetReservsList;
+  reloadReservsList: () => void;
 }) {
   const [reservData, setReservData] = useState<ReservFormProps>({
     dateTime: selectedReserv.dateTime,
@@ -60,6 +62,8 @@ export default function EditPopUp({
       .catch(() =>
         alert("ocorreu um erro interno, tente novamente mais tarde")
       );
+      
+    reloadReservsList();
   }
   return (
     <CommonComponents.Wrapper toggle={toggle} setToggle={setToggle}>

@@ -1,23 +1,7 @@
 import "./styles.css";
-import { Close } from "@mui/icons-material";
-
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import axios from "axios";
 import { SetBool } from "@/interfaces";
-
-function X({ func, className }: { func?: () => void; className?: string }) {
-  return (
-    <div className="relative w-full h-full">
-      <div
-        onClick={func && func}
-        className={`${
-          className && className
-        } absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded-full transition cursor-pointer`}
-      ></div>
-      <Close sx={{ fontSize: "35px" }} />
-    </div>
-  );
-}
 
 function Wrapper({
   toggle,
@@ -51,22 +35,33 @@ function LoadPage({
   setSomething,
   loadMsg,
   apiUrl,
+
+  reload,
 }: {
   children: React.ReactNode;
   setSomething: Dispatch<SetStateAction<any>>;
+
   loadMsg: string;
   apiUrl: string;
+
+  reload: boolean;
 }) {
   const [spinToggle, setSpinToggle] = useState(true);
+
+  async function loadData() {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/${apiUrl}`
+    );
+
+    setSomething(() => data);
+    setSpinToggle(() => false);
+  }
+
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/${apiUrl}`)
-      .then((res) => {
-        setSomething(() => res.data);
-        setSpinToggle(() => false);
-      })
-      .catch(() => alert("ocorreu um erro interno,tente novamente mais tarde"));
-  }, []);
+    setSpinToggle(() => true);
+    
+    loadData();
+  }, [reload]);
 
   return spinToggle ? (
     <div className="h-full w-full grid place-items-center place-content-center gap-3">
@@ -78,53 +73,7 @@ function LoadPage({
   );
 }
 
-function MoreOptsBtn({
-  children,
-  standing,
-  className,
-  type,
-  func,
-}: {
-  children?: React.ReactNode;
-  standing?: boolean;
-  type: "lines" | "dots";
-  className?: string;
-  func: (e?) => void;
-}) {
-  // três pontinhos, é uma tag pai
-  return (
-    <div onClick={func} className={`${className || ""} relative`}>
-      <div
-        tabIndex={0}
-        className={`${standing ? "flex-col" : ""} ${
-          type === "dots" ? "w-10 gap-1 " : "w-10  p-1 flex-col gap-1"
-        } flex justify-center items-center cursor-pointer h-8`}
-      >
-        <div className="absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded transition"></div>
-        <div
-          className={`h-1 ${
-            type === "dots" ? "w-1" : "w-full"
-          } bg-black  rounded-full`}
-        ></div>
-        <div
-          className={`h-1 ${
-            type === "dots" ? "w-1" : "w-full"
-          } bg-black rounded-full`}
-        ></div>
-        <div
-          className={`h-1 ${
-            type === "dots" ? "w-1" : "w-full"
-          } bg-black rounded-full`}
-        ></div>
-      </div>
-      {children}
-    </div>
-  );
-}
-
 export const CommonComponents = {
   Wrapper,
-  X,
-  MoreOptsBtn,
   LoadPage,
 };

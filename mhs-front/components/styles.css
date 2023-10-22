@@ -40,7 +40,4 @@
 .formContainer {
   @apply grid gap-4 place-content-center capitalize min-w-[100vw] h-full;
 }
-.kase {
-  @apply absolute w-full h-full hover:bg-black hover:bg-opacity-10 rounded-full transition;
-}
 

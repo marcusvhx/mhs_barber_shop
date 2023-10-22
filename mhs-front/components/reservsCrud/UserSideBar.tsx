@@ -14,6 +14,7 @@ export default function UserSideBar({
   setSidebarWrapperToggle,
 
   setReservs,
+  reloadReservsList
 }: {
   userId: string;
 
@@ -24,6 +25,7 @@ export default function UserSideBar({
   setSelectedReserv: Dispatch<SetStateAction<SelectedReservProps>>;
 
   setReservs: Dispatch<SetStateAction<ReservProps[]>>;
+  reloadReservsList:()=>void
 }) {
   const [editToggle, setEditToggle] = useState(false);
 
@@ -87,6 +89,7 @@ export default function UserSideBar({
         setToggle={setEditToggle}
         selectedReserv={selectedReserv}
         setReservs={setReservs}
+        reloadReservsList={reloadReservsList}
       />
     </PageComponents.SideBar>
   );

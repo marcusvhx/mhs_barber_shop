@@ -12,7 +12,7 @@ import {
 import { CheckCircle, Cancel, Error } from "@mui/icons-material";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { CommonComponents } from "./CommonComponents";
+import { CommonBtnIcons } from "./CommonButons";
 
 function Stamp({ status }: { status: ReservProps["status"] }) {
   return (
@@ -82,8 +82,10 @@ function SideBarCardSection({
       <h1 className="side_card_section_title">{title}</h1>
       {lines.map((line) => (
         <>
-          <p key={`card_name_line_${line.name}`} className="sub w-fit">{line.name}:</p>
-          <p key={`card_value_line_${line.name}`} >{line.value}</p>
+          <p key={`card_name_line_${line.name}`} className="sub w-fit">
+            {line.name}:
+          </p>
+          <p key={`card_value_line_${line.name}`}>{line.value}</p>
         </>
       ))}
     </div>
@@ -119,7 +121,11 @@ function SideBarCard({
 
       {children}
 
-      <SideBarCardSection key={"linha"+selectedReserv.id} title="dados da reserva" lines={cardData} />
+      <SideBarCardSection
+        key={"linha" + selectedReserv.id}
+        title="dados da reserva"
+        lines={cardData}
+      />
     </div>
   );
 }
@@ -140,9 +146,11 @@ function SideBar({
   const [userName, setUserName] = useState("");
 
   function handlerWrapper(e: any) {
-    e.target.className.includes("close_aside") &&
+    if (e.target.className.includes("close_aside")) {
       setSidebarWrapperToggle((old) => !old);
+    }
   }
+
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/getuser/${userId}`)
@@ -162,7 +170,12 @@ function SideBar({
     >
       <div className="relative h-full ">
         <div className=" absolute z-10 top-2 right-2 hidden wrapper:block">
-          <CommonComponents.X className="close_aside" />
+          <CommonBtnIcons.XBtn
+            position="absolute"
+            coordXY="top-1 right-1"
+            func={handlerWrapper}
+            className="close_aside"
+          />
         </div>
 
         <div

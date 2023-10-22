@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import axios from "axios";
-import {} from "../common/CommonComponents";
 import {
   ReservPropsWithCostumer,
   SetBool,
@@ -8,6 +6,7 @@ import {
   SetSelectedReservWithCostimer,
 } from "@/interfaces";
 import { PageComponents } from "../common/PageComponents";
+import { CommonLinkIcons } from "../common/CommonButons";
 
 export default function AdmSideBar({
   userId,
@@ -49,17 +48,13 @@ export default function AdmSideBar({
 
   function concludeReserv() {
     axios
-      .put(
-        `${process.env.NEXT_PUBLIC_API_URL}/editreserv/${selectedReserv.id}`,
-        {
-          reservData: { ...selectedReserv, status: "concluido" },
-        }
-      )
-      .then(() => {
-        setReservs((old) => {
-          const newSelected = old.filter((i) => i.id !== selectedReserv.id);
-          setSelectedReserv((old) =>
-            newSelected.length > 0 ? newSelected[0] : { ...old, id: "" }
+      .put(`${process.env.NEXT_PUBLIC_API_URL}/turndone/${selectedReserv.id}`)
+      .then((res) => {
+        setReservs((oldReservList) => {
+          const newSelected = oldReservList.filter((i) => i.id !== res.data.id);
+          
+          setSelectedReserv((oldSelected) =>
+            newSelected.length > 0 ? newSelected[0] : { ...oldSelected, id: "" }
           );
 
           return newSelected;
@@ -84,17 +79,23 @@ export default function AdmSideBar({
       setSidebarWrapperToggle={setSidebarWrapperToggle}
       sidebarWrapperToggle={sidebarWrapperToggle}
     >
+      <CommonLinkIcons.SettingsLink
+        link="admin/configs"
+        position="absolute"
+        coordXY="top-1 right-1"
+      />
       {selectedReserv.id && (
         <PageComponents.SideBarCard selectedReserv={selectedReserv}>
           <PageComponents.SideBarCardSection
             title="dados do cliente"
             lines={clientData}
           />
-          <hr className="border-black" />
+          <hr className="border-black my-2" />
         </PageComponents.SideBarCard>
       )}
+
       {selectedReserv.id && (
-        <div className="">
+        <div className="w-full flex flex-col items-center gap-2">
           <button
             onClick={concludeReserv}
             className=" sidebarBtn bg-sky-500 hover:bg-sky-600"

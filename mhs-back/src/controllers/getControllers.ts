@@ -9,7 +9,6 @@ import moment from "moment";
 
 export class Get {
   /* ============================================================ */
-
   async availableDays(req: Request, res: Response) {
     const reservs = await prismaClient.reservs.findMany();
 
@@ -95,8 +94,9 @@ export class Get {
           const initialHours =
             moment(day.date).format("DD MM") === moment().format("DD MM")
               ? moment()
-                  .hour(moment().hour() + 1)
-                  .minute(0).utcOffset("+0000")
+                  .hour(moment().utcOffset("+0000").hour() + 1)
+                  .minute(0)
+                  .utcOffset("+0000")
               : moment().hour(10).minute(0);
 
           for (
@@ -107,21 +107,17 @@ export class Get {
             if (i.hour() <= 20) vacancies.push(moment(i).format("HH mm"));
           }
 
-        
-
           vacancies.forEach((vac) => {
             reservs.map((reserv) => {
               if (
                 moment(reserv.dateTime).format("DD MM") ===
                 moment(day.date).format("DD MM")
               ) {
-                if (
-                  moment(reserv.dateTime).format("HH mm") === vac) {
+                if (moment(reserv.dateTime).format("HH mm") === vac) {
                   vacanciesNum++;
                 }
               }
             });
-          
           });
 
           if (vacanciesNum === vacancies.length) {
@@ -176,7 +172,9 @@ export class Get {
     const { userId } = req.params;
 
     const reservs = await prismaClient.reservs.findMany({ where: { userId } });
-    reservs.map((i) => (i.status = setReservStatus(i.dateTime)));
+    reservs.map((i) => {
+      if (i.status != "concluido") i.status = setReservStatus(i.dateTime);
+    });
 
     reservs.sort(
       (a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
@@ -200,7 +198,10 @@ export class Get {
       const onlyUsers = await prismaClient.users.findMany();
       const onlyReservs = await prismaClient.reservs.findMany();
 
-      onlyReservs.map((i) => (i.status = setReservStatus(i.dateTime)));
+      onlyReservs.map((i) => {
+        if (i.status != "concluido") i.status = setReservStatus(i.dateTime);
+      });
+  
 
       onlyReservs.forEach((i) => {
         const reservOwner = onlyUsers.find((j) => j.id === i.userId);

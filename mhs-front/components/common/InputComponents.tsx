@@ -1,4 +1,5 @@
 import "./styles.css";
+import "../styles.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import InputMask from "react-input-mask";
 import { useState } from "react";

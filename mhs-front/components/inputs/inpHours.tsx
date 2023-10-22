@@ -29,7 +29,6 @@ export default function InpHours({
 
   function openList(e: any) {
     setHours();
-    console.log(avaliableHours.backUpList);
     
     e.target.className.includes("open_list") &&
       setHourListToggle((old) => !old);

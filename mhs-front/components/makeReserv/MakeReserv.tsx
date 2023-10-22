@@ -7,10 +7,8 @@ import FormNavBtns from "./components/FormNavBtns";
 import { useState } from "react";
 import ServicesInp from "../inputs/ServicesInp";
 import ReservDateInp from "../inputs/ReservDateInp";
-import { Home } from "@mui/icons-material";
-import Link from "next/link";
 import { ReservFormProps } from "@/interfaces";
-
+import {CommonLinkIcons } from "../common/CommonButons";
 
 function MakeReserv({ userId }: { userId: string }) {
   const [reservData, setReservData] = useState<ReservFormProps>({
@@ -21,12 +19,11 @@ function MakeReserv({ userId }: { userId: string }) {
     <div className="reservPage w-screen h-screen flex flex-col items-center justify-center gap-10">
       <div className="flex items-center gap-2 scroll-smooth overflow-hidden h-[380px] w-screen">
         {/* =========== inputs do serviço =========== */}
-        <Link
-          href={`reservas`}
-          className="fixed top-5 right-5 rounded-full bg-gray-200 cursor-pointer hover:bg-neutral-300 p-1 transition-all z-10"
-        >
-          <Home sx={{ fontSize: "30px" }} />
-        </Link>
+        <CommonLinkIcons.HomeLink
+          position="fixed"
+          coordXY="top-3 right-3"
+          link="reservas"
+        />
 
         <ServicesInp setReservData={setReservData} reservData={reservData} />
 
