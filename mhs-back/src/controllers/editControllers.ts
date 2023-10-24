@@ -1,16 +1,23 @@
 import { prismaClient } from "../db/prismaClient";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import { UserData } from "../interfaces";
+import { setReservStatus } from "./getControllers";
 
 export class Edit {
-  async turnDone(req: Request, res: Response) {
+  async changeStatus(req: Request, res: Response) {
     const { id } = await req.params;
+    const { status, dateTime } = await req.body;
+
     const NumberId = Number(id);
 
     prismaClient.reservs
       .update({
         where: { id: NumberId },
-        data: { status: "concluido" },
+        data: {
+          status:
+            status === "concluido" ? setReservStatus(dateTime) : "concluido",
+        },
       })
       .then((resp) => {
         res.status(200).json(resp);
@@ -36,34 +43,53 @@ export class Edit {
 
   async editUser(req: Request, res: Response) {
     const { id } = await req.params;
-    const { newName, currentPassword, newPhoneNumber, newPassword } =
-      await req.body;
+    const { name, phoneNumber, password } = await req.body;
 
     const user = await prismaClient.users.findFirst({ where: { id } });
 
-    const passwordVerifier = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
+    if (phoneNumber === user.phoneNumber) {
+      return prismaClient.users
+        .update({
+          where: { id },
+          data: {
+            name,
+          },
+        })
+        .then((resp) => {
+          return res.status(200).json(resp);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    /* ------------------------------------------------- */
     const phoneNumberVerifier = await prismaClient.users.findFirst({
-      where: { phoneNumber: newPhoneNumber },
+      where: { phoneNumber },
     });
 
-    const verifiers = [];
-    console.log(phoneNumberVerifier);
+    const verifyPassword = await bcrypt.compare(password, user.password);
 
-    //   prismaClient.users
-    //     .update({
-    //       where: { id },
-    //       data: {
-    //         name: newName,
-    //         password: newPassword,
-    //         phoneNumber: newPhoneNumber,
-    //       },
-    //     })
-    //     .then((resp) => {
-    //       res.status(200).json(resp);
-    //     })
-    //     .catch((err) => console.log(err));
+    const conditions = [
+      { condition: phoneNumberVerifier === null, errorMsg: "numero em uso" },
+      { condition: verifyPassword, errorMsg: "senha incorreta" },
+    ];
+
+    if (conditions.some((condition) => !condition.condition))
+      return res
+        .status(401)
+        .send(conditions.find((condition) => !condition.condition).errorMsg);
+
+    /* ------------------------------------------------- */
+
+    prismaClient.users
+      .update({
+        where: { id },
+        data: {
+          phoneNumber,
+        },
+      })
+      .then((resp) => {
+        res.status(200).json(resp);
+      })
+      .catch((err) => console.log(err));
   }
 }

@@ -34,7 +34,7 @@
 }
 
 .InpTitleLabel {
-  @apply text-xl font-bold ml-2;
+  @apply text-xl font-bold ml-2 capitalize;
 }
 
 .formContainer {

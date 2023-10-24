@@ -2,14 +2,13 @@ import { prismaClient } from "../db/prismaClient";
 import { Request, Response } from "express";
 export class Delete {
   async reserv(req: Request, res: Response) {
-    const { userId, id } = await req.params;
+    const { id } = await req.params;
 
     const idNumber = Number(id);
     prismaClient.reservs
       .deleteMany({
         where: {
           id: idNumber,
-          userId,
         },
       })
       .then(async () => {

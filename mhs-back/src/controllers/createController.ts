@@ -15,10 +15,10 @@ export class Create {
     if (timeVerifier.length === 0) {
       prismaClient.reservs
         .create({
-          data: { dateTime, service, userId, status:"pendente" },
+          data: { dateTime, service, userId, status: "pendente" },
         })
         .then(async (resp) => {
-          res.send(resp);
+          res.status(201).send(resp);
         })
         .catch((err) => {
           console.log(err);
@@ -48,7 +48,7 @@ export class Create {
         const token = jwt.sign({ id: resp.id }, process.env.SECRET, {
           expiresIn: "60d",
         });
-        res.send({ userId: resp.id, token: token });
+        res.status(201).send({ userId: resp.id, token: token });
       })
       .catch((err) => console.log(err));
   }

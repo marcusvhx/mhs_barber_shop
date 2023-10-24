@@ -24,7 +24,9 @@ export interface ReservPropsWithCostumer extends SelectedReservProps {
   ownerName: string;
   ownerPhone: string;
 }
-export type SetSelectedReservWithCostimer = Dispatch<SetStateAction<ReservPropsWithCostumer[]>>;
+export type SetSelectedReservWithCostimer = Dispatch<
+  SetStateAction<ReservPropsWithCostumer[]>
+>;
 
 export interface ReservFormProps {
   dateTime: string;

@@ -32,12 +32,12 @@ router.post("/createuser", createStufs.user);
 router.post("/createreserv/:userId", createStufs.reserv);
 
 /* ================= delete ================= */
-router.delete("/deletereserv/:userId/:id", deleteStufs.reserv);
+router.delete("/deletereserv/:id", deleteStufs.reserv);
 router.delete("/deleteallreservs", deleteStufs.allReserv);
 router.delete("/deleteallusers", deleteStufs.allUsers);
 
 /* ================= delete ================= */
-router.put("/trundone/:id", editStufs.turnDone);
+router.put("/changestatus/:id", editStufs.changeStatus);
 router.put("/editreserv/:id", editStufs.editReserv);
 router.put("/edituser/:id", editStufs.editUser);
 

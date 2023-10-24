@@ -4,6 +4,7 @@ import {
   CalendarDataProps,
   CalendarDaysProps,
   HoursListProps,
+  UserDataWithCostumer,
 } from "../interfaces";
 import moment from "moment";
 
@@ -166,7 +167,6 @@ export class Get {
   }
 
   /* ============================================================ */
-  /* ============================================================ */
 
   async reservs(req: Request, res: Response) {
     const { userId } = req.params;
@@ -193,7 +193,7 @@ export class Get {
     const isAdmin = user.role === "admin";
 
     if (isAdmin) {
-      const reservsWithCostumer = [];
+      const reservsWithCostumer: UserDataWithCostumer[] = [];
 
       const onlyUsers = await prismaClient.users.findMany();
       const onlyReservs = await prismaClient.reservs.findMany();
@@ -201,7 +201,6 @@ export class Get {
       onlyReservs.map((i) => {
         if (i.status != "concluido") i.status = setReservStatus(i.dateTime);
       });
-  
 
       onlyReservs.forEach((i) => {
         const reservOwner = onlyUsers.find((j) => j.id === i.userId);
@@ -212,13 +211,26 @@ export class Get {
         });
       });
 
-      reservsWithCostumer.sort(
+      const doneReservsWithCostumer = reservsWithCostumer.filter(
+        (reserv) => reserv.status === "concluido"
+      );
+
+      const undoneReservsWithCostumer = reservsWithCostumer.filter(
+        (reserv) => reserv.status !== "concluido"
+      );
+
+      undoneReservsWithCostumer.sort(
         (a, b) =>
           new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
       );
 
-      res.status(200).json(reservsWithCostumer);
-    } else res.status(401).send("não autorizado");
+      doneReservsWithCostumer.map((doneReserv) =>
+        undoneReservsWithCostumer.push(doneReserv)
+      );
+
+      return res.status(200).json(undoneReservsWithCostumer);
+    }
+    res.status(401).send("não autorizado");
   }
 
   /* ============================================================ */

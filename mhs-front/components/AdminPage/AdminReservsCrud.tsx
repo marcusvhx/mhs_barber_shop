@@ -21,7 +21,7 @@ export default function AdmCrudContent({
         <CommonBtnIcons.ReloadBtn 
         func={reloadCards}
         position="absolute"
-        coordXY="top-1 right-1"        
+        coordXY="top-1 right-1 z-10"        
         />
         {reservs.map((i) => (
           <PageComponents.ReservCard
