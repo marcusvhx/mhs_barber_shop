@@ -90,9 +90,9 @@ export default function AdmSideBar({
       sidebarWrapperToggle={sidebarWrapperToggle}
     >
       <CommonLinkIcons.SettingsLink
-        link="admin/configs"
+        link="configs"
         position="absolute"
-        coordXY="top-1 right-1"
+        coordXY="top-2 left-1"
       />
       {selectedReserv.id && (
         <PageComponents.SideBarCard selectedReserv={selectedReserv}>

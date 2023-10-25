@@ -21,7 +21,7 @@ html {
 .crudBody {
   grid-template-areas: "cardsarea sidebar";
   grid-template-columns: auto 250px;
-  @apply grid w-full h-full py-2 bg-slate-100;
+  @apply grid w-full h-full py-px bg-slate-100;
 }
 .sideBar {
   grid-template-rows: 100px auto;
@@ -33,10 +33,9 @@ html {
   border-neutral-400
   place-items-center
   content-start
-  p-2
+  p-1
   gap-3
-  bg-slate-100
-  ;
+  bg-slate-100;
 }
 
 .cardsArea {
@@ -118,8 +117,8 @@ html {
   transition-all;
   }
 
-  .sideBar{
-    @apply w-[320px] h-full
+  .sideBar {
+    @apply w-[320px] h-full;
   }
 }
 .kase {

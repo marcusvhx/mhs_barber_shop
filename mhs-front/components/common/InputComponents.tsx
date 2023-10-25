@@ -1,9 +1,9 @@
 import "./styles.css";
 import "../styles.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import InputMask from "react-input-mask";
 import { useState } from "react";
 import { InpEvent } from "@/interfaces";
+import InputMask from "react-input-mask";
 
 function TextInp({
   name,
@@ -32,10 +32,12 @@ function PaswordInp({
   name,
   value,
   getData,
+  placeholder = "Senha",
 }: {
   name: string;
   value: string;
   getData: (e: InpEvent) => void;
+  placeholder?: string;
 }) {
   const [showPassword, setshowPassword] = useState(false);
 
@@ -50,7 +52,7 @@ function PaswordInp({
         className={`bg-transparent outline-none h-10 pl-2 w-full col-span-6`}
         type={showPassword ? "text" : "password"}
         name={name}
-        placeholder={showPassword ? "Senha" : "*****"}
+        placeholder={showPassword ? placeholder : "*****"}
       />
       <div className="relative grid place-items-center w-full h-full">
         <div className="kase cursor-pointer" onClick={handleVisibility}></div>

@@ -17,11 +17,11 @@ export default function AdmCrudContent({
 }) {
   if (reservs.length > 0) {
     return (
-      <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-2 overflow-y-auto relative">
+      <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-1 overflow-y-auto relative">
         <CommonBtnIcons.ReloadBtn 
         func={reloadCards}
         position="absolute"
-        coordXY="top-1 right-1 z-10"        
+        coordXY="top-2 wrapper:top-10 right-1 z-10 bg-neutral-200 rounded-full"        
         />
         {reservs.map((i) => (
           <PageComponents.ReservCard
@@ -35,11 +35,11 @@ export default function AdmCrudContent({
     );
   }
   return (
-    <div className="w-full h-full grid place-items-center capitalize text-neutral-500 text-2xl text-center relative">
+    <div className="w-full h-full grid place-items-center capitalize text-neutral-500 text-2xl text-center relative p-1">
       <CommonBtnIcons.ReloadBtn 
         func={reloadCards}
         position="absolute"
-        coordXY="top-1 right-1"        
+        coordXY="wrapper:top-10 top-2 right-1 z-10"        
         />
       voce ainda não possue reservas...
     </div>

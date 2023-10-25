@@ -6,10 +6,10 @@ import { setReservStatus } from "./getControllers";
 
 export class Edit {
   async changeStatus(req: Request, res: Response) {
-    const { id } = await req.params;
+    const { reservId } = await req.params;
     const { status, dateTime } = await req.body;
 
-    const NumberId = Number(id);
+    const NumberId = Number(reservId);
 
     prismaClient.reservs
       .update({
@@ -26,9 +26,9 @@ export class Edit {
   }
 
   async editReserv(req: Request, res: Response) {
-    const { id } = await req.params;
+    const { reservId } = await req.params;
     const { dateTime, service } = await req.body;
-    const NumberId = Number(id);
+    const NumberId = Number(reservId);
 
     prismaClient.reservs
       .update({
@@ -42,15 +42,15 @@ export class Edit {
   }
 
   async editUser(req: Request, res: Response) {
-    const { id } = await req.params;
+    const { userId } = await req.params;
     const { name, phoneNumber, password } = await req.body;
 
-    const user = await prismaClient.users.findFirst({ where: { id } });
+    const user = await prismaClient.users.findFirst({ where: { id: userId } });
 
     if (phoneNumber === user.phoneNumber) {
       return prismaClient.users
         .update({
-          where: { id },
+          where: { id: userId },
           data: {
             name,
           },
@@ -82,9 +82,42 @@ export class Edit {
 
     prismaClient.users
       .update({
-        where: { id },
+        where: { id: userId },
         data: {
           phoneNumber,
+        },
+      })
+      .then((resp) => {
+        res.status(200).json(resp);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  async editPassword(req: Request, res: Response) {
+    const { userId } = await req.params;
+    const { currentPassword, newPassword } = await req.body;
+ 
+    /* ------------------------------------------------- */
+    const user = await prismaClient.users.findFirst({ where: { id: userId } });
+
+    const verifyPassword = await bcrypt.compare(currentPassword, user.password);
+
+    const conditions = [
+      { condition: verifyPassword, errorMsg: "senha incorreta" },
+    ];
+
+    if (conditions.some((condition) => !condition.condition))
+      return res
+        .status(401)
+        .send(conditions.find((condition) => !condition.condition).errorMsg);
+
+    /* ------------------------------------------------- */
+    const newPasswordCrypted = await bcrypt.hash(newPassword, 8);
+    prismaClient.users
+      .update({
+        where: { id: userId },
+        data: {
+          password: newPasswordCrypted,
         },
       })
       .then((resp) => {

@@ -1,4 +1,4 @@
-import AdmConfigPageConp from "@/components/AdminPage/admConfigPage/AdmConfigPageConp";
+import AdmConfigPageConp from "@/components/ConfigPagecomps/ConfigPageComp";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 export default async function AdminConfigPage({ params }: { params: Params }) {

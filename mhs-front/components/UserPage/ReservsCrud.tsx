@@ -24,7 +24,7 @@ export default function ReservsCrud({ userId }: { userId: string }) {
 
   return (
     <div className="crudBody">
-      <div className="fixed top-1 right-1 bg-zinc-200 z-[2] hidden wrapper:block rounded">
+      <div className="fixed top-2 right-2 bg-zinc-200 z-[2] hidden wrapper:block rounded">
         <CommonBtnIcons.MoreOptsBtn
           func={() => setSidebarWrapperToggle((old) => !old)}
           type="lines"
@@ -75,7 +75,7 @@ function CrudContent({
       <div className="cardsArea w-full h-full grid gap-4 place-items-center content-start p-2 overflow-y-auto relative">
         <CommonBtnIcons.ReloadBtn
           func={reloadReservsList}
-          coordXY="top-1 right-1"
+          coordXY="top-2 wrapper:top-10 right-1 z-10 bg-neutral-200 rounded-full"
           position="absolute"
         />
         {reservs.map((i) => (
@@ -93,7 +93,7 @@ function CrudContent({
     <div className="w-full h-full grid place-items-center capitalize text-neutral-500 text-2xl text-center relative">
       <CommonBtnIcons.ReloadBtn
           func={reloadReservsList}
-          coordXY="top-1 right-1"
+          coordXY="top-2 wrapper:top-10 right-1 z-10 bg-neutral-200 rounded-full"
           position="absolute"
         />
       voce ainda não possue reservas...

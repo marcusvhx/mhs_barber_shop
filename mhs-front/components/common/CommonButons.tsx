@@ -8,6 +8,7 @@ import {
 
 import "../styles.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 /* =================================== bases =================================== */
 
@@ -25,7 +26,7 @@ function BtnBase({
   className?: string;
 }) {
   return (
-    <div className={`${position} ${coordXY} w-10 h-10`}>
+    <div className={`${position} ${coordXY} w-8 h-8`}>
       <div className="w-full h-full relative grid place-items-center cursor-pointer">
         <div
           className={`${className} kase cursor-pointer`}
@@ -49,7 +50,7 @@ function LinkBase({
   children: React.ReactNode;
 }) {
   return (
-    <Link href={link} className={`${position} ${coordXY} w-10 h-10`}>
+    <Link href={link} className={`${position} ${coordXY} w-10 h-10 z-[5]`}>
       <div className="w-full h-full relative grid place-items-center cursor-pointer">
         <div className="kase"></div>
         {children}
@@ -61,18 +62,23 @@ function LinkBase({
 /* =================================== links =================================== */
 
 function BackArrowLink({
-  link,
   position,
   coordXY,
 }: {
-  link: string;
   position: "fixed" | "absolute";
   coordXY: string;
 }) {
+  const router = useRouter()
   return (
-    <LinkBase position={position} link={link} coordXY={coordXY}>
+    <BtnBase
+      func={() => {
+        router.back();
+      }}
+      position={position}
+      coordXY={coordXY}
+    >
       <ArrowBack sx={{ fontSize: "30px", fontWeight: "700" }} />
-    </LinkBase>
+    </BtnBase>
   );
 }
 
@@ -188,7 +194,7 @@ function XBtn({
       func={func}
       coordXY={coordXY}
     >
-      <Close sx={{ fontSize: "35px" }} />
+      <Close sx={{ fontSize: "30px" }} />
     </BtnBase>
   );
 }

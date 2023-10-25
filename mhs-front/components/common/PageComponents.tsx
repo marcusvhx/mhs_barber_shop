@@ -169,14 +169,12 @@ function SideBar({
       onClick={handlerWrapper}
     >
       <div className="relative h-full ">
-        <div className=" absolute z-10 top-2 right-2 hidden wrapper:block">
-          <CommonBtnIcons.XBtn
-            position="absolute"
-            coordXY="top-1 right-1"
-            func={handlerWrapper}
-            className="close_aside"
-          />
-        </div>
+        <CommonBtnIcons.XBtn
+          position="absolute"
+          coordXY="top-2 right-2 z-10  hidden wrapper:block"
+          func={() => {}}
+          className="close_aside"
+        />
 
         <div
           className={`

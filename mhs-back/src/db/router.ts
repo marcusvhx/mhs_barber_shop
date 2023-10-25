@@ -37,8 +37,9 @@ router.delete("/deleteallreservs", deleteStufs.allReserv);
 router.delete("/deleteallusers", deleteStufs.allUsers);
 
 /* ================= delete ================= */
-router.put("/changestatus/:id", editStufs.changeStatus);
-router.put("/editreserv/:id", editStufs.editReserv);
-router.put("/edituser/:id", editStufs.editUser);
+router.put("/changestatus/:reservId", editStufs.changeStatus);
+router.put("/editreserv/:reservId", editStufs.editReserv);
+router.put("/edituser/:userId", editStufs.editUser);
+router.put("/editpassword/:userId", editStufs.editPassword);
 
 export { router };

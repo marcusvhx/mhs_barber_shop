@@ -1,4 +1,4 @@
-import ReservsCrud from "@/components/reservsCrud/ReservsCrud";
+import ReservsCrud from "@/components/UserPage/ReservsCrud";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 export default async function ReservsPage({ params }: { params: Params }) {

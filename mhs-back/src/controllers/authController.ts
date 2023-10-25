@@ -5,15 +5,6 @@ import jwt from "jsonwebtoken";
 import { prismaClient } from "../db/prismaClient";
 
 export class Auth {
-  async passwordVerifier(passwordToCompare: string, basePassword: string) {
-    const verifyPassword = await bcrypt.compare(
-      passwordToCompare,
-      basePassword
-    );
-
-    return verifyPassword;
-  }
-
   async login(req: Request, res: Response) {
     const { phoneNumber, password } = await req.body;
 
@@ -23,8 +14,9 @@ export class Auth {
     if (!user) return res.status(404).send("usuario não encontrado");
 
     // verifica se a senha esta correta
-    if (!this.passwordVerifier(password, user.password))
-      return res.status(409).send("senha negada");
+    const verifyPassword = await bcrypt.compare(password, user.password);
+
+    if (!verifyPassword) return res.status(409).send("senha negada");
 
     const logData = { userId: user.id, role: user.role };
 

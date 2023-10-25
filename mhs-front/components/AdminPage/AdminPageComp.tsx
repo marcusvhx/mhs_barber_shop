@@ -32,7 +32,7 @@ export default function AdminPageComp({ userId }: { userId: string }) {
 
   return (
     <div className="crudBody">
-      <div className="fixed top-1 right-1 bg-zinc-200 z-[2] hidden wrapper:block rounded">
+      <div className="fixed top-2 right-2 bg-zinc-200 z-[2] hidden wrapper:block rounded">
         <CommonBtnIcons.MoreOptsBtn
           func={() => setSideBarWrapperToggle((old) => !old)}
           type="lines"

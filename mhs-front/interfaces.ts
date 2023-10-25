@@ -6,6 +6,12 @@ export interface UserData {
   phoneNumber: string;
 }
 
+export interface LinksList {
+  title: string;
+  selected: boolean;
+  link:string
+}
+
 // ===================== reservas ========================
 export interface SelectedReservProps {
   id: string;

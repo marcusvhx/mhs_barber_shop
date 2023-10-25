@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import EditPopUp from "./EditPopUp";
 import { PageComponents } from "../common/PageComponents";
+import { CommonLinkIcons } from "../common/CommonButons";
 
 export default function UserSideBar({
   userId,
@@ -55,6 +56,13 @@ export default function UserSideBar({
       setSidebarWrapperToggle={setSidebarWrapperToggle}
       sidebarWrapperToggle={sidebarWrapperToggle}
     >
+      <CommonLinkIcons.SettingsLink
+        link="configs"
+        position="absolute"
+        coordXY="top-2 left-2"
+      />
+
+
       {selectedReserv.id && (
         <PageComponents.SideBarCard selectedReserv={selectedReserv} />
       )}
