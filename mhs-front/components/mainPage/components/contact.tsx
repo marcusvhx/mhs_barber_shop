@@ -6,10 +6,10 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 export default function Contact() {
   return (
     <div className="BScontactLinkContainer">
-      <div className="BScontactLink">
+    /*  <div className="BScontactLink">
         <WhatsAppIcon sx={{ fontSize: "40px" }} />
         <p>(81) 99999-9999</p>
-      </div>
+      </div>*/
 
       <div className="BScontactLink">
         <InstagramIcon sx={{ fontSize: "40px" }} />
