@@ -9,7 +9,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
 :root {
-  --sectionHeight: calc(100vh - 3.5rem);
+  --sectionHeight: calc(100dvh - 3.5rem);
 }
 .BSbody {
   font-family: Inter, sans-serif;
