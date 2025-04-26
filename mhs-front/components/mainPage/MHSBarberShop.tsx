@@ -31,12 +31,12 @@ export default function MHSBarberShop() {
           <h1 className="homeTitle">MHS</h1>
           <h1 className="homeTitle">Barber Shop</h1>
         </div>
-        <Link
+        {/*<Link
           href="entrar"
           className="mt-5 w-[300px] h-12 flex items-center justify-center rounded-full bg-green-500 hover:bg-green-600 transition cursor-pointer text-white text-3xl"
         >
           Fazer Reserva
-        </Link>
+        </Link>*/}
       </div>
 
       {/* ==================== menu ==================== */}
