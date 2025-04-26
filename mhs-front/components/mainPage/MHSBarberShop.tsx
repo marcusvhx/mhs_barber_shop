@@ -25,7 +25,7 @@ export default function MHSBarberShop() {
       {/* ==================== home ==================== */}
       <div
         id="BShome"
-        className="home w-full relative mt-14 flex flex-col items-center justify-center gap-7 text-center"
+        className="home session w-full relative mt-14 flex flex-col items-center justify-center gap-7 text-center"
       >
         <div>
           <h1 className="homeTitle">MHS</h1>
@@ -43,7 +43,7 @@ export default function MHSBarberShop() {
 
       <div
         id="BSmenu"
-        className="menu w-full flex flex-col items-center justify-center relative"
+        className="menu session w-full flex flex-col items-center justify-center relative"
       >
         <p className="text-yellow-400 text-5xl capitalize absolute top-5 right-1/2 translate-x-1/2">
           serviços
@@ -70,7 +70,7 @@ export default function MHSBarberShop() {
 
       {/* ================== localização ================== */}
 
-      <div id="BSaddress" className="address w-full bg-white pt-5">
+      <div id="BSaddress" className="address session w-full bg-white pt-5">
         <p className="mapTitle text-3xl font-bold uppercase text-center">
           endereço
         </p>
