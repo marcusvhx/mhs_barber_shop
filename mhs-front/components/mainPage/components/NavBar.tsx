@@ -11,10 +11,10 @@ export default function NavBar() {
   };
 
   const links = [
-    {
-      name: "minhas reservas",
-      link: "/entrar",
-    },
+    // {
+    //   name: "minhas reservas",
+    //   link: "/entrar",
+    // },
     {
       name: "menu",
       link: "#BSmenu",
