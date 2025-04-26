@@ -10,6 +10,7 @@
 
 :root {
   --sectionHeight: calc(100dvh - 3.5rem);
+  scroll-padding: 3.5rem;
 }
 .BSbody {
   font-family: Inter, sans-serif;
