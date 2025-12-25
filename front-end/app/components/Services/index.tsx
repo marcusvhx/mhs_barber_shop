@@ -1,40 +1,15 @@
-import Section from "@/components/templates/Section";
+import Section from "@/components/layout/Section";
 import Image from "next/image";
-import Hair from "@/public/png/service-hair.png";
-import Beard from "@/public/png/service-beard.png";
-
+import {services} from "./menu";
+import Title from "@/components/ui/Title";
 export default function Services({}: {}) {
-  const services = [
-    {
-      service: "cabelo",
-      image: Hair,
-      menu: [
-        { name: "raspagem", price: 15 },
-        { name: "aparo", price: 20 },
-        { name: "corte", price: 25 },
-        { name: "hidratação", price: 30 },
-        { name: "coloração", price: 40 },
-      ],
-    },
-    {
-      service: "barba",
-      image: Beard,
-      menu: [
-        { name: "raspagem", price: 15 },
-        { name: "aparo", price: 20 },
-        { name: "corte", price: 25 },
-        { name: "hidratação", price: 30 },
-        { name: "coloração", price: 40 },
-      ],
-    },
-  ];
   return (
     // container de serviços
-    <Section className=" justify-center items-center size-dvw bg-[url(/png/bg-services.png)] bg-left bg-origin-border bg-cover bg-no-repeat">
+    <Section className="size-dvw p-0 bg-[url(/png/bg-services.png)] bg-left bg-origin-border bg-cover bg-no-repeat">
       {/* filtro blur */}
       <div className="flex flex-col gap-4 items-center justify-center size-full text-sm backdrop-blur-xs backdrop-brightness-90">
         {/* titulo */}
-        <h1 className="text-lg font-bold text-black border-b-2 border-primary px-5">Nossos Serviços</h1>
+        <Title>Nossos Serviços</Title>
         {/* container do menu */}
         <span className="w-full flex gap-2 justify-evenly">
           {services.map(({ service, image, menu }) => (
@@ -48,7 +23,7 @@ export default function Services({}: {}) {
                 alt={"homem cortando " + service}
                 className="w-full rounded-t-3xl rounded-b-xl object-cover object-center"
               />
-              <table className="capitalize w-full ">
+              <table className="capitalize w-full text-xs">
                 {/* <thead>{service}</thead> */}
                 <tbody className="w-full px-2">
                   <tr>
