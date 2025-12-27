@@ -1,5 +1,5 @@
-import Hair from "@/public/png/service-hair.png";
-import Beard from "@/public/png/service-beard.png";
+import Hair from "@/public/png/services/service-hair.png";
+import Beard from "@/public/png/services/service-beard.png";
 
 const services = [
     {
@@ -9,6 +9,7 @@ const services = [
         { name: "raspagem", price: 15 },
         { name: "aparo", price: 20 },
         { name: "corte", price: 25 },
+        { name: "lavagem", price: 30 },
         { name: "hidratação", price: 30 },
         { name: "coloração", price: 40 },
       ],
@@ -21,6 +22,7 @@ const services = [
         { name: "aparo", price: 20 },
         { name: "corte", price: 25 },
         { name: "hidratação", price: 30 },
+        { name: "barboterapia", price: 40 },
         { name: "coloração", price: 40 },
       ],
     },

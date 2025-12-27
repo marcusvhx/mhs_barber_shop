@@ -7,9 +7,9 @@ import AppointmentButton from "@/components/ui/AppointmentButton";
 export default function Home({}: {}) {
   return (
     // container da home
-    <Section className="w-dvw h-[80dvw] relative">
+    <Section className="w-full p-0 h-[80dvw] relative mt-14">
       {/* filtro brando nos cantos */}
-      <div className="absolute size-full bg-linear-to-b from-foreground/30 to-transparent backdrop-blur-lg -z-1" />
+      <div className="absolute top-0 left-0 size-full bg-linear-to-b from-foreground/30 to-transparent backdrop-blur-lg -z-1" />
 
       {/* bordas gradientes */}
       <div className="size-full [background:radial-gradient(circle,transparent_75%,var(--color-primary))] z-1">

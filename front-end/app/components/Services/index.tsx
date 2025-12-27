@@ -5,7 +5,7 @@ import Title from "@/components/ui/Title";
 export default function Services({}: {}) {
   return (
     // container de serviços
-    <Section className="size-dvw p-0 bg-[url(/png/bg-services.png)] bg-left bg-origin-border bg-cover bg-no-repeat">
+    <Section id="services" className="size-dvw p-0 bg-[url(/png/services/bg-services.png)] bg-left bg-origin-border bg-cover bg-no-repeat">
       {/* filtro blur */}
       <div className="flex flex-col gap-4 items-center justify-center size-full text-sm backdrop-blur-xs backdrop-brightness-90">
         {/* titulo */}
