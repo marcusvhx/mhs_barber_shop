@@ -5,7 +5,7 @@ import Title from "@/components/ui/Title";
 
 export default function Portfolio({}: {}) {
   return (
-    <Section id="portfolio" className="pt-12 gap-8">
+    <Section id="portfolio" className="gap-8">
       <Title>Nossos melhores trabalhos</Title>
       <div className="flex gap-4 flex-wrap justify-center">
         {portfolio.map((workImage, idx) => (
@@ -13,7 +13,7 @@ export default function Portfolio({}: {}) {
             key={"workImage" + idx}
             src={workImage}
             alt="corte de cabelo"
-            className="w-2/7 border-3 border-primary rounded-lg"
+            className="w-2/7 sm:w-[min(20%,200px)] border-3 border-primary rounded-lg"
           />
         ))}
       </div>

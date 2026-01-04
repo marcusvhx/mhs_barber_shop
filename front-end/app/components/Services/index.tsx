@@ -5,18 +5,16 @@ import Title from "@/components/ui/Title";
 export default function Services({}: {}) {
   return (
     // container de serviços
-    <Section id="services" className="size-dvw p-0 bg-[url(/png/services/bg-services.png)] bg-left bg-origin-border bg-cover bg-no-repeat">
-      {/* filtro blur */}
-      <div className="flex flex-col gap-4 items-center justify-center size-full text-sm backdrop-blur-xs backdrop-brightness-90">
+    <Section id="services" className="grid grid-rows-[min-content_auto] grid-cols-[100%] place-items-center text-sm sm:text-md backdrop-blur-xs backdrop-brightness-90 h-dvw bg-[url(/png/services/bg-services.png)] bg-left bg-origin-border bg-cover bg-no-repeat">
         {/* titulo */}
-        <Title>Nossos Serviços</Title>
+        <Title >Nossos Serviços</Title>
         {/* container do menu */}
-        <span className="w-full flex gap-2 justify-evenly">
+        <span className="w-full flex sm:gap-5 justify-around sm:justify-center">
           {services.map(({ service, image, menu }) => (
             //pagina de cada serviço
             <div
               key={"menu" + service}
-              className="flex flex-col items-center pb-3 w-[45dvw] rounded-3xl outline-4 outline-primary bg-background"
+              className="flex flex-col items-center pb-3 w-[45dvw] sm:w-50 rounded-3xl outline-4 outline-primary bg-background"
             >
               <Image
                 src={image}
@@ -51,7 +49,6 @@ export default function Services({}: {}) {
             </div>
           ))}
         </span>
-      </div>
     </Section>
   );
 }

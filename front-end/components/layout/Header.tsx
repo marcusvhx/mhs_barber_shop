@@ -27,7 +27,6 @@ export default function Header({}: {}) {
   const [isTouchable, setIsTouchable] = useState(false);
 
   const handleWrapper = (classname: string) => {
-    console.log(classname);
     if (classname.includes("handleSidebar")) {
       if (isVisible) {
         // se estiver aberto
@@ -51,16 +50,19 @@ export default function Header({}: {}) {
       className="w-full flex justify-between items-center bg-background fixed top-0 p-1 px-2 z-5"
     >
       <Image src={logomarca} className="size-12" alt="logo" />
-      <div className="handleSidebar flex flex-col gap-1.5">
+      {/* botão hamburuer -> abre a sidebar */}
+      <div className="relative flex flex-col gap-1.5 sm:hidden">
+        <div className="size-full absolute top-0 left-0 handleSidebar z-1 " />
+
         <div className="rounded-full w-8 h-1 bg-white" />
         <div className="rounded-full w-8 h-1 bg-white" />
         <div className="rounded-full w-8 h-1 bg-white" />
       </div>
-
+      {/* wrapper da sidebar */}
       <div
         data-visible={isVisible}
         data-touchable={isTouchable}
-        className="handleSidebar data-[touchable=false]:hidden fixed data-[visible=false]:opacity-0 opacity-100 transition-all flex justify-end z-2 w-dvw h-dvh top-0 left-0 bg-black/30"
+        className="handleSidebar data-[touchable=false]:hidden fixed sm:hidden data-[visible=false]:opacity-0 opacity-100 transition-all flex justify-end z-2 w-dvw h-dvh top-0 left-0 bg-black/30"
       >
         <div
           data-visible={isVisible}
@@ -78,6 +80,13 @@ export default function Header({}: {}) {
             </a>
           ))}
         </div>
+      </div>
+
+      {/* links desktop */}
+      <div className="sm:flex hidden h-full w-fit items-center gap-4">
+        {links.map(({ href, name }, idx) => (
+          <a className="capitalize hover:text-primary cursor-pointer " key={name + idx} href={href}>{name}</a>
+        ))}
       </div>
     </header>
   );

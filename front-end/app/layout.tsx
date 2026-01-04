@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html className="scroll-pt-12 scroll-smooth" lang="pt-br">
       <body
-        className={`${alexandria.variable} ${arbutus.variable} flex flex-col antialiased bg-background text-foreground w-dvw h-dvh `}
+        className={`${alexandria.variable} ${arbutus.variable} flex flex-col antialiased bg-background text-foreground w-full h-dvh `}
       >
         {children}
       </body>

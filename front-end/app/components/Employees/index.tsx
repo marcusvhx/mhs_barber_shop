@@ -6,14 +6,13 @@ import { employees } from "./employees";
 
 export default function Employees({}: {}) {
   return (
-    <Section id="employees" className="pt-4">
+    <Section id="employees" className="pt-2 sm:pt-0">
       <Title>Nossa equipe</Title>
-      <div className="flex flex-col gap-8 items-center mt-12">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-8 items-center justify-center mt-12">
         {employees.map(({ image, name, role }, idx) => (
-          <div key={name + idx} className="w-full flex flex-col items-center">
-            <div className="flex items-center justify-between w-full">
+            <div key={name + idx} className="flex items-center justify-between w-full sm:w-fit sm:gap-4">
               <Image
-                className="w-2/5 "
+                className="w-2/5 sm:w-32 h-32 "
                 alt="foto de um funcionário"
                 src={image}
               />
@@ -27,7 +26,6 @@ export default function Employees({}: {}) {
                 <Image src={appointmentIcon} alt="ícone de agendamento" />
               </div>
             </div>
-          </div>
         ))}
       </div>
     </Section>
