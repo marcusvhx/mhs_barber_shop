@@ -32,7 +32,7 @@ export default function Home({}: {}) {
           className="hidden sm:flex w-full place-self-start" 
         />
         <div className="flex flex-col items-center gap-2 place-self-center">
-          <Image alt="logo" src={logo} className="w-3/5 md:w-4/5 " />
+          <Image alt="logo" src={logo} className="w-3/5 lg:w-4/5 " />
           <AppointmentButton />
         </div>
       </div>
