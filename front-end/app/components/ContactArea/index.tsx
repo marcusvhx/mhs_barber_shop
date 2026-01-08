@@ -1,12 +1,11 @@
 import Section from "@/components/layout/Section";
-import Title from "@/components/ui/Title";
 import Hours from "./Hours";
 import Address from "./Address";
 import Contact from "./Contact";
 
 export default function ContactArea({}: {}) {
   return (
-    <Section id="contact" className="flex flex-col py-8 gap-8 items-center">
+    <Section id="contact" className="gap-8 sm:grid-cols-2 sm:grid-rows-none sm:h-fit py-12 sm:mt-8 md:mt-2">
       <Hours />
       <Address />
       <Contact/>

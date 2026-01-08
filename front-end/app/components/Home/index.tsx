@@ -6,7 +6,7 @@ import AppointmentButton from "@/components/ui/AppointmentButton";
 export default function Home({}: {}) {
   return (
     // container da home
-    <Section className="w-full p-0 h-[80dvw] relative mt-14">
+    <Section className="sm:flex sm:flex-row w-full sm:p-0 h-[80dvw] relative">
       {/* filtro brando nos cantos */}
       <div className="absolute top-0 left-0 size-full bg-linear-to-b from-foreground/30 to-transparent backdrop-blur-lg -z-1 sm:hidden" />
 
@@ -24,14 +24,15 @@ export default function Home({}: {}) {
         </div>
       </div>
 
-      <div className="size-full grid place-items-center grid-cols-[40%_auto]">
+      {/* desktop */}
+      <div className="hidden size-full sm:grid place-items-center grid-cols-[45%_auto] md:grid-cols-[40%_auto]">
         <Image
           alt="imagem de introdução"
           src={imgHome}
-          className="hidden sm:flex w-full place-self-start"
+          className="hidden sm:flex w-full place-self-start" 
         />
         <div className="flex flex-col items-center gap-2 place-self-center">
-          <Image alt="logo" src={logo} className="w-3/5  " />
+          <Image alt="logo" src={logo} className="w-3/5 md:w-4/5 " />
           <AppointmentButton />
         </div>
       </div>

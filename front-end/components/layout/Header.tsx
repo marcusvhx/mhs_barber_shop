@@ -47,9 +47,9 @@ export default function Header({}: {}) {
     <header
       //@ts-ignore
       onClick={(e) => handleWrapper(e.target.className)}
-      className="w-full flex justify-between items-center bg-background fixed top-0 p-1 px-2 z-5"
+      className="w-full flex justify-between items-center bg-background sticky top-0 p-1 px-2 z-5 border-b-2 border-b-primary"
     >
-      <Image src={logomarca} className="size-12" alt="logo" />
+      <Image src={logomarca} className="size-10" alt="logo" />
       {/* botão hamburuer -> abre a sidebar */}
       <div className="relative flex flex-col gap-1.5 sm:hidden">
         <div className="size-full absolute top-0 left-0 handleSidebar z-1 " />
@@ -83,7 +83,7 @@ export default function Header({}: {}) {
       </div>
 
       {/* links desktop */}
-      <div className="sm:flex hidden h-full w-fit items-center gap-4">
+      <div className="sm:flex hidden h-full w-fit items-center gap-8 md:gap-10">
         {links.map(({ href, name }, idx) => (
           <a className="capitalize hover:text-primary cursor-pointer " key={name + idx} href={href}>{name}</a>
         ))}

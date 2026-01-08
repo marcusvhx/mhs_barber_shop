@@ -6,9 +6,9 @@ import { employees } from "./employees";
 
 export default function Employees({}: {}) {
   return (
-    <Section id="employees" className="pt-2 sm:pt-0">
+    <Section id="employees" className="md:h-fit md:py-16 py-8 md:gap-8">
       <Title>Nossa equipe</Title>
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-8 items-center justify-center mt-12">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-8 items-center justify-center mt-12 sm:mt-0">
         {employees.map(({ image, name, role }, idx) => (
             <div key={name + idx} className="flex items-center justify-between w-full sm:w-fit sm:gap-4">
               <Image
