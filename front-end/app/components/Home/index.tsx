@@ -25,7 +25,7 @@ export default function Home({}: {}) {
       </div>
 
       {/* desktop */}
-      <div className="hidden size-full sm:grid place-items-center grid-cols-[45%_auto] lg:grid-cols-[40%_auto]">
+      <div className="hidden size-full sm:grid place-items-center grid-cols-[40%_auto]">
         <Image
           alt="imagem de introdução"
           src={imgHome}
