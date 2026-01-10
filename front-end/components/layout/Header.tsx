@@ -5,6 +5,10 @@ import { useState } from "react";
 
 const links = [
   {
+    name: "home",
+    href: "#home",
+  },
+  {
     name: "serviços",
     href: "#services",
   },
@@ -47,7 +51,7 @@ export default function Header({}: {}) {
     <header
       //@ts-ignore
       onClick={(e) => handleWrapper(e.target.className)}
-      className="w-full flex justify-between items-center bg-background sticky top-0 p-1 px-2 z-5 md:border-b-2 md:border-primary"
+      className="w-full flex justify-between items-center bg-background sticky sm:fixed top-0 p-1 px-2 z-4"
     >
       <Image src={logomarca} className="size-10" alt="logo" />
       {/* botão hamburuer -> abre a sidebar */}

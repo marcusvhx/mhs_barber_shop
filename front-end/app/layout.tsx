@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="scroll-pt-12.5 scroll-smooth" lang="pt-br">
+    <html className="scroll-pt-12 scroll-smooth" lang="pt-br">
       <body
         className={`${alexandria.variable} ${arbutus.variable} flex flex-col antialiased bg-background text-foreground w-full h-dvh `}
       >

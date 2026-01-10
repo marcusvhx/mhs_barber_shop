@@ -5,15 +5,15 @@ import instagram from "@/public/svg/instagram.svg";
 
 export default function Contact({}: {}) {
   return (
-    <div className="w-[80%] py-4 flex flex-col items-center gap-4 bg-neutral-900 shadow-xl shadow-black sm:self-start">
+    <div className="w-fit p-4 rounded-lg flex flex-col items-center gap-4 bg-neutral-900 shadow-lg shadow-black/60 sm:self-start">
       <Title>Fale conosco</Title>
 
       <div className="flex flex-wrap justify-center gap-4">
-
+{/* 
       <div className="flex gap-4">
         <Image alt="" src={whatsapp} />
         <p>(81) 99999-9999</p>
-      </div>
+      </div> */}
 
       <div className="flex gap-4">
         <Image alt="" src={instagram} />
