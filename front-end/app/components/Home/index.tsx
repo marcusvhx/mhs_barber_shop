@@ -6,7 +6,11 @@ import AppointmentButton from "@/components/ui/AppointmentButton";
 export default function Home({}: {}) {
   return (
     // container da home
+<<<<<<< HEAD
     <Section className="sm:flex sm:flex-row w-full sm:p-0 h-[80dvw] relative">
+=======
+    <Section id="home" className="sm:flex sm:flex-row w-full p-0 sm:pt-0 h-[80dvw] sm:h-dvh relative">
+>>>>>>> e638f700d9b76ba6f2b1c1479d21af01dfceca17
       {/* filtro brando nos cantos */}
       <div className="absolute top-0 left-0 size-full bg-linear-to-b from-foreground/30 to-transparent backdrop-blur-lg -z-1 sm:hidden" />
 
@@ -25,6 +29,7 @@ export default function Home({}: {}) {
       </div>
 
       {/* desktop */}
+<<<<<<< HEAD
       <div className="hidden size-full sm:grid place-items-center grid-cols-[45%_auto] md:grid-cols-[40%_auto]">
         <Image
           alt="imagem de introdução"
@@ -33,6 +38,16 @@ export default function Home({}: {}) {
         />
         <div className="flex flex-col items-center gap-2 place-self-center">
           <Image alt="logo" src={logo} className="w-3/5 md:w-4/5 " />
+=======
+      <div className="hidden size-full sm:grid place-items-center grid-cols-[45%_auto] md:grid-cols-[30%_auto]">
+        <Image
+          alt="imagem de introdução"
+          src={imgHome}
+          className="bg-background hidden object-contain object-top sm:flex w-full place-self-start z-5" 
+        />
+        <div className="flex flex-col items-center gap-2 place-self-center">
+          <Image alt="logo" src={logo} className="w-3/5 md:w-6/8 " />
+>>>>>>> e638f700d9b76ba6f2b1c1479d21af01dfceca17
           <AppointmentButton />
         </div>
       </div>

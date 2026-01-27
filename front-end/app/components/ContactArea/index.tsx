@@ -5,7 +5,11 @@ import Contact from "./Contact";
 
 export default function ContactArea({}: {}) {
   return (
+<<<<<<< HEAD
     <Section id="contact" className="gap-8 sm:grid-cols-2 sm:grid-rows-none sm:h-fit py-12 sm:mt-8 md:mt-2">
+=======
+    <Section id="contact" className="gap-8 sm:grid-cols-2 sm:grid-rows-none sm:h-[calc(100dvh-4rem)] py-12 sm:mt-8 md:mt-2">
+>>>>>>> e638f700d9b76ba6f2b1c1479d21af01dfceca17
       <Hours />
       <Address />
       <Contact/>
