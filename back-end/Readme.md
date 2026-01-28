@@ -20,11 +20,11 @@ Aplicação back-end para um sistema de reservas de uma barbearia. Serve como AP
 
 # Glossário 
 
-- services: componente com a lógica e regras de negócio
-- repository: componente com acesso ao DB relacionado ao próprio modulo
-- controller: componente controlador das rotas e end-points
-- types: componente de contratos do módulo
-- spec: componente de testes do módulo
+- `services` - componente com a lógica e regras de negócio
+- `repository` - componente com acesso ao DB relacionado ao próprio modulo
+- `controller` - componente controlador das rotas e end-points
+- `types` - componente de contratos do módulo
+- `spec` - componente de testes do módulo
 
 ```
 / (root)
