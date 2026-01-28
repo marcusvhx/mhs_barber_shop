@@ -20,4 +20,22 @@ export default class AuthRepository {
       [email, access_token, refresh_token, expires_at],
     );
   }
+
+  async findAccountByEmail(email: string) {
+    if (!email) throw new Error("Email is required");
+
+    try {
+      const query = await db.query(
+        `SELECT * FROM google_accounts WHERE email = $1`,
+        [email],
+      );
+
+      if (query.rows.length === 0) throw new Error("User not found");
+      
+      const googleAccount: IGoogleAccount = query.rows[0];      
+      return googleAccount;
+    } catch (err) {
+      throw new Error("Error in findUserByEmail:\n" + err);
+    }
+  }
 }

@@ -4,7 +4,8 @@ import { decode } from "jsonwebtoken";
 import AuthRepository from "./auth.repository";
 
 export default class AuthServices {
-  public async signInWithGoogle(req: Request, res: Response) {
+
+  async signInWithGoogle(req: Request, res: Response) {
     const code = req.query.code as string;
 
     if (!code || Array.isArray(code))
@@ -27,4 +28,5 @@ export default class AuthServices {
         .json({ error: "Failed to sign in with Google\n" + err });
     }
   }
+
 }

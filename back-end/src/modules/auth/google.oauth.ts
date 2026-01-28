@@ -14,15 +14,14 @@ export class GoogelOAuth {
       process.env.REDIRECT_URI,
     );
 
-    this.redirectToLoginWithGoogle =
-      this.redirectToLoginWithGoogle.bind(this);
+    this.redirectToLoginWithGoogle = this.redirectToLoginWithGoogle.bind(this);
   }
 
-  public redirectToLoginWithGoogle(req: Request, res: Response) {
+  redirectToLoginWithGoogle(req: Request, res: Response) {
     // gerar a URL do login com google
     const url = this.oauth2Client.generateAuthUrl({
       access_type: "offline", // para pegar refresh token
-      prompt:"consent",
+      prompt: "consent",
       scope: [
         // escopos que quero acessar
         "openid", // info básico do usuário
@@ -35,7 +34,7 @@ export class GoogelOAuth {
     res.redirect(url); // redireciona o usuário para a pagina de seleção da conta
   }
 
-  public async getGoogleTokens(code: string) {
+  async getGoogleTokens(code: string) {
     if (!code) throw new Error("no code provided");
     try {
       const { tokens } = await this.oauth2Client.getToken(code); // lista de tokens
