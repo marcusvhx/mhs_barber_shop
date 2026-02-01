@@ -10,7 +10,7 @@
   --color-foreground: var(--foreground);
   --color-primary: #f2d06c;
   --color-secondary: #a67233;
-
+  --breakpoint-2sm: 42.5rem;
 }
 
 body {
