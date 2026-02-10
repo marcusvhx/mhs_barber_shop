@@ -1,7 +1,10 @@
 import dotenv from "dotenv";
-import { app } from "./app";
+import { initializeApp } from "./app";
 dotenv.config();
 
 const PORT = 3000;
 
-app.listen(PORT, () => console.log("running at port " + PORT));
+(async () => {
+  const app = await initializeApp();
+  app.listen(PORT, () => console.log("running at port " + PORT));
+})();

@@ -2,14 +2,15 @@ import db from "../../shared/db/conection";
 import { IGoogleAccount } from "./auth.types";
 
 export default class AuthRepository {
-  async postNewAccount({
+  async createNewAccount({
     email,
     access_token,
     refresh_token,
     expires_at,
   }: IGoogleAccount) {
-    const res = await db.query(
-      `INSERT INTO google_accounts (
+    try {
+      const res = await db.query(
+        `INSERT INTO google_accounts (
             email,
             access_token,
             refresh_token,
@@ -17,8 +18,12 @@ export default class AuthRepository {
             ) VALUES (
              $1, $2, $3, $4
             ) RETURNING id;`,
-      [email, access_token, refresh_token, expires_at],
-    );
+        [email, access_token, refresh_token, expires_at],
+      );
+      return res.rows[0].id;
+    } catch (err) {
+      throw new Error("Error in createNewAccount:\n" + err);
+    }
   }
 
   async findAccountByEmail(email: string) {
@@ -26,13 +31,13 @@ export default class AuthRepository {
 
     try {
       const query = await db.query(
-        `SELECT * FROM google_accounts WHERE email = $1`,
+        `SELECT * FROM google_accounts WHERE email = $1;`,
         [email],
       );
 
       if (query.rows.length === 0) throw new Error("User not found");
-      
-      const googleAccount: IGoogleAccount = query.rows[0];      
+
+      const googleAccount: IGoogleAccount = query.rows[0];
       return googleAccount;
     } catch (err) {
       throw new Error("Error in findUserByEmail:\n" + err);
