@@ -1,24 +1,31 @@
-import { ReactNode } from "react";
+import { RefObject,  } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function TextInput({
-  children,
   placeholder,
   className,
+  ref,
+  disabled
 }: {
   placeholder: string;
-  children?: ReactNode;
   className?: string;
+  ref?: RefObject<null | HTMLInputElement>;
+  disabled?:boolean;
 }) {
   return (
     <input
+      disabled={disabled}
+      ref={ref}
       placeholder={placeholder}
       className={twMerge(
-        "w-full py-2 px-4 bg-foreground text-background rounded-full max-w-80 outline-0 placeholder:text-background/50",
+        `w-full py-2 px-4 max-w-80
+        bg-foreground
+        text-background placeholder:text-background/50
+        rounded-full
+        outline-0
+        `,
         className,
       )}
-    >
-      {children}
-    </input>
+    />
   );
 }

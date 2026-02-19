@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
+
+
 :root {
   --background: #242424;
   --foreground: #f4f4f4;
+  --primary: #f2d06c;
+  --secondary: #a67233;
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #f2d06c;
-  --color-secondary: #a67233;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
   --breakpoint-2sm: 42.5rem;
 }
 

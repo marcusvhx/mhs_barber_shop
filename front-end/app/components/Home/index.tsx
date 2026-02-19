@@ -2,7 +2,7 @@ import Section from "@/components/layout/Section";
 import Image from "next/image";
 import logo from "@/public/svg/logo.svg";
 import imgHome from "@/public/png/home/img-home-desktop.png";
-import AppointmentButton from "@/components/ui/AppointmentButton";
+import AppointmentTextButton from "@/components/ui/AppointmentTextButton";
 export default function Home() {
   return (
     // container da home
@@ -18,7 +18,7 @@ export default function Home() {
           <div className="grid gap-4 size-full bg-linear-to-b from-foreground/30 to-transparent">
             <div className="flex flex-col items-center gap-2 place-self-center">
               <Image alt="logo" src={logo} className="w-3/5 sm:w-4/5  " />
-              <AppointmentButton />
+              <AppointmentTextButton />
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@ export default function Home() {
         />
         <div className="w-full flex flex-col items-center gap-2 place-self-center">
           <Image alt="logo" src={logo} className="w-2/5 md:w-2/5 " />
-          <AppointmentButton />
+          <AppointmentTextButton />
         </div>
       </div>
     </Section>

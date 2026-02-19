@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Alexandria, Arbutus } from "next/font/google";
 import "./globals.css";
+import "react-day-picker/style.css";
+
 
 const alexandria = Alexandria({
   weight: ["400", "700"],

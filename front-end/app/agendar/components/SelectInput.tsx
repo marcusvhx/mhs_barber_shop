@@ -5,11 +5,9 @@ import { MouseEvent, useRef, useState } from "react";
 export default function SelectInput({
   placeholder,
   options,
-  icon,
 }: {
   options: string[];
   placeholder: string;
-  icon?: string;
 }) {
   const inpValueRef = useRef<HTMLInputElement>(null);
   const [inputStatus, setInputStatus] = useState<"close" | "open" | "loading">(
