@@ -18,7 +18,7 @@ Aplicação back-end para um sistema de reservas de uma barbearia. Serve como AP
 
 ## Estrutura de pastas (visão geral) 📁
 
-# Glossário 
+# Glossário
 
 - `services` - componente com a lógica e regras de negócio
 - `repository` - componente com acesso ao DB relacionado ao próprio modulo
@@ -28,9 +28,9 @@ Aplicação back-end para um sistema de reservas de uma barbearia. Serve como AP
 
 ```
 / (root)
-├─ docker-compose.yaml        
-├─ package.json               
-├─ tsconfig.json              
+├─ docker-compose.yaml
+├─ package.json
+├─ tsconfig.json
 ├─ vitest.config.ts           # Configuração de testes
 ├─ migrations/                # Scripts de migração do banco
 │   └─ (arquivos de migrations)
@@ -40,11 +40,11 @@ Aplicação back-end para um sistema de reservas de uma barbearia. Serve como AP
 │  ├─ modules/
 │  │  ├─ auth/
 │  │  │  ├─ auth.controller.ts
-│  │  │  ├─ auth.services.ts  
+│  │  │  ├─ auth.services.ts
 │  │  │  ├─ auth.repository.ts
-│  │  │  ├─ auth.types.ts     
-│  │  │  ├─ google.oauth.ts   
-│  │  │  └─ tests/            
+│  │  │  ├─ auth.types.ts
+│  │  │  ├─ google.oauth.ts
+│  │  │  └─ tests/
 │  │  │     └─ auth.services.spec.ts
 │  │  └─ booking/
 │  │     ├─ booking.types.ts
@@ -61,9 +61,35 @@ Aplicação back-end para um sistema de reservas de uma barbearia. Serve como AP
 
 ---
 
+# End-Points
+
+### /barber
+
+| End-Point           | HTTP | Descrição                                     |
+|---------------------|------|-----------------------------------------------|
+| `/create`           | POST | cria um novo barbeiro no sistema              |
+| `/get-all`          | GET  | pegar todos os barbeiros                      |
+| `/unavailable-days` | GET  | pega os dias indisponiveis de um barbeiro     |
+| `/unavailable-days` | PUT  | atualiza os dias indisponiveis de um barbeiro |
+
+### Responses
+
+`create`
+```
+
+```
+
+### /auth
+
+| End-Point           | HTTP | Descrição                                         |
+|---------------------|------|---------------------------------------------------|
+| `/login`            | GET  | redireciona o client para seleção da conta google |
+| `/oauth/callback`   | GET  | acessa os tokens google                           |
+
 ## Dependências 📦
 
 **Produção**
+
 - `express` — framework HTTP para criar a API.
 - `cors` — gerenciar políticas CORS para requisições externas.
 - `dotenv` — carregar variáveis de ambiente a partir de `.env`.
@@ -72,6 +98,7 @@ Aplicação back-end para um sistema de reservas de uma barbearia. Serve como AP
 - `pg` — driver PostgreSQL para Node.js.
 
 **Desenvolvimento / Testes**
+
 - `typescript` — linguagem usada no projeto.
 - `vitest` — executor de testes unitários.
 - `supertest` — para testar endpoints HTTP.

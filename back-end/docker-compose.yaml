@@ -1,4 +1,23 @@
 services:
+  api:
+    image: mhs-api-image:latest
+    container_name: "mhs_api"
+    ports:
+      - "3001:3001"
+    environment:
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      CLIENT_ID: ${CLIENT_ID}
+      REDIRECT_URI: ${REDIRECT_URI}
+      DATABASE_URL: ${DATABASE_URL}
+
+    depends_on:
+      - db
+    networks:
+      - backend
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+      
   db:
     image: postgres:17
     container_name: "mhs_db"

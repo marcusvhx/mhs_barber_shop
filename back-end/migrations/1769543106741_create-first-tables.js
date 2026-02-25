@@ -25,19 +25,19 @@ export const up = (pgm) => {
     google_account_id UUID NOT NULL REFERENCES google_accounts(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
     profession TEXT NOT NULL,
-    unavailable_days DATE[]
+    unavailable_days DATE[],
+    num_of_appointments SMALLINT NOT NULL DEFAULT 0
   );`);
 
   pgm.sql(` CREATE TABLE IF NOT EXISTS appointments (
     id SERIAL PRIMARY KEY,
-    barber_id UUID NOT NULL REFERENCES barbers(id) ON DELETE CASCADE,
-    client_name TEXT,
-    client_phone TEXT,
+    barber_id UUID NOT NULL,
     starts_at TIMESTAMPTZ NOT NULL,
-    service TEXT,
-    duration_in_minutes INT 
+    services TEXT[] NOT NULL,
+    sessions SMALLINT NOT NULL,
+    costumer_name TEXT NOT NULL,
+    costumer_phone TEXT NOT NULL,
   );`);
-
 };
 
 /**

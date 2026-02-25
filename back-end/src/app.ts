@@ -13,7 +13,6 @@ export const initializeApp = async () => {
   app.use("/auth", authRoutes);
   app.use("/barber", barberRoutes);
 
-  await new InitDB().init();
 
   return app;
 };

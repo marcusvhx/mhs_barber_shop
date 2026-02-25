@@ -1,4 +1,4 @@
-import { IAppointment } from "./booing.types";
+import { IAppointment } from "./booking.types";
 
 export default class BookingServices {
   async bookToBarber({

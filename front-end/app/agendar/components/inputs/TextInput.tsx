@@ -17,8 +17,9 @@ export default function TextInput({
       disabled={disabled}
       ref={ref}
       placeholder={placeholder}
-      className={twMerge(
-        `w-full py-2 px-4 max-w-80
+      className={twMerge(`
+        w-80
+        py-2 px-4
         bg-foreground
         text-background placeholder:text-background/50
         rounded-full

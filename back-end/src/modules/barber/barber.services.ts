@@ -3,8 +3,10 @@ import BarberRepository from "./barber.repository";
 const barberRepo = new BarberRepository();
 
 export default class BarberService {
-
-    
+  getAll(req: Request, res: Response) {
+    const barbers = barberRepo.getAll();
+    res.send(barbers);
+  }
 
   async getBarberById(req: Request, res: Response) {
     const id = req.query.id as string;
@@ -38,7 +40,7 @@ export default class BarberService {
   }
 
   async getUnavailableDays(req: Request, res: Response) {
-    const barberId = req.query.barberId as string;
+    const {barberId} = req.params;
     try {
       if (!barberId) throw new Error("ID is missing");
       const unavailableDays = await barberRepo.getUnavailableDays(barberId);
@@ -59,9 +61,10 @@ export default class BarberService {
       if (!barberId) throw new Error("ID is missing");
 
       const updated = await barberRepo.setUnavailableDays(barberId, days);
-      res
-        .status(201)
-        .json({ message: "Dias indisponíveis atualizados com sucesso", data: updated });
+      res.status(201).json({
+        message: "Dias indisponíveis atualizados com sucesso",
+        data: updated,
+      });
     } catch (err) {
       console.error("error in updateUnavailableDays (BarberService):\n" + err);
       res.status(500).json({ error: "Erro ao atualizar dias indisponíveis" });

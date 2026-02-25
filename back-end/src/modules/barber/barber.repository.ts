@@ -13,8 +13,12 @@ export default class BarberRepository {
     }
   }
 
-  async getAll() {
-    const barbers = [{}]
+  getAll() {
+    const barbers = [
+      { name: "Barbeiro 1", profession: "barbeiro" },
+      { name: "Barbeiro 2", profession: "químmico" },
+    ];
+    return barbers;
     // const barbers = await db.query("SELECT * FROM barbers");
     // return barbers.rows;
   }
@@ -70,5 +74,4 @@ export default class BarberRepository {
       );
     }
   }
-  
 }

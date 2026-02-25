@@ -26,9 +26,11 @@ next60days.setDate(next60days.getDate() + 60);
 export default function Calendar({
   isModalOpen,
   toggleModal,
+  unavailableDays
 }: {
   isModalOpen: boolean;
   toggleModal: (e: MouseEvent<HTMLDivElement>) => void;
+  unavailableDays:Date[]
 }) {
   const [selectedDate, setSelectedDate] = useState<Date>();
   return (
@@ -49,18 +51,22 @@ export default function Calendar({
         }
         startMonth={new Date()}
         endMonth={getAvailableMonths()}
-        disabled={{
+        disabled={[
+          ...unavailableDays,
+          {
           before: new Date(),
           after: next60days,
-        }}
+        }]}
+        
+        showOutsideDays
         navLayout="around"
         classNames={{
           root: `${ClassesNames.root} bg-foreground text-background`,
           footer: `${ClassesNames.root} flex justify-center py-2`,
-          chevron:`fill-background`,
-          day:`${ClassesNames.day} pl-0.5`,
-          today:`text-secondary font-bold bg-primary/20 rounded-full`,
-          selected:`border-primary border-3 rounded-full flex justify-center items-center text-center font-bold `
+          chevron: `fill-background`,
+          day: `${ClassesNames.day} p-0`,
+          today: `text-secondary font-bold bg-primary/20 rounded-full`,
+          selected: `border-primary border-3 rounded-full flex justify-center items-center text-center font-bold `,
         }}
       />
     </div>

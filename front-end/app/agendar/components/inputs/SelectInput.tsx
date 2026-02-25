@@ -1,13 +1,17 @@
 "use client";
 
 import { MouseEvent, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+import TextInput from "./TextInput";
 
 export default function SelectInput({
   placeholder,
   options,
+  listClassName,
 }: {
   options: string[];
   placeholder: string;
+  listClassName?: string;
 }) {
   const inpValueRef = useRef<HTMLInputElement>(null);
   const [inputStatus, setInputStatus] = useState<"close" | "open" | "loading">(
@@ -22,29 +26,21 @@ export default function SelectInput({
     setInputStatus("close");
   };
 
-  const inputOptionHeight = `h-[${38 * (options.length+2)}px]`;
+  const inputOptionHeight = `h-[${38 * (options.length + 2)}px]`;
   return (
     <div
       onMouseLeave={() => setInputStatus("close")}
       data-status={inputStatus}
-      className={`w-full max-w-80 relative`}
-      >
+      className={`w-80 relative cursor-pointer`}
+    >
       {/* camada para interação com todo o input */}
       <div
-      onClick={inputStatushandler}
+        onClick={inputStatushandler}
         className="size-full absolute z-2 top-0 left-0 rounded-full"
       />
-      <input
+      <TextInput
         ref={inpValueRef}
-        type="text"
         disabled
-        className={`
-          w-full py-2 px-4
-          bg-foreground
-          text-background
-          rounded-full
-          outline-0
-          `}
         placeholder={placeholder}
       />
 
@@ -62,15 +58,19 @@ export default function SelectInput({
       {/* lista das opções */}
       <ul
         data-status={inputStatus}
-        className={`
-            flex flex-col items-center
-            w-full  ${inputOptionHeight} data-[status=close]:h-0  overflow-hidden
-            p-2 data-[status=close]:p-0
-            absolute top-[calc(100%)] left-0
-            transition-all
-            bg-foreground 
-            rounded-lg
-            z-3`}
+        className={twMerge(
+          `
+          flex flex-col items-center
+          w-full  ${inputOptionHeight} data-[status=close]:h-0 max-h-40 overflow-hidden overflow-y-auto
+          p-2 data-[status=close]:p-0
+          absolute top-[calc(100%)] left-0
+          transition-all
+          bg-foreground 
+          rounded-lg
+          z-3`,
+          listClassName,
+          
+        )}
       >
         {options.map((option, idx) => (
           <li
