@@ -16,10 +16,7 @@ export default function InputsContainer({
       className={twMerge(
         `
         grid gap-4
-        transition-all
-        data-[form-stage=1]:-translate-x-80
-        data-[form-stage=2]:-translate-x-160
-`,
+        transition-all`,
         className,
       )}
     >

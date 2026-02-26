@@ -9,18 +9,42 @@ import DateInput from "./components/inputs/DateInput";
 import InputsContainer from "./components/inputsContainer";
 import { useEffect, useState } from "react";
 import { Get } from "../api/get";
+import { IAppointmentData } from "./types";
 
 export default function BookingPage() {
   const [formStage, setFormStage] = useState(0);
-  
-  const inputsLen = Object.keys(inputsData).length;
-  const getFromApi = new Get()
-  
-  const handleFormStage =async () => {
-    // setFormStage((old) => (old < inputsLen - 1 ? ++old : 0));
-    console.log(await getFromApi.berbers())
-    };
-  
+
+  // const getFromApi = new Get();
+
+  const services = [
+    "corte - cabelo",
+    "corte - barba",
+    "corte - cabelo e barba",
+  ];
+  const barbers = ["barbeiro", "cabelereiro", "quimico"];
+
+  const [appointmentData, setAppointmentData] = useState<IAppointmentData>({
+    barber: "",
+    date: "",
+    clientName: "",
+    clientPhoneNumber: "",
+    service: "",
+  });
+
+  const handleFormStage = async () => {
+    setFormStage((old) => (old < 2 ? old + 1 : 0));
+  };
+
+  const getInputValue = (name: string, value: string) => {
+    if (!name || !value) throw new Error("invalid input");
+    setAppointmentData((old) => ({
+      ...old,
+      [name as keyof IAppointmentData]: value,
+    }));
+  };
+  useEffect(() => {
+    console.log(appointmentData);
+  }, [appointmentData]);
   return (
     <Section className="h-full gap-8 sm:flex">
       {/* background */}
@@ -43,28 +67,49 @@ export default function BookingPage() {
         `}
       >
         {/* inputs de escolha */}
-        <InputsContainer formStage={formStage}>
-          {inputsData.selectInputs.map(({ options, placeholder }, idx) => (
-            <SelectInput
-              options={options}
-              placeholder={placeholder}
-              key={placeholder + idx}
-            />
-          ))}
+        <InputsContainer
+          className="data-[form-stage=1]:-ml-80 data-[form-stage=2]:-ml-160"
+          formStage={formStage}
+        >
+          {/* serviços */}
+          <SelectInput
+            inputName="service"
+            saveInputValue={getInputValue}
+            options={services}
+            placeholder={"De qual serviço você precisa?"}
+          />
+
+          {/* barbeiros */}
+          <SelectInput
+            inputName="barber"
+            saveInputValue={getInputValue}
+            options={barbers}
+            placeholder={"Escolha o seu barbeiro"}
+          />
         </InputsContainer>
 
-        <InputsContainer formStage={formStage}>
-          {inputsData.dateInputs.map(
-            ({ placeholder, unavailableDays }, idx) => (
-              <DateInput key={placeholder + idx} placeholder={placeholder} />
-            ),
-          )}
+        {/* input de data e hora */}
+        <InputsContainer className="" formStage={formStage}>
+          {/* data e hora */}
+          <DateInput
+            getInputValue={getInputValue}
+            placeholder={"Veja horários disponiveis"}
+          />
         </InputsContainer>
 
-        <InputsContainer formStage={formStage}>
-          {inputsData.textInputs.map(({ placeholder }, idx) => (
-            <TextInput key={placeholder + idx} placeholder={placeholder} />
-          ))}
+        {/* input de texto */}
+        <InputsContainer className="" formStage={formStage}>
+          {/* nome */}
+          <TextInput
+            name="clientName"
+            placeholder={"De qual serviço você precisa?"}
+          />
+
+          {/* telefone */}
+          <TextInput
+            name="clientPhoneNumber"
+            placeholder={"Escolha o seu barbeiro"}
+          />
         </InputsContainer>
       </div>
 

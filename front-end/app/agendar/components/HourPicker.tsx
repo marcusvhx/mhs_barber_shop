@@ -1,5 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
 import SelectInput from "./inputs/SelectInput";
-import TextInput from "./inputs/TextInput";
 
 const getHours = () => {
   const MIN_HOURS = 8;
@@ -13,11 +13,19 @@ const getHours = () => {
   }
   return hours;
 };
-export default function HourPicker() {
+
+export default function HourPicker({setTime, saveDateTine}:{setTime: Dispatch<SetStateAction<Date>>; saveDateTine:()=> void}) {
   const hours = getHours();
+  const getSelectedHours = (name: string, value: string) => {
+    const [hour, minute] = value.split(":").map(Number);
+    const selectedTime = new Date();
+    selectedTime.setHours(hour, minute, 0, 0);
+    setTime(selectedTime);
+    saveDateTine();
+  }
   return (
     <div data-is-enable className="w-full h-0 data-[is-enable=true]:h-auto ">
-      <SelectInput listClassName="max-h-50 overflow-y-scroll" options={hours}  placeholder="Veja horários disponíveis" />
+      <SelectInput saveInputValue={getSelectedHours} inputName="hours" listClassName="max-h-50 overflow-y-scroll" options={hours}  placeholder="Veja horários disponíveis" />
     </div>
   );
 }

@@ -1,23 +1,27 @@
-import { RefObject,  } from "react";
+import { RefObject } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function TextInput({
   placeholder,
   className,
   ref,
-  disabled
+  name,
+  disabled,
 }: {
   placeholder: string;
+  name: string;
   className?: string;
   ref?: RefObject<null | HTMLInputElement>;
-  disabled?:boolean;
+  disabled?: boolean;
 }) {
   return (
     <input
+      name={name}
       disabled={disabled}
       ref={ref}
       placeholder={placeholder}
-      className={twMerge(`
+      className={twMerge(
+        `
         w-80
         py-2 px-4
         bg-foreground

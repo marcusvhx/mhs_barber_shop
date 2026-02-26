@@ -1,36 +1,21 @@
-type ITextInput = { placeholder: string };
-
-interface ISelectInput extends ITextInput {
-  options: string[];
-}
-
-interface IDateInput extends ITextInput {
-  unavailableDays: Date[];
-}
+import { ISelectInput, ITextInput } from "../../types";
 
 const textInputs: ITextInput[] = [
   { placeholder: "Qual o seu nome?" },
   { placeholder: "Qual o seu número de celular?" },
 ];
 
-const dateInputs: IDateInput[] = [
-  {
-    placeholder: "Veja horários disponiveis",
-    unavailableDays: [],
-  },
-];
-
 const selectInputs: ISelectInput[] = [
   {
     placeholder: "De qual serviço você precisa?",
-    options: ["Cabelo", "Barba", "Cabelo e Barba"],
+    options:["corte - cabelo", "corte - barba", "corte - cabelo e barba"]
   },
   {
     placeholder: "Escolha o seu barbeiro",
-    options: ["barbeiro", "cabelereiro", "quimico"],
+    options: ["barbeiro", "cabelereiro", "químico"],
   },
 ];
 
-const inputsData = { selectInputs, dateInputs, textInputs };
+const inputsData = { selectInputs, textInputs };
 
 export { inputsData };

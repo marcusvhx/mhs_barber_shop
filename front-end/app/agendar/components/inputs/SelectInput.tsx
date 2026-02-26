@@ -7,21 +7,27 @@ import TextInput from "./TextInput";
 export default function SelectInput({
   placeholder,
   options,
+  inputName,
   listClassName,
+  saveInputValue,
 }: {
-  options: string[];
   placeholder: string;
+  options: string[];
+  inputName:string
   listClassName?: string;
+  saveInputValue: (name: string, value: string) => void;
 }) {
   const inpValueRef = useRef<HTMLInputElement>(null);
   const [inputStatus, setInputStatus] = useState<"close" | "open" | "loading">(
     "close",
   );
+
   const inputStatushandler = () => {
     setInputStatus((old) => (old == "close" ? "open" : "close"));
   };
 
-  const getValue = (e: MouseEvent<HTMLLIElement>) => {
+  const setNewInputValue = (e: MouseEvent<HTMLLIElement>) => {
+    saveInputValue(inpValueRef.current!.name, e.currentTarget.innerText);
     inpValueRef.current!.value = e.currentTarget.innerText;
     setInputStatus("close");
   };
@@ -38,11 +44,7 @@ export default function SelectInput({
         onClick={inputStatushandler}
         className="size-full absolute z-2 top-0 left-0 rounded-full"
       />
-      <TextInput
-        ref={inpValueRef}
-        disabled
-        placeholder={placeholder}
-      />
+      <TextInput name={inputName} ref={inpValueRef} disabled placeholder={placeholder} />
 
       {/* seta do input (aberto/fechado)  */}
       <div
@@ -69,13 +71,12 @@ export default function SelectInput({
           rounded-lg
           z-3`,
           listClassName,
-          
         )}
       >
         {options.map((option, idx) => (
           <li
             key={option + idx}
-            onClick={getValue}
+            onClick={setNewInputValue}
             className={`
             w-full h-8 py-1 
             hover:bg-neutral-300 cursor-pointer transition-colors

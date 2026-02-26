@@ -4,7 +4,7 @@ import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { ptBR } from "react-day-picker/locale";
 import "react-day-picker/style.css";
 
-import { MouseEvent, useState } from "react";
+import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
 
 const ClassesNames = getDefaultClassNames();
 
@@ -26,13 +26,16 @@ next60days.setDate(next60days.getDate() + 60);
 export default function Calendar({
   isModalOpen,
   toggleModal,
-  unavailableDays
+  unavailableDays,
+  selectedDate,
+  setSelectedDate,
 }: {
   isModalOpen: boolean;
   toggleModal: (e: MouseEvent<HTMLDivElement>) => void;
-  unavailableDays:Date[]
+  unavailableDays: Date[];
+  selectedDate: Date | undefined;
+  setSelectedDate: Dispatch<SetStateAction<Date | undefined>>;
 }) {
-  const [selectedDate, setSelectedDate] = useState<Date>();
   return (
     <div
       onClick={toggleModal}
@@ -54,19 +57,20 @@ export default function Calendar({
         disabled={[
           ...unavailableDays,
           {
-          before: new Date(),
-          after: next60days,
-        }]}
-        
+            before: new Date(),
+            after: next60days,
+          },
+        ]}
         showOutsideDays
         navLayout="around"
         classNames={{
           root: `${ClassesNames.root} bg-foreground text-background`,
           footer: `${ClassesNames.root} flex justify-center py-2`,
           chevron: `fill-background`,
-          day: `${ClassesNames.day} p-0`,
+          day: `${ClassesNames.day}`,
+          day_button:`${ClassesNames.day_button}`,
           today: `text-secondary font-bold bg-primary/20 rounded-full`,
-          selected: `border-primary border-3 rounded-full flex justify-center items-center text-center font-bold `,
+          selected: `border-primary border-3 rounded-full flex justify-center items-center text-center font-bold pl-0.5`,
         }}
       />
     </div>
