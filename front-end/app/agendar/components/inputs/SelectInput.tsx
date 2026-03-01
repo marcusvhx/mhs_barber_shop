@@ -3,32 +3,34 @@
 import { MouseEvent, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import TextInput from "./TextInput";
+import { IAppointmentData } from "../../types";
+import { useFormContext } from "react-hook-form";
 
 export default function SelectInput({
   placeholder,
   options,
-  inputName,
+  name,
   listClassName,
-  saveInputValue,
+  disabled,
 }: {
   placeholder: string;
   options: string[];
-  inputName:string
+  name: keyof IAppointmentData;
   listClassName?: string;
-  saveInputValue: (name: string, value: string) => void;
+  disabled?: boolean;
 }) {
   const inpValueRef = useRef<HTMLInputElement>(null);
   const [inputStatus, setInputStatus] = useState<"close" | "open" | "loading">(
     "close",
   );
+  const { setValue } = useFormContext<IAppointmentData>();
 
   const inputStatushandler = () => {
     setInputStatus((old) => (old == "close" ? "open" : "close"));
   };
 
-  const setNewInputValue = (e: MouseEvent<HTMLLIElement>) => {
-    saveInputValue(inpValueRef.current!.name, e.currentTarget.innerText);
-    inpValueRef.current!.value = e.currentTarget.innerText;
+  const setNewValue = (e: MouseEvent<HTMLLIElement>) => {
+    setValue(name, e.currentTarget.innerText);
     setInputStatus("close");
   };
 
@@ -37,14 +39,18 @@ export default function SelectInput({
     <div
       onMouseLeave={() => setInputStatus("close")}
       data-status={inputStatus}
-      className={`w-80 relative cursor-pointer`}
+      className={`w-80 h-fit relative cursor-pointer`}
     >
       {/* camada para interação com todo o input */}
       <div
-        onClick={inputStatushandler}
+        onClick={disabled ? undefined : inputStatushandler}
         className="size-full absolute z-2 top-0 left-0 rounded-full"
       />
-      <TextInput name={inputName} ref={inpValueRef} disabled placeholder={placeholder} />
+      <TextInput
+        name={name as keyof IAppointmentData}
+        disabled
+        placeholder={placeholder}
+      />
 
       {/* seta do input (aberto/fechado)  */}
       <div
@@ -65,7 +71,7 @@ export default function SelectInput({
           flex flex-col items-center
           w-full  ${inputOptionHeight} data-[status=close]:h-0 max-h-40 overflow-hidden overflow-y-auto
           p-2 data-[status=close]:p-0
-          absolute top-[calc(100%)] left-0
+          absolute top-full left-0
           transition-all
           bg-foreground 
           rounded-lg
@@ -76,7 +82,7 @@ export default function SelectInput({
         {options.map((option, idx) => (
           <li
             key={option + idx}
-            onClick={setNewInputValue}
+            onClick={setNewValue}
             className={`
             w-full h-8 py-1 
             hover:bg-neutral-300 cursor-pointer transition-colors

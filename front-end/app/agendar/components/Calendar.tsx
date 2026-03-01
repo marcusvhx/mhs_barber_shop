@@ -4,7 +4,7 @@ import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { ptBR } from "react-day-picker/locale";
 import "react-day-picker/style.css";
 
-import { Dispatch, MouseEvent, SetStateAction, useState } from "react";
+import { MouseEvent } from "react";
 
 const ClassesNames = getDefaultClassNames();
 
@@ -28,13 +28,13 @@ export default function Calendar({
   toggleModal,
   unavailableDays,
   selectedDate,
-  setSelectedDate,
+  getDate
 }: {
   isModalOpen: boolean;
   toggleModal: (e: MouseEvent<HTMLDivElement>) => void;
   unavailableDays: Date[];
   selectedDate: Date | undefined;
-  setSelectedDate: Dispatch<SetStateAction<Date | undefined>>;
+  getDate: (date: Date | undefined) => void;
 }) {
   return (
     <div
@@ -45,7 +45,7 @@ export default function Calendar({
       <DayPicker
         mode="single"
         selected={selectedDate}
-        onSelect={setSelectedDate}
+        onSelect={getDate}
         locale={ptBR}
         footer={
           selectedDate
@@ -68,7 +68,7 @@ export default function Calendar({
           footer: `${ClassesNames.root} flex justify-center py-2`,
           chevron: `fill-background`,
           day: `${ClassesNames.day}`,
-          day_button:`${ClassesNames.day_button}`,
+          day_button: `${ClassesNames.day_button}`,
           today: `text-secondary font-bold bg-primary/20 rounded-full`,
           selected: `border-primary border-3 rounded-full flex justify-center items-center text-center font-bold pl-0.5`,
         }}

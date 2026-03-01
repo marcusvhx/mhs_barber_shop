@@ -4,47 +4,40 @@ import Image from "next/image";
 import bg from "@/public/png/booking/bg_bookings.png";
 import TextInput from "./components/inputs/TextInput";
 import SelectInput from "./components/inputs/SelectInput";
-import { inputsData } from "./components/inputs/inputsData";
 import DateInput from "./components/inputs/DateInput";
-import InputsContainer from "./components/inputsContainer";
-import { useEffect, useState } from "react";
-import { Get } from "../api/get";
+import InputsContainer from "./components/InputsContainer";
+import { useState } from "react";
 import { IAppointmentData } from "./types";
+import InputsArrow from "./components/InputsArrows";
+import Circle from "./components/formRoad/Circle";
+import Line from "./components/formRoad/Line";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import HourPicker from "./components/HourPicker";
+import Link from "next/link";
+
+const services = ["corte - cabelo", "corte - barba", "corte - cabelo e barba"];
+const barbers = ["barbeiro", "cabelereiro", "quimico"];
 
 export default function BookingPage() {
+
   const [formStage, setFormStage] = useState(0);
+  const metods = useForm<IAppointmentData>();
 
-  // const getFromApi = new Get();
-
-  const services = [
-    "corte - cabelo",
-    "corte - barba",
-    "corte - cabelo e barba",
-  ];
-  const barbers = ["barbeiro", "cabelereiro", "quimico"];
-
-  const [appointmentData, setAppointmentData] = useState<IAppointmentData>({
-    barber: "",
-    date: "",
-    clientName: "",
-    clientPhoneNumber: "",
-    service: "",
-  });
-
-  const handleFormStage = async () => {
-    setFormStage((old) => (old < 2 ? old + 1 : 0));
+  const handleFormStage = async (direction: "r" | "l") => {
+    if (direction == "r") {
+      setFormStage((old) => (old < 2 ? old + 1 : 0));
+    } else {
+      setFormStage((old) => (old > 0 ? old - 1 : 2));
+    }
   };
 
-  const getInputValue = (name: string, value: string) => {
-    if (!name || !value) throw new Error("invalid input");
-    setAppointmentData((old) => ({
-      ...old,
-      [name as keyof IAppointmentData]: value,
-    }));
+  const submitData: SubmitHandler<IAppointmentData> = (data) => {
+    console.log(data);
   };
-  useEffect(() => {
-    console.log(appointmentData);
-  }, [appointmentData]);
+
+  const cancelBooking = () => {
+    metods.resetField;
+  };
   return (
     <Section className="h-full gap-8 sm:flex">
       {/* background */}
@@ -58,74 +51,107 @@ export default function BookingPage() {
         Informações para o seu agendamento
       </h1>
 
-      <div
-        className={`
-        w-80 h-fit
-        flex 
-        transition-all
-        overflow-x-clip
-        `}
+      <div className="flex items-center">
+        <Circle isCurrent={formStage >= 0} />
+
+        <Line isCurrent={formStage >= 1} />
+        <Circle isCurrent={formStage >= 1} className="-ml-px" />
+
+        <Line isCurrent={formStage == 2} />
+        <Circle isCurrent={formStage == 2} className="-ml-px" />
+      </div>
+      <FormProvider {...metods}>
+        <form
+          onSubmit={metods.handleSubmit(submitData)}
+          className={`
+            w-80 h-fit
+            flex 
+            transition-all
+            overflow-x-clip
+          `}
+        >
+          {/* inputs de escolha */}
+          <InputsContainer
+            className="data-[form-stage=1]:-ml-80 data-[form-stage=2]:-ml-160"
+            formStage={formStage}
+          >
+            {/* serviços */}
+            <SelectInput
+              name="service"
+              options={services}
+              placeholder={"De qual serviço você precisa?"}
+            />
+
+            {/* barbeiros */}
+            <SelectInput
+              name="barber"
+              options={barbers}
+              placeholder={"Escolha o seu barbeiro"}
+            />
+            <InputsArrow
+              disabled={
+                !metods.register("service") || !metods.register("barber")
+              }
+              handleFormStage={handleFormStage}
+              direction="r"
+            />
+          </InputsContainer>
+
+          {/* input de data e hora */}
+          <InputsContainer className="" formStage={formStage}>
+            {/* data e hora */}
+            <DateInput placeholder={"Veja horários disponiveis"} />
+            {/* input das horas */}
+            <HourPicker />
+
+            <div className="flex justify-center gap-2">
+              <InputsArrow handleFormStage={handleFormStage} direction="l" />
+              <InputsArrow
+                disabled={!metods.register("date")}
+                handleFormStage={handleFormStage}
+                direction="r"
+              />
+            </div>
+          </InputsContainer>
+
+          {/* input de texto */}
+          <InputsContainer className="" formStage={formStage}>
+            {/* nome */}
+            <TextInput name="clientName" placeholder={"Qual o seu nome?"} />
+
+            {/* telefone */}
+            <TextInput
+              type="tel"
+              name="clientPhoneNumber"
+              placeholder={"Nos dê um telefone para contato"}
+            />
+
+            <InputsArrow handleFormStage={handleFormStage} direction="l" />
+            {/* confirmar */}
+            <button
+              type="submit"
+              className={`
+              py-2 px-8
+              bg-primary hover:bg-secondary
+              rounded-full
+              text-background
+              cursor-pointer transition-colors
+              `}
+            >
+              Confirmar reserva
+            </button>
+          </InputsContainer>
+        </form>
+      </FormProvider>
+
+      {/* cancelar */}
+      <Link
+        href="/"
+        onClick={cancelBooking}
+        className="text-white underline cursor-pointer"
       >
-        {/* inputs de escolha */}
-        <InputsContainer
-          className="data-[form-stage=1]:-ml-80 data-[form-stage=2]:-ml-160"
-          formStage={formStage}
-        >
-          {/* serviços */}
-          <SelectInput
-            inputName="service"
-            saveInputValue={getInputValue}
-            options={services}
-            placeholder={"De qual serviço você precisa?"}
-          />
-
-          {/* barbeiros */}
-          <SelectInput
-            inputName="barber"
-            saveInputValue={getInputValue}
-            options={barbers}
-            placeholder={"Escolha o seu barbeiro"}
-          />
-        </InputsContainer>
-
-        {/* input de data e hora */}
-        <InputsContainer className="" formStage={formStage}>
-          {/* data e hora */}
-          <DateInput
-            getInputValue={getInputValue}
-            placeholder={"Veja horários disponiveis"}
-          />
-        </InputsContainer>
-
-        {/* input de texto */}
-        <InputsContainer className="" formStage={formStage}>
-          {/* nome */}
-          <TextInput
-            name="clientName"
-            placeholder={"De qual serviço você precisa?"}
-          />
-
-          {/* telefone */}
-          <TextInput
-            name="clientPhoneNumber"
-            placeholder={"Escolha o seu barbeiro"}
-          />
-        </InputsContainer>
-      </div>
-
-      {/* botões de confirmação*/}
-      <div className="text-center flex flex-col gap-4">
-        <button
-          onClick={handleFormStage}
-          className="py-2 px-8 bg-primary rounded-full text-background cursor-pointer hover:bg-secondary transition-colors"
-        >
-          Confirmar reserva
-        </button>
-
-        <button className="text-white underline cursor-pointer">
-          Cancelar reserva
-        </button>
-      </div>
+        Cancelar reserva
+      </Link>
     </Section>
   );
 }

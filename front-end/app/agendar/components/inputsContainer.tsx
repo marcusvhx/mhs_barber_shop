@@ -15,7 +15,7 @@ export default function InputsContainer({
       data-form-stage={formStage}
       className={twMerge(
         `
-        grid gap-4
+        flex flex-col gap-4 items-center 
         transition-all`,
         className,
       )}
