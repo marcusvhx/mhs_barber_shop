@@ -1,4 +1,8 @@
 "use client";
+
+import { useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import Link from "next/link";
 import Section from "@/components/layout/Section";
 import Image from "next/image";
 import bg from "@/public/png/booking/bg_bookings.png";
@@ -6,14 +10,11 @@ import TextInput from "./components/inputs/TextInput";
 import SelectInput from "./components/inputs/SelectInput";
 import DateInput from "./components/inputs/DateInput";
 import InputsContainer from "./components/InputsContainer";
-import { useState } from "react";
 import { IAppointmentData } from "./types";
 import InputsArrow from "./components/InputsArrows";
 import Circle from "./components/formRoad/Circle";
 import Line from "./components/formRoad/Line";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import HourPicker from "./components/HourPicker";
-import Link from "next/link";
 
 const services = ["corte - cabelo", "corte - barba", "corte - cabelo e barba"];
 const barbers = ["barbeiro", "cabelereiro", "quimico"];
