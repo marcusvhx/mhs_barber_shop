@@ -9,7 +9,7 @@ import bg from "@/public/png/booking/bg_bookings.png";
 import TextInput from "./components/inputs/TextInput";
 import SelectInput from "./components/inputs/SelectInput";
 import DateInput from "./components/inputs/DateInput";
-import InputsContainer from "./components/InputsContainer";
+import InputsContainer from "./components/InputContainer";
 import { IAppointmentData } from "./types";
 import InputsArrow from "./components/InputsArrows";
 import Circle from "./components/formRoad/Circle";
