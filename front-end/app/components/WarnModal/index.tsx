@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function WarnModal() {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [counter, setCounter] = useState(3);
+  const [counter, setCounter] = useState(5);
 
   const markAsKnown = () => {
     setIsModalOpen(false);
