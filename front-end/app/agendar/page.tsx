@@ -5,7 +5,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import Section from "@/components/layout/Section";
 import Image from "next/image";
-import bg from "@/public/png/booking/bg_bookings.png";
 import TextInput from "./components/inputs/TextInput";
 import SelectInput from "./components/inputs/SelectInput";
 import DateInput from "./components/inputs/DateInput";
@@ -16,6 +15,7 @@ import Circle from "./components/formRoad/Circle";
 import Line from "./components/formRoad/Line";
 import HourPicker from "./components/HourPicker";
 import ConfirmModal from "./components/confirmModal";
+import bg from "@/public/png/booking/bg.png";
 
 const services = ["corte - cabelo", "corte - barba", "corte - cabelo e barba"];
 const barbers = ["barbeiro", "cabelereiro", "quimico"];
@@ -23,7 +23,7 @@ const barbers = ["barbeiro", "cabelereiro", "quimico"];
 export default function BookingPage() {
   const [formStage, setFormStage] = useState(0);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const metods = useForm<IAppointmentData>();
+  const methods = useForm<IAppointmentData>();
 
   const handleFormStage = async (direction: "r" | "l") => {
     if (direction == "r") {
@@ -38,7 +38,7 @@ export default function BookingPage() {
   };
 
   const cancelBooking = () => {
-    metods.resetField;
+    return methods.resetField;
   };
   return (
     <Section className="h-full gap-8 sm:flex">
@@ -62,12 +62,12 @@ export default function BookingPage() {
         <Line isCurrent={formStage == 2} />
         <Circle isCurrent={formStage == 2} className="-ml-px" />
       </div>
-      <FormProvider {...metods}>
+      <FormProvider {...methods}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             setIsConfirmModalOpen(true);
-            metods.handleSubmit(submitData);
+            methods.handleSubmit(submitData);
           }}
           className={`
             w-80 h-fit
@@ -96,7 +96,7 @@ export default function BookingPage() {
             />
             <InputsArrow
               disabled={
-                !metods.register("service") || !metods.register("barber")
+                !methods.register("service") || !methods.register("barber")
               }
               handleFormStage={handleFormStage}
               direction="r"
@@ -113,7 +113,7 @@ export default function BookingPage() {
             <div className="flex justify-center gap-2">
               <InputsArrow handleFormStage={handleFormStage} direction="l" />
               <InputsArrow
-                disabled={!metods.register("date")}
+                disabled={!methods.register("date")}
                 handleFormStage={handleFormStage}
                 direction="r"
               />

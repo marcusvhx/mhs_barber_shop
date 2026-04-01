@@ -4,16 +4,6 @@ import {services} from "./menu";
 import Title from "@/components/ui/Title";
 import backgrond from "@/public/png/services/bg-services.png"
 
-<<<<<<< HEAD
-export default function Services({}: {}) {
-  return (
-    // container de serviços
-    <Section id="services" className="place-items-center gap-8 py-6 sm:pt-4 sm:text-md relative">
-      {/* background */}
-      <Image alt="background da barbearia" src={backgrond} className="absolute top-0 left-0 flex size-full -z-2 object-center object-cover" />
-      {/* blur */}
-      <div className="absolute top-0 left-0 size-full bg-black/20 backdrop-blur-sm -z-1"></div>
-=======
 export default function Services() {
   return (
     // container de serviços
@@ -22,7 +12,6 @@ export default function Services() {
       <Image alt="background da barbearia" src={backgrond} className="absolute top-0 left-0 flex size-full -z-2 object-center object-cover " />
       {/* blur */}
       <div className="absolute top-0 left-0 size-full bg-black/30 backdrop-blur-md -z-1" />
->>>>>>> dev
         {/* titulo */}
         <Title >Nossos Serviços</Title>
         {/* container do menu */}

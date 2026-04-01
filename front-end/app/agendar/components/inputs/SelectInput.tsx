@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent, useRef, useState } from "react";
+import { MouseEvent, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import TextInput from "./TextInput";
 import { IAppointmentData } from "../../types";
@@ -19,7 +19,6 @@ export default function SelectInput({
   listClassName?: string;
   disabled?: boolean;
 }) {
-  const inpValueRef = useRef<HTMLInputElement>(null);
   const [inputStatus, setInputStatus] = useState<"close" | "open" | "loading">(
     "close",
   );

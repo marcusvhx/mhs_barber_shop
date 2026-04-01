@@ -1,4 +1,3 @@
-import Section from "@/components/layout/Section";
 import Title from "@/components/ui/Title";
 
 export default function Hours({}: {}) {

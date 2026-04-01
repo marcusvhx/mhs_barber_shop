@@ -8,7 +8,7 @@ import { useFormContext } from "react-hook-form";
 import { IAppointmentData } from "../../types";
 
 export default function DateInput({ placeholder }: { placeholder: string }) {
-  const { register, setValue } = useFormContext<IAppointmentData>();
+  const { setValue } = useFormContext<IAppointmentData>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [date, setDate] = useState<Date>();
 
