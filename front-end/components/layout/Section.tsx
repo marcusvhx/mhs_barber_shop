@@ -13,7 +13,7 @@ export default function Section({
     <div
       id={id}
       className={twMerge(
-        "w-full flex flex-col items-center justify-center p-2 sm:pt-8 sm:h-[calc(100dvh-3.125rem)] sm:grid sm:grid-rows-[min-content_auto] sm:justify-items-center",
+        "w-full flex flex-col items-center justify-center p-2 sm:pt-8 sm:grid sm:grid-rows-[min-content_auto] sm:justify-items-center",
         className
       )}
     >

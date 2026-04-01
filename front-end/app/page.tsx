@@ -5,10 +5,15 @@ import Services from "./components/Services";
 import ContactArea from "./components/ContactArea";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import WarnModal from "./components/WarnModal";
+import { cookies } from "next/headers";
 
-export default function MainPage() {
+export default async function MainPage() {
+  const cookieStore = await cookies();
+  const wasWarned = cookieStore.get("wasWarned")?.value === "true";
   return (
     <main>
+      {!wasWarned && <WarnModal />}
       <Header />
       <Home />
       <Services />

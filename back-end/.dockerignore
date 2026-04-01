@@ -1,0 +1,7 @@
+node_modules/
+*-lock*
+Readme.md
+vercel.json
+.git
+.gitignore
+.env

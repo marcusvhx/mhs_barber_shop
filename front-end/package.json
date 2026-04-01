@@ -9,9 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.0.10",
+    "@mui/x-date-pickers": "^8.0.0",
+    "dayjs": "^1.11.19",
+    "next": "^16.1.6",
     "react": "19.2.1",
+    "react-day-picker": "^9.13.2",
     "react-dom": "19.2.1",
+    "react-hook-form": "^7.71.2",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
