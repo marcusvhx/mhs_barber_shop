@@ -158,7 +158,7 @@ export default function BookingPage() {
       >
         Cancelar reserva
       </Link>
-      <ConfirmModal isModalOpen={isConfirmModalOpen} />
+      <ConfirmModal closeModal={()=>setIsConfirmModalOpen(false)} isModalOpen={isConfirmModalOpen} />
     </Section>
   );
 }
