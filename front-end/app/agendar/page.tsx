@@ -15,13 +15,14 @@ import InputsArrow from "./components/InputsArrows";
 import Circle from "./components/formRoad/Circle";
 import Line from "./components/formRoad/Line";
 import HourPicker from "./components/HourPicker";
+import ConfirmModal from "./components/confirmModal";
 
 const services = ["corte - cabelo", "corte - barba", "corte - cabelo e barba"];
 const barbers = ["barbeiro", "cabelereiro", "quimico"];
 
 export default function BookingPage() {
-
   const [formStage, setFormStage] = useState(0);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const metods = useForm<IAppointmentData>();
 
   const handleFormStage = async (direction: "r" | "l") => {
@@ -63,7 +64,11 @@ export default function BookingPage() {
       </div>
       <FormProvider {...metods}>
         <form
-          onSubmit={metods.handleSubmit(submitData)}
+          onSubmit={(e) => {
+            e.preventDefault();
+            setIsConfirmModalOpen(true);
+            metods.handleSubmit(submitData);
+          }}
           className={`
             w-80 h-fit
             flex 
@@ -153,6 +158,7 @@ export default function BookingPage() {
       >
         Cancelar reserva
       </Link>
+      <ConfirmModal isModalOpen={isConfirmModalOpen} />
     </Section>
   );
 }
